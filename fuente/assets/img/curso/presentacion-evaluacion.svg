@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 340" width="420" height="340" role="img" aria-label="Una pila de tarjetas de pregunta, una detrás de otra. La de adelante muestra un enunciado y cuatro opciones en fila; una de ellas está marcada en amarillo. En la esquina, un botón azul con una flecha hacia la derecha, listo para empezar.">
+  <!-- Ilustración de marca · Universidad Andina Virtual · semilla, presentación de la Evaluación de la unidad.
+       Familia: ilustracion-descarga.svg de plantilla-base (420 × 340, fondo transparente sobre la tarjeta
+       «Descarga - con imagen»). Una pregunta por diapositiva → tarjetas apiladas; la de adelante es la primera.
+       Único amarillo (sol): la opción elegida. Sin texto ni fuentes. -->
+  <!-- sombra -->
+  <ellipse cx="206" cy="314" rx="156" ry="14" fill="#00417B" opacity=".10"/>
+  <!-- tarjetas de atrás: las preguntas que siguen -->
+  <g transform="rotate(7 250 170)">
+    <rect x="150" y="44" width="200" height="236" rx="14" fill="#E8EDF5"/>
+    <rect x="150" y="44" width="200" height="26" rx="13" fill="#3A93D0"/>
+  </g>
+  <g transform="rotate(-4 220 175)">
+    <rect x="118" y="52" width="204" height="240" rx="14" fill="#FFFFFF" stroke="#C9D6E6" stroke-width="2"/>
+    <rect x="118" y="52" width="204" height="26" rx="13" fill="#00417B"/>
+  </g>
+  <!-- tarjeta de adelante: la primera pregunta -->
+  <rect x="74" y="66" width="214" height="246" rx="16" fill="#FFFFFF" stroke="#B9C9DC" stroke-width="2"/>
+  <path d="M74 82 a16 16 0 0 1 16 -16 h182 a16 16 0 0 1 16 16 v30 h-214 z" fill="#132B41"/>
+  <rect x="94" y="82" width="12" height="12" fill="#3FC0F0"/><rect x="102" y="90" width="12" height="12" fill="#00417B"/>
+  <rect x="126" y="85" width="96" height="8" rx="4" fill="#FFFFFF" opacity=".85"/>
+  <!-- enunciado -->
+  <rect x="94" y="128" width="170" height="8" rx="4" fill="#D5DFEA"/>
+  <rect x="94" y="144" width="140" height="8" rx="4" fill="#D5DFEA"/>
+  <!-- cuatro opciones -->
+  <g fill="#FFFFFF" stroke="#C9D6E6" stroke-width="2">
+    <rect x="92" y="168" width="178" height="28" rx="14"/>
+    <rect x="92" y="236" width="178" height="28" rx="14"/>
+    <rect x="92" y="270" width="178" height="28" rx="14"/>
+  </g>
+  <g fill="none" stroke="#00417B" stroke-width="3">
+    <circle cx="108" cy="182" r="7"/>
+    <circle cx="108" cy="250" r="7"/>
+    <circle cx="108" cy="284" r="7"/>
+  </g>
+  <g fill="#D5DFEA">
+    <rect x="124" y="178" width="104" height="8" rx="4"/>
+    <rect x="124" y="246" width="88" height="8" rx="4"/>
+    <rect x="124" y="280" width="112" height="8" rx="4"/>
+  </g>
+  <!-- la opción elegida (único amarillo) -->
+  <rect x="92" y="202" width="178" height="28" rx="14" fill="#F0B443" fill-opacity=".22" stroke="#F0B443" stroke-width="3"/>
+  <circle cx="108" cy="216" r="7" fill="#F0B443" stroke="#132B41" stroke-width="3"/>
+  <rect x="124" y="212" width="96" height="8" rx="4" fill="#00417B" opacity=".55"/>
+  <!-- comenzar -->
+  <circle cx="346" cy="236" r="30" fill="#00417B"/>
+  <path d="M332 236 h26 M347 225 l11 11 l-11 11" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- escalón de cuadros -->
+  <rect x="30" y="250" width="22" height="22" fill="#3FC0F0"/><rect x="30" y="272" width="22" height="22" fill="#00417B"/><rect x="52" y="272" width="22" height="22" fill="#3A93D0"/>
+</svg>

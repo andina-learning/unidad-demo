@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 440" width="1200" height="440" role="img"
+     aria-label="Una hoja apaisada con tres partes: a la izquierda, la decisión escrita en renglones; al centro, la persona que decide, sobre un círculo amarillo, con su firma; a la derecha, un sello estampado. Debajo, los rótulos: qué se decide, quién lo decide y cómo se hace exigible.">
+  <!-- Ilustración de marca · Universidad Andina Virtual · unidad-demo · tema 1 (apertura)
+       Concepto (DI, p48): «distinguir qué se decide, quién lo decide y cómo se hace exigible en
+       materia de datos […] nadie tenía autoridad para decidir y nadie respondía por el resultado».
+       Una decisión de gobierno completa: lo escrito, quien la firma y el sello que la hace exigible.
+       Es la contracara de ilustracion-ninguno-solo.svg (la hoja vacía, sin firma ni sello).
+       Rótulos: los tres fragmentos literales del DI. Guion en insumos/ILUSTRACIONES.md.
+       Único amarillo: el círculo detrás de quien decide (la autoridad que, según el DI, falta). -->
+  <defs>
+    <linearGradient id="ilu-quien-decide-fondo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#E6F3FA"/>
+      <stop offset="55%"  stop-color="#E8EDF5"/>
+      <stop offset="100%" stop-color="#F5F8FB"/>
+    </linearGradient>
+    <filter id="ilu-quien-decide-sombra" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#132B41" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="440" rx="18" fill="url(#ilu-quien-decide-fondo)"/>
+
+  <!-- La hoja de la decisión -->
+  <g filter="url(#ilu-quien-decide-sombra)" fill="#FFFFFF">
+    <rect x="240" y="44" width="720" height="300" rx="16"/>
+  </g>
+
+  <!-- Separadores suaves entre las tres partes -->
+  <g stroke="#132B41" stroke-width="2" stroke-linecap="round" opacity=".12">
+    <line x1="550" y1="84" x2="550" y2="304"/>
+    <line x1="770" y1="84" x2="770" y2="304"/>
+  </g>
+
+  <!-- ══ Qué se decide: la decisión escrita ══ -->
+  <rect x="290" y="88" width="150" height="16" rx="8" fill="#00417B" opacity=".55"/>
+  <g fill="#132B41" opacity=".22">
+    <rect x="290" y="134" width="210" height="8" rx="4"/>
+    <rect x="290" y="160" width="186" height="8" rx="4"/>
+    <rect x="290" y="186" width="204" height="8" rx="4"/>
+    <rect x="290" y="212" width="160" height="8" rx="4"/>
+    <rect x="290" y="238" width="196" height="8" rx="4"/>
+    <rect x="290" y="264" width="120" height="8" rx="4"/>
+  </g>
+
+  <!-- ══ Quién lo decide: la persona y su firma ══ -->
+  <!-- ÚNICO AMARILLO: quien tiene autoridad para decidir y responde por el resultado -->
+  <circle cx="660" cy="150" r="56" fill="#F0B443"/>
+  <g fill="none" stroke="#00417B" stroke-width="4" stroke-linecap="round">
+    <circle cx="660" cy="134" r="20"/>
+    <path d="M626 190 a34 24 0 0 1 68 0"/>
+  </g>
+  <path d="M606 262 c 10 -26, 20 -26, 22 -6 s 10 18, 20 -8 s 14 -20, 18 2 s 12 14, 26 -10 s 14 6, 22 4"
+        fill="none" stroke="#00417B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="596" y1="282" x2="724" y2="282" stroke="#132B41" stroke-width="2.5"
+        stroke-linecap="round" opacity=".35"/>
+
+  <!-- ══ Cómo se hace exigible: el sello estampado ══ -->
+  <g transform="rotate(-10 865 190)">
+    <circle cx="865" cy="190" r="58" fill="#E8EDF5" stroke="#00417B" stroke-width="4"/>
+    <circle cx="865" cy="190" r="44" fill="none" stroke="#00417B" stroke-width="2.5"
+            stroke-dasharray="4 5" opacity=".7"/>
+    <path d="M843 192 l15 15 l29 -32" fill="none" stroke="#00417B" stroke-width="6"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Los rótulos: las palabras del DI -->
+  <g font-family="Manrope, system-ui, sans-serif" font-size="17" font-weight="600" fill="#132B41" text-anchor="middle">
+    <text x="395" y="390">qué se decide</text>
+    <text x="660" y="390">quién lo decide</text>
+    <text x="865" y="390">cómo se hace exigible</text>
+  </g>
+</svg>

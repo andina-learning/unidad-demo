@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 440" width="1200" height="440" role="img"
+     aria-label="Cuatro tarjetas, dos a cada lado: el equipo, con el tablero que construyó; el área médica, con una carpeta marcada con una cruz; la gerencia, recibiendo un reporte; y el área de datos, con sus sistemas. De cada una sale una línea punteada hacia el centro, y ninguna llega. En el centro, una hoja contorneada en amarillo punteado con la palabra atención arriba: la regla que define la métrica, sin nada escrito, sin firma y sin sello.">
+  <!-- Ilustración de marca · Universidad Andina Virtual · unidad-demo · tema 1 (cuerpo, dentro
+       de la Respuesta del caso de Red Salud Wari)
+       Concepto (DI): «ninguno puede resolverlo solo, y […] la ausencia de una regla previa sobre
+       quién define la métrica de atención es exactamente el vacío que el gobierno de datos viene
+       a llenar». Los cuatro actores son los de la Pregunta; sus rótulos, fragmentos literales.
+       Ninguna línea llega a la hoja: ninguno lo resuelve solo. Guion en insumos/ILUSTRACIONES.md.
+       Único amarillo: el contorno punteado de la regla que no existe (el mismo código que
+       ilustracion-dos-cifras.svg de demo-unidad-3: punteado = lo que falta). -->
+  <defs>
+    <linearGradient id="ilu-ninguno-solo-fondo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#E6F3FA"/>
+      <stop offset="55%"  stop-color="#E8EDF5"/>
+      <stop offset="100%" stop-color="#F5F8FB"/>
+    </linearGradient>
+    <filter id="ilu-ninguno-solo-sombra" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#132B41" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="440" rx="18" fill="url(#ilu-ninguno-solo-fondo)"/>
+
+  <!-- Las cuatro tarjetas de los actores y la hoja de la regla -->
+  <g filter="url(#ilu-ninguno-solo-sombra)" fill="#FFFFFF">
+    <rect x="60"  y="48"  width="280" height="136" rx="16"/>
+    <rect x="60"  y="236" width="280" height="136" rx="16"/>
+    <rect x="860" y="48"  width="280" height="136" rx="16"/>
+    <rect x="860" y="236" width="280" height="136" rx="16"/>
+    <rect x="480" y="56"  width="240" height="328" rx="16"/>
+  </g>
+
+  <!-- Las personas: una por tarjeta, siempre a la izquierda -->
+  <g fill="none" stroke="#00417B" stroke-width="4" stroke-linecap="round">
+    <circle cx="112" cy="98"  r="16"/><path d="M84 156 a28 20 0 0 1 56 0"/>
+    <circle cx="112" cy="286" r="16"/><path d="M84 344 a28 20 0 0 1 56 0"/>
+    <circle cx="912" cy="98"  r="16"/><path d="M884 156 a28 20 0 0 1 56 0"/>
+    <circle cx="912" cy="286" r="16"/><path d="M884 344 a28 20 0 0 1 56 0"/>
+  </g>
+
+  <!-- ══ El equipo que construyó el tablero: la pantalla con sus barras ══ -->
+  <rect x="172" y="70" width="140" height="84" rx="8" fill="#E8EDF5" stroke="#00417B" stroke-width="2.5"/>
+  <g fill="#00417B">
+    <rect x="190" y="124" width="16" height="18" rx="3" opacity=".35"/>
+    <rect x="214" y="110" width="16" height="32" rx="3" opacity=".55"/>
+    <rect x="238" y="98"  width="16" height="44" rx="3" opacity=".8"/>
+    <rect x="262" y="114" width="16" height="28" rx="3" opacity=".5"/>
+  </g>
+  <rect x="234" y="154" width="16" height="10" fill="#132B41" opacity=".18"/>
+  <rect x="214" y="163" width="56" height="6" rx="3" fill="#132B41" opacity=".22"/>
+
+  <!-- ══ El área médica que lo usa: la carpeta con la cruz médica ══ -->
+  <rect x="184" y="256" width="104" height="100" rx="8" fill="#DCE8F3"/>
+  <rect x="214" y="250" width="44" height="14" rx="5" fill="#132B41" opacity=".55"/>
+  <path d="M230 278 h12 v12 h12 v12 h-12 v12 h-12 v-12 h-12 v-12 h12 z" fill="#00417B"/>
+  <g fill="#132B41" opacity=".22">
+    <rect x="200" y="330" width="72" height="6" rx="3"/>
+    <rect x="200" y="342" width="52" height="6" rx="3"/>
+  </g>
+
+  <!-- ══ La gerencia que lo recibe: el reporte le llega ══ -->
+  <rect x="1028" y="66" width="88" height="102" rx="8" fill="#E8EDF5" stroke="#00417B" stroke-width="2.5"/>
+  <g fill="#132B41" opacity=".25">
+    <rect x="1042" y="84"  width="60" height="7" rx="3.5"/>
+    <rect x="1042" y="100" width="46" height="7" rx="3.5"/>
+    <rect x="1042" y="116" width="56" height="7" rx="3.5"/>
+    <rect x="1042" y="132" width="40" height="7" rx="3.5"/>
+  </g>
+  <g fill="none" stroke="#00417B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".75">
+    <line x1="1014" y1="118" x2="958" y2="118"/>
+    <path d="M966 110 l-8 8 8 8"/>
+  </g>
+
+  <!-- ══ El área de datos que administra los sistemas: dos bases de datos ══ -->
+  <g stroke="#00417B" stroke-width="2.5">
+    <path d="M980 270 v60 a32 10 0 0 0 64 0 v-60" fill="#DCE8F3"/>
+    <ellipse cx="1012" cy="270" rx="32" ry="10" fill="#C5DCEB"/>
+    <path d="M1056 284 v60 a32 10 0 0 0 64 0 v-60" fill="#DCE8F3"/>
+    <ellipse cx="1088" cy="284" rx="32" ry="10" fill="#C5DCEB"/>
+  </g>
+  <g fill="none" stroke="#00417B" stroke-width="2.5" opacity=".35">
+    <path d="M980 300 a32 10 0 0 0 64 0"/>
+    <path d="M1056 314 a32 10 0 0 0 64 0"/>
+  </g>
+
+  <!-- Cada uno tiende hacia la regla; ninguno llega solo -->
+  <g fill="none" stroke="#00417B" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 7" opacity=".5">
+    <path d="M352 116 C 400 116, 420 150, 456 166"/>
+    <path d="M352 304 C 400 304, 420 270, 456 254"/>
+    <path d="M848 116 C 800 116, 780 150, 744 166"/>
+    <path d="M848 304 C 800 304, 780 270, 744 254"/>
+  </g>
+
+  <!-- ══ La regla previa: tiene nombre de métrica, nada escrito, nadie firma, ningún sello ══ -->
+  <rect x="508" y="84" width="112" height="28" rx="14" fill="#00417B" opacity=".12"/>
+  <text x="564" y="103" text-anchor="middle" font-family="Manrope, system-ui, sans-serif"
+        font-size="14" font-weight="600" fill="#132B41">atención</text>
+  <line x1="508" y1="336" x2="620" y2="336" stroke="#132B41" stroke-width="2.5"
+        stroke-linecap="round" opacity=".18"/>
+  <circle cx="666" cy="326" r="22" fill="none" stroke="#132B41" stroke-width="2.5"
+          stroke-dasharray="5 6" opacity=".18"/>
+  <!-- ÚNICO AMARILLO: el contorno de la regla que nadie fijó -->
+  <rect x="480" y="56" width="240" height="328" rx="16" fill="none"
+        stroke="#F0B443" stroke-width="3.5" stroke-dasharray="9 7" stroke-linecap="round"/>
+
+  <!-- Los actores, con las palabras de la Pregunta del caso -->
+  <g font-family="Manrope, system-ui, sans-serif" font-size="17" font-weight="600" fill="#132B41" text-anchor="middle">
+    <text x="200"  y="210">el equipo</text>
+    <text x="200"  y="398">el área médica</text>
+    <text x="1000" y="210">la gerencia</text>
+    <text x="1000" y="398">el área de datos</text>
+  </g>
+</svg>

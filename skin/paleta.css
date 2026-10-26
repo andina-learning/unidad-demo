@@ -1,0 +1,79 @@
+/* =========================================================
+   Preset · Universidad Andina Virtual (Escuela de Posgrado)
+   ---------------------------------------------------------
+   Hex tomados de docs/Línea gráfica UA.pdf (paleta, pp. 3-4), del
+   logo oficial y del artefacto del aula (docs/Artefacto aula…html).
+   Guía completa: ../INSTITUCION.md
+
+   Nota de arquitectura (la misma de Scala): este archivo se carga
+   ANTES de core.css, así que los tokens que core.css también define
+   se declaran con `html:root` (especificidad 0,1,1 > 0,1,0) para
+   ganarle sin tocar el motor compartido.
+   ========================================================= */
+
+/* --- Los 3 tokens que el motor lee vía var() --- */
+:root {
+  --c-acento: #00417B;   /* Azul UAC · acción: botones, enlaces, estado activo */
+  --c-info:   #3A93D0;   /* Azul medio · callouts informativos, segundo tono */
+  --c-deep:   #132B41;   /* Abismo · sidebar, bandas, superficies profundas */
+}
+
+html:root {
+
+  /* --- Marca ---
+     Tres acentos con oficio fijo (ver INSTITUCION.md §1.3):
+       celeste  = el «Virtual» del logo: guía de lectura (filos, numeración sobre oscuro)
+       sol      = lo que se destaca o se logra; nunca un control
+       estrella = un guiño por pantalla, solo gráfico (marcos de foto, portada) */
+  --c-cielo:     #3FC0F0;
+  --c-sol:       #F0B443;
+  --c-estrella:  #ED6A48;
+  --c-azul-hondo: #1C4578;  /* hover del azul de acción */
+  --c-hielo:     #E8EDF5;   /* superficie fría para aperturas, citas y datos */
+  --c-hielo-2:   #F3F6FA;
+
+  --grad-andina: linear-gradient(115deg,
+    #0B2033 0%, #132B41 38%, #00417B 72%, #156190 100%);
+
+  /* --- Tipografía ---
+     Manrope es la familia de la marca (docs/Tipografía, .woff entregados por
+     el cliente). Se auto-hospeda: viaja en fuente/assets/fonts/ de cada curso
+     y skin.css la declara con @font-face. Sin monoespaciada: los eyebrows son
+     Manrope en mayúsculas con tracking amplio, como el «BIENVENIDO» de las piezas. */
+  --brand-sans:   'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: var(--brand-sans);
+  --font-body:    var(--brand-sans);
+  --font-mono:    var(--brand-sans);
+  --font-serif:   var(--brand-sans);   /* la línea Andina no usa serif */
+
+  /* --- Estados ---
+     El amarillo sol (#F0B443) y el warning del motor (#FFB020) se confunden:
+     el warning se oscurece para que «atención» no se lea como marca. */
+  --warning: #B8650F;
+  --danger:  #C2413A;
+  --success: #1F8A5B;
+
+  /* --- Forma ---
+     La línea gráfica usa contenedores de esquina media y píldoras en los
+     botones (p. 9). Un radio por escala. */
+  --r-sm: 10px;  --r-md: 16px;  --r-lg: 16px;  --r-xl: 26px;
+}
+
+/* --- Superficies frías y luminosas ---
+   Solo en las versiones claras (híbrida y clara): la oscura conserva las
+   superficies del motor. Con `html:root` a secas se pisarían las tres. */
+html:root:not([data-version="oscura"]) {
+  --bg-app:     #F6F8FB;
+  --bg-surface: #FFFFFF;
+  --bg-card:    #FFFFFF;
+  --bg-muted:   #EEF2F6;
+  --border-c:   #E1E7EE;
+  --text-head:  #0E2A44;
+  --text-pri:   #2B3A4C;
+  --text-mut:   #5E6B78;
+
+  /* --- Sombras tintadas en el azul UAC, nunca negro puro --- */
+  --shadow-sm: 0 1px 2px rgba(0, 65, 123, 0.05), 0 6px 18px rgba(0, 65, 123, 0.06);
+  --shadow-md: 0 2px 4px rgba(0, 65, 123, 0.06), 0 14px 34px rgba(0, 65, 123, 0.10);
+  --shadow-lg: 0 24px 60px rgba(19, 43, 65, 0.18);
+}

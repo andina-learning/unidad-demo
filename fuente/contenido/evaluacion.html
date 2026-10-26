@@ -1,0 +1,149 @@
+      <header class="ova-screen__head" data-reveal>
+        <div class="ova-screen__eyebrow">Unidad 3</div>
+        <h1 class="ova-screen__title">Evaluación <span class="ua-suave">de la</span> <span class="ua-remate">unidad</span></h1>
+      </header>
+
+      <!-- Actividades, opciones y retroalimentación: literales del banco de preguntas
+           (insumos/preguntas/Preguntas.docx). Cada actividad es la pieza del catálogo con su rótulo y el
+           llamado base (el banco no trae «Instrucción:»). «(correcta)» y la clave 1–6 de Ordenar no se
+           muestran. Una diapositiva por actividad, en el orden del banco. -->
+      <div class="ova-evalquiz" data-ova-evalquiz data-label-item="Actividad" data-label-items="actividades" data-reveal>
+        <div class="ova-evalquiz__slide is-active" data-slide="intro">
+          <!-- Presentación de la evaluación (catálogo): «Presentación:» del banco, literal. El banco no trae
+               «Vincular Imagen-N»: va la ilustración por defecto de la semilla de Andina. -->
+          <div class="ova-eval-intro">
+            <div class="ova-eval-intro__tarjeta">
+              <img class="ova-eval-intro__img" src="assets/img/curso/presentacion-evaluacion.svg" alt="" />
+              <div class="ova-eval-intro__cuerpo">
+                <p class="ova-eval-intro__texto">Resuelva las siguientes actividades para comprobar lo aprendido en la unidad.</p>
+                <button class="ova-evalquiz__btn ova-evalquiz__btn--primary" data-evalquiz-go="1">Comenzar <iconify-icon icon="mdi:arrow-right"></iconify-icon></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pregunta (catálogo) -->
+        <div class="ova-evalquiz__slide" data-slide="r1">
+          <div class="ua-eval__cuerpo">
+            <h3 class="ova-rotulo"><strong>El caso de Red Salud Wari</strong></h3>
+            <p class="ova-llamado"><span class="ova-llamado__mano" aria-hidden="true"><iconify-icon icon="mdi:cursor-pointer"></iconify-icon></span>Seleccione la opción correcta.</p>
+            <div class="ova-quiz">
+              <p class="ova-quiz__contexto">El tablero de la gerencia médica y el reporte enviado a la aseguradora informan cifras distintas de atenciones del mismo mes.</p>
+              <h3 class="ova-quiz__question">¿Qué hace falta para que esa diferencia no vuelva a ocurrir?</h3>
+              <div class="ova-quiz__opts">
+                <button class="ova-quiz__opt" data-correct="false"><strong>A.</strong> Que el área de tecnología unifique los sistemas de las clínicas.</button>
+                <button class="ova-quiz__opt" data-correct="false"><strong>B.</strong> Que cada clínica calcule las atenciones con su propio criterio.</button>
+                <button class="ova-quiz__opt" data-correct="true"><strong>C.</strong> Una regla previa que defina quién decide la métrica de atención.</button>
+                <button class="ova-quiz__opt" data-correct="false"><strong>D.</strong> Un tablero nuevo que reemplace el reporte de la aseguradora.</button>
+              </div>
+              <div class="ova-quiz__feedback"
+                   data-correct="Así es. Ninguna de las áreas puede resolverlo sola: la ausencia de una regla previa sobre quién define la métrica es exactamente el problema que resuelve el gobierno de datos."
+                   data-wrong="Revise el caso: el problema no es técnico ni de herramienta. Pregúntese quién tiene la autoridad para decidir qué cuenta como una atención."></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Verdadero o falso (catálogo) -->
+        <div class="ova-evalquiz__slide" data-slide="r2">
+          <div class="ua-eval__cuerpo">
+            <h3 class="ova-rotulo"><strong>Cifrar y cumplir</strong></h3>
+            <p class="ova-llamado"><span class="ova-llamado__mano" aria-hidden="true"><iconify-icon icon="mdi:cursor-pointer"></iconify-icon></span>Seleccione si la afirmación es verdadera o falsa.</p>
+            <div class="ova-quiz">
+              <h3 class="ova-quiz__question">Cifrar los datos personales equivale a cumplir la normativa de protección de datos.</h3>
+              <div class="ova-quiz__opts">
+                <button class="ova-quiz__opt" data-correct="false"><strong>A.</strong> Verdadero</button>
+                <button class="ova-quiz__opt" data-correct="true"><strong>B.</strong> Falso</button>
+              </div>
+              <div class="ova-quiz__feedback"
+                   data-correct="Correcto. El cifrado protege frente a un acceso no autorizado, pero el cumplimiento exige además una finalidad legítima, una base habilitante y el respeto de los derechos del titular."
+                   data-wrong="No es así. Cifrar es un control técnico necesario, pero no basta: un dato cifrado puede usarse para un fin que la ley no permite."></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Relacionar (catálogo): los roles a la izquierda; lo que hace cada uno, en otro orden -->
+        <div class="ova-evalquiz__slide" data-slide="r3">
+          <div class="ua-eval__cuerpo">
+            <h3 class="ova-rotulo"><strong>Los roles del gobierno de datos</strong></h3>
+            <p class="ova-llamado"><span class="ova-llamado__mano" aria-hidden="true"><iconify-icon icon="mdi:cursor-pointer"></iconify-icon></span>Haga clic en un elemento y después en el que le corresponde.</p>
+            <div class="ova-empar">
+              <div class="ova-empar__col">
+                <button class="ova-empar__item" data-ova-match="A">Propietario del dominio</button>
+                <button class="ova-empar__item" data-ova-match="B">Custodio técnico</button>
+                <button class="ova-empar__item" data-ova-match="C">Administrador del dominio</button>
+                <button class="ova-empar__item" data-ova-match="D">Comité de gobierno</button>
+              </div>
+              <div class="ova-empar__col">
+                <button class="ova-empar__item" data-ova-match="C">Vela por el cumplimiento cotidiano de las reglas y resuelve las excepciones ordinarias.</button>
+                <button class="ova-empar__item" data-ova-match="A">Decide la definición de los datos, autoriza su uso y acepta el riesgo de sus excepciones.</button>
+                <button class="ova-empar__item" data-ova-match="D">Decide sobre lo transversal y resuelve los conflictos entre dominios.</button>
+                <button class="ova-empar__item" data-ova-match="B">Administra el sistema que almacena los datos y ejecuta los controles: copias, permisos y cifrado.</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ordenar (catálogo): los pasos desordenados; data-ova-order es la clave del banco -->
+        <div class="ova-evalquiz__slide" data-slide="r4">
+          <div class="ua-eval__cuerpo">
+            <h3 class="ova-rotulo"><strong>El ciclo de vida del dato</strong></h3>
+            <p class="ova-llamado"><span class="ova-llamado__mano" aria-hidden="true"><iconify-icon icon="mdi:cursor-pointer"></iconify-icon></span>Ordene los elementos y después seleccione «Verificar orden».</p>
+            <ul class="ova-orden">
+              <li class="ova-orden__item" data-ova-order="4"><span class="ova-orden__num">1</span> Compartición: se activan los contratos con encargados y los acuerdos con terceros.</li>
+              <li class="ova-orden__item" data-ova-order="1"><span class="ova-orden__num">2</span> Creación o captura: se decide la base habilitante, la finalidad y la calidad mínima de entrada.</li>
+              <li class="ova-orden__item" data-ova-order="6"><span class="ova-orden__num">3</span> Destrucción: se ejecuta la supresión, incluidas copias y respaldos, y se deja constancia.</li>
+              <li class="ova-orden__item" data-ova-order="3"><span class="ova-orden__num">4</span> Uso: operan el control de acceso, la minimización y el registro de auditoría.</li>
+              <li class="ova-orden__item" data-ova-order="5"><span class="ova-orden__num">5</span> Archivo: se decide qué se conserva, por cuánto tiempo y con qué accesibilidad.</li>
+              <li class="ova-orden__item" data-ova-order="2"><span class="ova-orden__num">6</span> Almacenamiento: se aplican la clasificación, el cifrado y la segregación de entornos.</li>
+            </ul>
+            <button class="ova-btn ova-btn--primary" data-ova-orden-check><iconify-icon icon="mdi:check-bold"></iconify-icon> Verificar orden</button>
+          </div>
+        </div>
+
+        <!-- Clasificar (catálogo): las cuatro categorías del banco; los elementos mezclados. Iconos decorativos. -->
+        <div class="ova-evalquiz__slide" data-slide="r5">
+          <div class="ua-eval__cuerpo">
+            <h3 class="ova-rotulo"><strong>Los niveles de clasificación en Red Salud Wari</strong></h3>
+            <p class="ova-llamado"><span class="ova-llamado__mano" aria-hidden="true"><iconify-icon icon="mdi:cursor-pointer"></iconify-icon></span>Lleve cada elemento a la categoría que le corresponde.</p>
+            <div class="ova-dnd">
+              <div class="ova-dnd__bank">
+                <div class="ova-dnd__bank-title">Banco</div>
+                <button type="button" class="ova-dnd__item" data-ova-correct="sensible">Diagnósticos</button>
+                <button type="button" class="ova-dnd__item" data-ova-correct="publica">Directorio de sedes</button>
+                <button type="button" class="ova-dnd__item" data-ova-correct="confidencial">Datos de contacto de pacientes</button>
+                <button type="button" class="ova-dnd__item" data-ova-correct="interna">Indicadores agregados de ocupación</button>
+                <button type="button" class="ova-dnd__item" data-ova-correct="sensible">Datos biométricos</button>
+                <button type="button" class="ova-dnd__item" data-ova-correct="publica">Horarios de atención</button>
+                <button type="button" class="ova-dnd__item" data-ova-correct="sensible">Resultados de laboratorio</button>
+                <button type="button" class="ova-dnd__item" data-ova-correct="confidencial">Condiciones comerciales de convenios</button>
+              </div>
+              <div class="ova-dnd__zones">
+                <div class="ova-dnd__zone" data-ova-target="publica"><h4><button type="button" class="ova-dnd__target"><iconify-icon icon="mdi:earth" aria-hidden="true"></iconify-icon> <strong>Información pública</strong></button></h4><div class="ova-dnd__items"></div></div>
+                <div class="ova-dnd__zone" data-ova-target="interna"><h4><button type="button" class="ova-dnd__target"><iconify-icon icon="mdi:domain" aria-hidden="true"></iconify-icon> <strong>Información interna</strong></button></h4><div class="ova-dnd__items"></div></div>
+                <div class="ova-dnd__zone" data-ova-target="confidencial"><h4><button type="button" class="ova-dnd__target"><iconify-icon icon="mdi:lock-outline" aria-hidden="true"></iconify-icon> <strong>Información confidencial</strong></button></h4><div class="ova-dnd__items"></div></div>
+                <div class="ova-dnd__zone" data-ova-target="sensible"><h4><button type="button" class="ova-dnd__target"><iconify-icon icon="mdi:shield-alert-outline" aria-hidden="true"></iconify-icon> <strong>Información sensible</strong></button></h4><div class="ova-dnd__items"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cierre: título y botón de la semilla, sin la frase sobre las retroalimentaciones (tres de las
+             cinco actividades no la tienen; decisión del 2026-10-25) -->
+        <div class="ova-evalquiz__slide" data-slide="cierre">
+          <div class="ua-eval__cuerpo">
+            <h2>Evaluación completada</h2>
+            <button class="ova-evalquiz__btn" data-evalquiz-restart>
+              <iconify-icon icon="mdi:refresh"></iconify-icon> Volver a intentarlo
+            </button>
+          </div>
+        </div>
+
+        <div class="ova-evalquiz__nav" data-evalquiz-nav>
+          <button class="ova-evalquiz__btn ova-evalquiz__btn--prev" data-evalquiz-prev aria-label="Actividad anterior" title="Anterior"><iconify-icon icon="mdi:arrow-left"></iconify-icon></button>
+          <div class="ova-evalquiz__progress-bar">
+            <div class="ova-evalquiz__progress-fill" data-evalquiz-progress></div>
+          </div>
+          <span class="ova-evalquiz__counter" data-evalquiz-counter></span>
+          <button class="ova-evalquiz__btn ova-evalquiz__btn--primary" data-evalquiz-next>Siguiente <iconify-icon icon="mdi:arrow-right"></iconify-icon></button>
+        </div>
+      </div>

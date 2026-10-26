@@ -1,0 +1,2906 @@
+/* =========================================================
+   CORE · Motor OVA
+   ---------------------------------------------------------
+   ⛔ NO EDITAR · este archivo es universal para todos los cursos.
+   Para personalizar la marca → editar theme.css o presets/
+   Para personalizar contenido → editar course.js + páginas .html
+   ========================================================= */
+
+/* ============================================
+   1 · TOKENS DERIVADOS (auto desde theme.css)
+   ============================================ */
+:root {
+  /* Tipografía */
+  /* Display · Apple-style stack (SF Pro real en Mac/iOS, Inter como fallback) */
+  --font-display:
+    -apple-system, BlinkMacSystemFont,
+    "SF Pro Display", "SF Pro Text",
+    'Inter', system-ui,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-body:
+    -apple-system, BlinkMacSystemFont,
+    "SF Pro Text",
+    'Inter', system-ui,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  /* Radios */
+  --r-sm: 8px;  --r-md: 14px;  --r-lg: 22px;  --r-xl: 32px;  --r-pill: 999px;
+
+  /* Layout */
+  --sidebar-w: 300px;
+  --sidebar-w-collapsed: 72px;
+  --topbar-h: 68px;
+  --max-w: 1240px;
+
+  /* Semánticos universales (NO cambian con preset) */
+  --success: #2ECC71;
+  --warning: #FFB020;
+  --danger:  #E63946;
+
+  /* Acento derivados (siempre desde --c-acento) */
+  --acento-soft:    color-mix(in srgb, var(--c-acento) 12%, transparent);
+  --acento-strong:  color-mix(in srgb, var(--c-acento) 22%, transparent);
+  --acento-deep:    color-mix(in srgb, var(--c-acento) 70%, #000);
+  --acento-light:   color-mix(in srgb, var(--c-acento) 50%, white);
+  --info-soft:      color-mix(in srgb, var(--c-info) 12%, transparent);
+
+  /* Gradientes firma */
+  --grad-brand: linear-gradient(135deg, var(--c-acento) 0%, var(--acento-deep) 100%);
+  --grad-mesh:  radial-gradient(at 20% 10%, color-mix(in srgb, var(--c-acento) 22%, transparent) 0px, transparent 50%),
+                radial-gradient(at 80% 0%,  color-mix(in srgb, var(--c-info) 14%, transparent) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, color-mix(in srgb, var(--c-acento) 18%, transparent) 0px, transparent 50%);
+
+  /* Glow */
+  --glow-brand: 0 0 0 1px color-mix(in srgb, var(--c-acento) 35%, transparent),
+                0 12px 40px color-mix(in srgb, var(--c-acento) 25%, transparent);
+}
+
+/* ============================================
+   2 · LAS 3 VERSIONES DEL TEMPLATE
+   ---------------------------------------------
+   Se activan con data-version="X" en <html>:
+   - hibrida (default): sidebar dark + main claro
+   - clara: todo blanco
+   - oscura: todo dark navy
+   ============================================ */
+
+/* Default · HÍBRIDA */
+:root, [data-version="hibrida"] {
+  --bg-sidebar:  var(--c-deep);
+  --bg-app:      #F7F9FC;
+  --bg-surface:  #FFFFFF;
+  --bg-muted:    #EEF2F8;
+  --bg-card:     #FFFFFF;
+  --text-pri:    #2F3D55;
+  --text-head:   #0F2B47;
+  --text-mut:    #6B7B95;
+  --border-c:    #DCE3EE;
+  --border-sb:   rgba(255,255,255,0.06);
+  --shadow-sm:   0 4px 12px rgba(7, 24, 46, 0.08);
+  --shadow-md:   0 12px 32px rgba(7, 24, 46, 0.14);
+  --shadow-lg:   0 24px 60px rgba(7, 24, 46, 0.22);
+  --sb-text:     white;
+  --sb-text-mut: rgba(255,255,255,0.55);
+}
+
+/* CLARA · todo blanco continuo */
+[data-version="clara"] {
+  --bg-sidebar:  #FFFFFF;
+  --bg-app:      #FFFFFF;
+  --bg-surface:  #FFFFFF;
+  --bg-muted:    #F4F6FA;
+  --bg-card:     #F7F8FA;
+  --text-pri:    #3A4255;
+  --text-head:   #0F172A;
+  --text-mut:    #6B7280;
+  --border-c:    #E5E7EB;
+  --border-sb:   #E5E7EB;
+  --shadow-sm:   0 4px 12px rgba(0, 0, 0, 0.04);
+  --shadow-md:   0 12px 32px rgba(0, 0, 0, 0.08);
+  --shadow-lg:   0 24px 60px rgba(0, 0, 0, 0.12);
+  --sb-text:     #0F172A;
+  --sb-text-mut: #6B7280;
+}
+
+/* OSCURA · todo dark continuo · brand neón */
+[data-version="oscura"] {
+  --bg-sidebar:  var(--c-deep);
+  --bg-app:      var(--c-deep);
+  --bg-surface:  color-mix(in oklab, var(--c-deep) 85%, white);
+  --bg-muted:    color-mix(in oklab, var(--c-deep) 78%, white);
+  --bg-card:     color-mix(in oklab, var(--c-deep) 92%, white);
+  --text-pri:    #C9D4E5;
+  --text-head:   #FFFFFF;
+  --text-mut:    #6B7B95;
+  --border-c:    rgba(255,255,255,0.08);
+  --border-sb:   rgba(255,255,255,0.08);
+  --shadow-sm:   0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-md:   0 12px 32px rgba(0, 0, 0, 0.5);
+  --shadow-lg:   0 24px 60px rgba(0, 0, 0, 0.6);
+  --sb-text:     white;
+  --sb-text-mut: rgba(255,255,255,0.55);
+}
+
+/* Neon boost en versión oscura */
+[data-version="oscura"] .ova-btn--primary,
+[data-version="oscura"] .ova-kpi__icon,
+[data-version="oscura"] .ova-iconbtn--accent {
+  box-shadow: 0 0 16px color-mix(in srgb, var(--c-acento) 60%, transparent),
+              0 0 32px color-mix(in srgb, var(--c-acento) 30%, transparent) !important;
+}
+[data-version="oscura"] h1 .accent,
+[data-version="oscura"] .ova-kpi__value {
+  filter: brightness(1.2) saturate(1.1);
+}
+
+/* ============================================
+   3 · BASE
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-pri);
+  background: var(--bg-app);
+  -webkit-font-smoothing: antialiased;
+  transition: background .25s, color .25s;
+}
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text-head);
+  margin: 0 0 0.6em;
+}
+h1 { font-size: clamp(2.4rem, 5vw, 4rem); }
+h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); }
+h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
+h4 { font-size: 1.15rem; }
+p { margin: 0 0 1em; }
+a { color: var(--c-acento); text-decoration: none; transition: color .2s; }
+a:hover { color: var(--acento-deep); }
+img { max-width: 100%; height: auto; }
+code {
+  font-family: var(--font-mono);
+  font-size: .9em;
+  background: var(--bg-muted);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* ============================================
+   4 · APP LAYOUT (sidebar + main + topbar)
+   ============================================ */
+.ova-body { min-height: 100vh; background: var(--bg-app); }
+.ova-app {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  min-height: 100vh;
+  transition: grid-template-columns .25s ease;
+}
+/* === SIDEBAR COLAPSADO (solo iconos) ============================= */
+[data-sidebar-collapsed="true"] .ova-app {
+  grid-template-columns: var(--sidebar-w-collapsed) 1fr;
+}
+/* Cuando está colapsado · ocultar textos y compactar */
+[data-sidebar-collapsed="true"] .ova-sidebar__course,
+[data-sidebar-collapsed="true"] .ova-sidebar__brand > div,
+[data-sidebar-collapsed="true"] .ova-sidebar__menu-item .num,
+[data-sidebar-collapsed="true"] .ova-sidebar__menu-item .title,
+[data-sidebar-collapsed="true"] .ova-sidebar__progress .label,
+[data-sidebar-collapsed="true"] .ova-sidebar__progress .bar{
+  display: none !important;
+}
+/* Brand · solo logo W centrado */
+[data-sidebar-collapsed="true"] .ova-sidebar__brand{
+  justify-content: center;
+  padding: 16px 8px;
+}
+[data-sidebar-collapsed="true"] .ova-brand-logo--desktop{ display: none; }
+[data-sidebar-collapsed="true"] .ova-brand-logo--mobile{
+  display: block;
+  height: 44px;
+  max-width: 44px;
+  padding: 0;
+  background: none;
+  object-position: center;
+}
+/* Menu items · solo iconos centrados, sin grid de 3 cols */
+[data-sidebar-collapsed="true"] .ova-sidebar__menu{
+  padding: 12px 8px;
+  gap: 4px;
+}
+[data-sidebar-collapsed="true"] .ova-sidebar__menu-item{
+  grid-template-columns: 1fr;
+  padding: 10px 0;
+  justify-items: center;
+  border-radius: 10px;
+}
+[data-sidebar-collapsed="true"] .ova-sidebar__menu-item iconify-icon{
+  font-size: 1.35rem;
+}
+/* Quitar el conector vertical entre items cuando está colapsado */
+[data-sidebar-collapsed="true"] .ova-sidebar__menu-item:not(:last-child)::after{
+  display: none;
+}
+/* Progreso · solo el porcentaje como mini-dot */
+[data-sidebar-collapsed="true"] .ova-sidebar__progress{
+  padding: 14px 8px;
+  text-align: center;
+}
+[data-sidebar-collapsed="true"] .ova-sidebar__progress::before{
+  content: attr(data-progress);
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .1em;
+  color: var(--sb-text-mut);
+}
+/* Tooltip al hover cuando está colapsado */
+[data-sidebar-collapsed="true"] .ova-sidebar__menu-item{
+  position: relative;
+}
+[data-sidebar-collapsed="true"] .ova-sidebar__menu-item:hover::before{
+  content: attr(data-title);
+  position: absolute;
+  left: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  padding: 8px 14px;
+  background: var(--bg-surface);
+  color: var(--text-head);
+  border: 1px solid var(--border-c);
+  border-radius: 8px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: .82rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* === BOTÓN TOGGLE flotante en el borde del sidebar === */
+.ova-sidebar__toggle{
+  position: fixed;
+  top: 26px;
+  left: calc(var(--sidebar-w) - 14px);
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-c);
+  color: var(--text-pri);
+  display: grid; place-items: center;
+  cursor: pointer;
+  z-index: 30;
+  box-shadow: 0 4px 12px rgba(0,0,0,.12);
+  transition: transform .2s ease, background .2s ease, left .25s ease;
+}
+[data-sidebar-collapsed="true"] .ova-sidebar__toggle{
+  left: calc(var(--sidebar-w-collapsed) - 14px);
+}
+.ova-sidebar__toggle:hover{
+  background: var(--c-acento);
+  color: white;
+  transform: scale(1.1);
+}
+.ova-sidebar__toggle iconify-icon{
+  font-size: 1rem;
+  transition: transform .25s ease;
+}
+[data-sidebar-collapsed="true"] .ova-sidebar__toggle iconify-icon{
+  transform: rotate(180deg);
+}
+/* Ocultar el toggle SOLO en mobile real · cuando ya está el burger overlay */
+@media (max-width: 720px){
+  .ova-sidebar__toggle{ display: none; }
+}
+@media (max-width: 1024px) { .ova-app { grid-template-columns: 1fr; } }
+
+/* SIDEBAR */
+.ova-sidebar {
+  position: sticky; top: 0;
+  height: 100vh;
+  background: var(--bg-sidebar);
+  color: var(--sb-text);
+  display: flex; flex-direction: column;
+  /* Todo el panel se desplaza junto (logo, título y lista), no solo la lista.
+     Barra nativa (teclado y lectores de pantalla), fina y en el color del panel. */
+  overflow-y: auto; overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--sb-text-mut) 35%, transparent) transparent;
+  border-right: 1px solid var(--border-sb);
+  transition: background .25s;
+}
+.ova-sidebar::before {
+  content: '';
+  /* pegado al viewport del panel para que el mesh no se vaya con el scroll */
+  position: sticky; top: 0; flex-shrink: 0;
+  height: 100vh; margin-bottom: -100vh;
+  background: var(--grad-mesh);
+  opacity: 0.6;
+  pointer-events: none;
+}
+/* Barra compacta: aparece fija arriba cuando el título grande ya salió de la vista */
+.ova-sidebar > .ova-sidebar__compacta {   /* gana a `.ova-sidebar > *` (position: relative) */
+  position: sticky; top: 0; z-index: 3;
+  display: none;
+  align-items: center; gap: 10px;
+  padding: 10px 16px 12px;
+  background: var(--bg-sidebar);
+  border-bottom: 1px solid var(--border-sb);
+  font-size: 0.78rem;
+  color: var(--sb-text-mut);
+}
+.ova-sidebar.is-scrolled .ova-sidebar__compacta { display: flex; }
+.ova-sidebar__compacta .tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  color: var(--sb-text);
+}
+.ova-sidebar__compacta strong {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--sb-text);
+}
+.ova-sidebar__compacta .bar {
+  position: absolute; left: 0; right: 0; bottom: -1px;
+  height: 3px;
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+.ova-sidebar__compacta .bar-fill { height: 100%; background: var(--grad-brand); }
+[data-sidebar-collapsed="true"] .ova-sidebar__compacta { display: none !important; }
+[data-version="clara"] .ova-sidebar::before {
+  opacity: 0.4;  /* mesh más sutil en claro */
+}
+.ova-sidebar > * { position: relative; z-index: 1; }
+
+.ova-sidebar__brand {
+  display: flex; align-items: center; gap: 12px;
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--border-sb);
+}
+.ova-sidebar__brand img {
+  object-fit: contain;
+  flex-shrink: 0;
+}
+/* Logo responsive del sidebar.
+   Desktop → lockup horizontal sobre panel blanco (su texto es azul y no se leería sobre el navy).
+   Mobile (≤1024px) y colapsado → solo la "W". */
+.ova-brand-logo--desktop {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  background: #fff;
+  padding: 12px 14px;
+  border-radius: 12px;
+}
+.ova-brand-logo--mobile { display: none; }
+@media (max-width: 1024px) {
+  .ova-brand-logo--desktop { display: none; }
+  .ova-brand-logo--mobile {
+    display: block;
+    height: 52px;
+    width: auto;
+    max-width: 100%;
+  }
+}
+.ova-sidebar__brand > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.1;
+}
+.ova-sidebar__brand strong {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -.01em;
+  color: var(--c-acento);
+}
+.ova-sidebar__brand small {
+  display: block;
+  color: var(--sb-text-mut);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.ova-sidebar__course { padding: 22px 24px 18px; }
+.ova-sidebar__course-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  margin-bottom: 12px;
+  background: var(--acento-strong);
+  color: var(--acento-light);
+  border: 1px solid color-mix(in srgb, var(--c-acento) 55%, transparent);
+}
+[data-version="clara"] .ova-sidebar__course-tag {
+  background: var(--acento-soft);
+  color: var(--acento-deep);
+  border-color: color-mix(in srgb, var(--c-acento) 30%, transparent);
+}
+.ova-sidebar__course h3 { color: var(--sb-text); font-size: 1.4rem; margin: 0 0 4px; line-height: 1.15; }
+.ova-sidebar__course p { color: var(--sb-text-mut); font-size: 0.82rem; margin: 0; }
+
+/* Sidebar menu (ruta de aprendizaje) */
+.ova-sidebar__menu {
+  flex: 1 0 auto;   /* crece con la lista; el scroll lo hace el panel completo */
+  padding: 12px 16px 20px;
+}
+.ova-sidebar__menu-item {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: var(--r-md);
+  color: var(--sb-text-mut);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 0.92rem;
+  margin-bottom: 4px;
+  position: relative;
+  transition: all .25s;
+}
+.ova-sidebar__menu-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 30px; top: calc(100% - 4px); bottom: -4px;
+  width: 2px;
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+.ova-sidebar__menu-item:hover {
+  background: color-mix(in srgb, currentColor 4%, transparent);
+  color: var(--sb-text);
+}
+.ova-sidebar__menu-item .num {
+  width: 32px; height: 32px;
+  border-radius: 10px;
+  background: color-mix(in srgb, currentColor 4%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 8%, transparent);
+  display: grid; place-items: center;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.78rem;
+  flex-shrink: 0;
+  transition: all .25s;
+}
+.ova-sidebar__menu-item iconify-icon {
+  font-size: 1rem;
+  color: color-mix(in srgb, currentColor 50%, transparent);
+}
+.ova-sidebar__menu-item.is-done .num {
+  background: color-mix(in srgb, var(--success) 18%, transparent);
+  border-color: color-mix(in srgb, var(--success) 30%, transparent);
+  color: var(--success);
+}
+.ova-sidebar__menu-item.is-active {
+  background: var(--acento-strong);
+  color: var(--sb-text);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c-acento) 55%, transparent);
+}
+.ova-sidebar__menu-item.is-active .num {
+  background: var(--grad-brand);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--c-acento) 40%, transparent);
+}
+.ova-sidebar__menu-item.is-active iconify-icon {
+  color: var(--c-acento);
+}
+
+/* Progress + footer del sidebar */
+.ova-sidebar__progress { padding: 18px 24px; border-top: 1px solid var(--border-sb); }
+.ova-sidebar__progress .label {
+  display: flex; justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.75rem;
+  color: var(--sb-text-mut);
+}
+.ova-sidebar__progress .label strong { color: var(--sb-text); font-family: var(--font-mono); }
+.ova-sidebar__progress .bar {
+  height: 5px;
+  background: color-mix(in srgb, currentColor 6%, transparent);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.ova-sidebar__progress .bar-fill {
+  height: 100%;
+  background: var(--grad-brand);
+  border-radius: 3px;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--c-acento) 50%, transparent);
+  transition: width .6s cubic-bezier(.2,.7,.2,1);
+}
+.ova-sidebar__footer {
+  display: flex; gap: 6px;
+  padding: 14px 16px 18px;
+  border-top: 1px solid var(--border-sb);
+}
+.ova-sidebar__footer a {
+  flex: 1;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px 12px;
+  border-radius: var(--r-md);
+  color: var(--sb-text-mut);
+  background: color-mix(in srgb, currentColor 3%, transparent);
+  font-size: 0.78rem;
+  font-weight: 500;
+  transition: all .2s;
+}
+.ova-sidebar__footer a:hover {
+  background: color-mix(in srgb, currentColor 8%, transparent);
+  color: var(--sb-text);
+}
+
+/* MAIN */
+.ova-main { display: flex; flex-direction: column; min-height: 100vh; min-width: 0; }
+
+/* TOPBAR */
+.ova-topbar {
+  height: var(--topbar-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(20px, 4vw, 48px);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-c);
+  position: sticky; top: 0; z-index: 40;
+}
+/* Mobile · ocultar breadcrumb/tema/iconbtns pero mantener visible el botón siguiente */
+@media (max-width: 1024px) {
+  .ova-topbar{
+    padding: 0 16px 0 70px; /* deja aire para el burger fijo a la izquierda */
+    justify-content: flex-end;
+  }
+  .ova-breadcrumb,
+  .ova-version-switch,
+  .ova-topbar__actions .ova-iconbtn:not(.ova-iconbtn--accent){
+    display: none !important;
+  }
+}
+.ova-breadcrumb {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.85rem;
+  color: var(--text-mut);
+  font-family: var(--font-display);
+}
+.ova-breadcrumb strong { color: var(--text-head); font-weight: 600; }
+.ova-breadcrumb .sep { color: var(--text-mut); opacity: 0.5; }
+.ova-breadcrumb .step {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background: var(--bg-muted);
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  color: var(--text-pri);
+  margin-right: 8px;
+}
+.ova-topbar__actions { display: flex; gap: 6px; align-items: center; }
+.ova-iconbtn {
+  width: 40px; height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: var(--bg-muted);
+  color: var(--text-pri);
+  cursor: pointer;
+  display: grid; place-items: center;
+  transition: all .2s;
+}
+.ova-iconbtn:hover { background: color-mix(in srgb, var(--text-pri) 8%, var(--bg-muted)); }
+.ova-iconbtn--accent {
+  background: var(--grad-brand);
+  color: white;
+  box-shadow: var(--glow-brand);
+}
+.ova-iconbtn--accent:hover { color: white; transform: translateY(-1px); }
+
+/* ====== Version switch · "Tema" elegante ======
+   Estructura: [Label "Tema"] | [Pills oscura · clara]
+   ============================================== */
+.ova-version-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 6px 4px 14px;
+  background: color-mix(in srgb, var(--bg-muted) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border-c) 60%, transparent);
+  border-radius: var(--r-pill);
+  backdrop-filter: blur(6px);
+}
+.ova-version-switch__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+  user-select: none;
+}
+.ova-version-switch__label iconify-icon {
+  font-size: 1rem;
+  color: color-mix(in srgb, var(--c-acento) 80%, var(--text-mut));
+}
+.ova-version-switch__pills {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  background: var(--bg-surface);
+  border-radius: var(--r-pill);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.04);
+}
+.ova-version-switch button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: transparent;
+  padding: 6px 12px;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  font-size: .78rem;
+  color: var(--text-mut);
+  font-family: var(--font-display);
+  font-weight: 500;
+  transition: color .18s ease, background .18s ease, transform .12s ease;
+}
+.ova-version-switch button iconify-icon { font-size: .95rem; opacity: .75; }
+.ova-version-switch button:hover {
+  color: var(--text-pri);
+}
+.ova-version-switch button:hover iconify-icon { opacity: 1; }
+.ova-version-switch button.is-active {
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--c-acento) 14%, var(--bg-surface)),
+    var(--bg-surface));
+  color: var(--c-acento);
+  box-shadow:
+    0 2px 6px color-mix(in srgb, var(--c-acento) 18%, transparent),
+    inset 0 0 0 1px color-mix(in srgb, var(--c-acento) 30%, transparent);
+}
+.ova-version-switch button.is-active iconify-icon { opacity: 1; }
+@media (max-width: 720px){
+  .ova-version-switch__label { display: none; }
+  .ova-version-switch button span { display: none; }
+  .ova-version-switch button { padding: 6px 8px; }
+}
+
+/* SCREEN */
+.ova-screen {
+  flex: 1;
+  padding: clamp(28px, 5vw, 64px) clamp(20px, 5vw, 64px);
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+.ova-screen__head { margin-bottom: 40px; }
+/* Ritmo entre bloques (2026-10-25): ningún bloque pegado a otro. Todo hijo de la pantalla que no
+   es texto (párrafo, título, lista) lleva 40 px arriba y abajo. Especificidad cero: una pieza con
+   su propio margen (o un style en línea) lo conserva. Lo del llamado y la fuente del catálogo
+   está en catalogo.css. */
+:where(.ova-screen) > :where(:not(p, h1, h2, h3, h4, h5, h6, ul, ol, blockquote, hr, header,
+  .ova-modal, script, style)) {
+  margin-block: 40px;
+}
+.ova-screen__eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-acento);
+  margin-bottom: 14px;
+}
+.ova-screen__eyebrow::before {
+  content: ''; width: 28px; height: 2px;
+  background: var(--grad-brand);
+  border-radius: 2px;
+}
+.ova-screen__title { font-size: clamp(1.9rem, 3.6vw, 2.8rem); margin-bottom: 14px; }
+.ova-screen__lead { font-size: 1.1rem; color: var(--text-mut); max-width: 720px; }
+
+/* SCREEN NAV (prev/next) */
+.ova-screen-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 24px clamp(20px, 5vw, 64px) 56px;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  border-top: 1px dashed var(--border-c);
+  margin-top: 60px;
+}
+.ova-screen-nav__btn {
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 22px;
+  border-radius: var(--r-md);
+  background: var(--bg-surface);
+  color: var(--text-head);
+  border: 1px solid var(--border-c);
+  text-decoration: none;
+  transition: all .25s;
+  min-height: 76px;
+}
+.ova-screen-nav__btn:hover {
+  border-color: var(--c-acento);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  color: var(--text-head);
+}
+.ova-screen-nav__btn small {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+  margin-bottom: 2px;
+}
+.ova-screen-nav__btn strong { font-family: var(--font-display); font-weight: 600; font-size: 0.98rem; }
+.ova-screen-nav__btn--prev { justify-content: flex-start; text-align: left; }
+.ova-screen-nav__btn--next {
+  justify-content: flex-end;
+  text-align: right;
+  background: var(--bg-sidebar);
+  color: var(--sb-text);
+  border-color: transparent;
+}
+.ova-screen-nav__btn--next strong { color: var(--sb-text); }
+.ova-screen-nav__btn--next small { color: var(--c-acento); }
+.ova-screen-nav__btn .ico {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--bg-muted);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  color: var(--text-pri);
+}
+.ova-screen-nav__btn--next .ico { background: var(--grad-brand); color: white; }
+.ova-screen-nav__btn--prev:hover .ico { background: var(--grad-brand); color: white; }
+
+/* Burger mobile */
+.ova-burger {
+  display: none;
+  position: fixed; top: 14px; left: 14px; z-index: 110;
+  width: 44px; height: 44px;
+  background: var(--bg-sidebar);
+  color: var(--sb-text);
+  border: 1px solid var(--border-sb);
+  border-radius: 12px;
+  cursor: pointer;
+  align-items: center; justify-content: center;
+}
+@media (max-width: 1024px) {
+  .ova-burger { display: flex; transition: left .35s cubic-bezier(.2,.7,.2,1); }
+  /* menú abierto: el botón (ya ✕) sale a la derecha del panel, sobre el contenido */
+  .ova-burger.is-open { left: min(calc(var(--sidebar-w) + 14px), calc(100vw - 58px)); }
+  /* y los botones de la barra superior se apartan para que la ✕ no los pise */
+  .ova-menu-abierto .ova-topbar__actions { visibility: hidden; }
+}
+@media (max-width: 1024px) {
+  .ova-sidebar {
+    position: fixed; inset: 0 auto 0 0;
+    width: var(--sidebar-w);
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease;
+  }
+  /* La sombra solo con el menú abierto: cerrado, su desplazamiento y su difuminado
+     se asomaban por el borde izquierdo de la pantalla. */
+  .ova-sidebar.is-open { transform: translateX(0); box-shadow: 30px 0 60px rgba(0,0,0,0.4); }
+}
+
+/* ============================================
+   5 · COMPONENTES
+   ============================================ */
+
+/* BOTONES */
+.ova-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 28px;
+  border-radius: var(--r-pill);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: none;
+  transition: all .25s cubic-bezier(.2,.7,.2,1);
+  text-decoration: none;
+}
+.ova-btn--primary {
+  background: var(--grad-brand);
+  color: white;
+  box-shadow: var(--glow-brand);
+}
+.ova-btn--primary:hover { transform: translateY(-2px); color: white; }
+.ova-btn--ghost {
+  background: color-mix(in srgb, currentColor 6%, transparent);
+  color: var(--text-head);
+  border: 1px solid var(--border-c);
+}
+.ova-btn--ghost:hover { background: color-mix(in srgb, currentColor 12%, transparent); color: var(--text-head); }
+.ova-btn--dark {
+  background: var(--bg-sidebar);
+  color: var(--sb-text);
+}
+.ova-btn--dark:hover { color: var(--sb-text); transform: translateY(-2px); }
+.ova-btn .arrow { transition: transform .2s; }
+.ova-btn:hover .arrow { transform: translateX(4px); }
+
+/* PORTADA / HERO */
+.ova-portada {
+  position: relative;
+  min-height: calc(100vh - var(--topbar-h));
+  background: var(--bg-sidebar);
+  color: var(--sb-text);
+  overflow: hidden;
+  display: grid; place-items: center;
+  padding: 80px clamp(24px, 6vw, 120px);
+}
+.ova-portada::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--grad-mesh);
+  pointer-events: none;
+}
+.ova-portada__grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--c-info) 12%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--c-info) 12%, transparent) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 60% at 30% 50%, black 0%, transparent 75%);
+  pointer-events: none;
+}
+.ova-portada__inner { position: relative; z-index: 2; max-width: 1100px; width: 100%; }
+.ova-portada__code {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 7px 14px;
+  background: var(--acento-strong);
+  border: 1px solid color-mix(in srgb, var(--c-acento) 55%, transparent);
+  border-radius: var(--r-pill);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  color: var(--acento-light);
+  margin-bottom: 24px;
+}
+.ova-portada h1 {
+  color: var(--sb-text);
+  font-size: clamp(2.8rem, 7.5vw, 6rem);
+  line-height: 0.95;
+  margin-bottom: 28px;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+}
+.ova-portada h1 .accent {
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+.ova-portada h1 .outline {
+  color: transparent;
+  -webkit-text-stroke: 2px color-mix(in srgb, var(--sb-text) 35%, transparent);
+  display: inline-block;
+}
+.ova-portada__sub {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  color: var(--sb-text-mut);
+  margin-bottom: 48px;
+  max-width: 680px;
+  line-height: 1.55;
+}
+.ova-portada__stats {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: clamp(20px, 4vw, 48px);
+  margin-bottom: 48px;
+  padding: 24px 0;
+  border-top: 1px solid color-mix(in srgb, var(--sb-text) 10%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--sb-text) 10%, transparent);
+}
+.ova-portada__stat { display: flex; flex-direction: column; gap: 4px; }
+.ova-portada__stat .value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+  color: var(--sb-text);
+  line-height: 1;
+}
+.ova-portada__stat .value small {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--c-info);
+  font-weight: 400;
+  margin-left: 4px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.ova-portada__stat .label {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sb-text-mut);
+}
+.ova-portada__stat-sep {
+  width: 1px; height: 36px;
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--sb-text) 20%, transparent), transparent);
+}
+
+/* FICHA TÉCNICA */
+.ova-ficha {
+  background: var(--bg-surface);
+  border-radius: var(--r-lg);
+  padding: clamp(28px, 4vw, 44px);
+  box-shadow: var(--shadow-md);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 36px;
+  position: relative;
+  overflow: hidden;
+}
+.ova-ficha::before {
+  content:''; position: absolute; top:0; left:0; right:0; height: 4px;
+  background: var(--grad-brand);
+}
+.ova-ficha__item .ico {
+  width: 44px; height: 44px;
+  background: var(--acento-soft);
+  border-radius: 12px;
+  display: grid; place-items: center;
+  color: var(--c-acento);
+  margin-bottom: 14px;
+  font-size: 1.2rem;
+}
+.ova-ficha__item .label {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.ova-ficha__item .value {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--text-head);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* KPI CARDS */
+.ova-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+.ova-kpi {
+  background: var(--bg-surface);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-c);
+  transition: transform .3s, box-shadow .3s;
+}
+.ova-kpi:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.ova-kpi__icon {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  background: var(--grad-brand);
+  display: grid; place-items: center;
+  color: white;
+  font-size: 1.3rem;
+  margin-bottom: 18px;
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--c-acento) 30%, transparent);
+}
+.ova-kpi__value {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.5vw, 2.6rem);
+  line-height: 1;
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 8px;
+}
+.ova-kpi__label { font-family: var(--font-display); font-weight: 600; font-size: 1rem; color: var(--text-head); margin-bottom: 8px; }
+.ova-kpi__hint { font-size: 0.85rem; color: var(--text-mut); }
+
+/* ACORDEÓN */
+.ova-acordeon { display: grid; gap: 12px; }
+.ova-acordeon__item {
+  background: var(--bg-surface);
+  border-radius: var(--r-md);
+  border: 1px solid var(--border-c);
+  overflow: hidden;
+  transition: all .3s;
+}
+.ova-acordeon__item.is-open { box-shadow: var(--shadow-md); border-color: var(--c-acento); }
+.ova-acordeon__head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--text-head);
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+/* Número y título en flex: la segunda línea del título empieza donde la primera, no bajo el
+   chip, y el título queda a plomo con el cuerpo (72 px). KIT-003, D10. */
+.ova-acordeon__head > span { display: flex; align-items: center; gap: 16px; }
+.ova-acordeon__head .num {
+  display: inline-flex;
+  flex: none;
+  width: 32px; height: 32px;
+  background: var(--acento-soft);
+  color: var(--c-acento);
+  border-radius: 10px;
+  align-items: center; justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+.ova-acordeon__item.is-open .ova-acordeon__head .num { background: var(--grad-brand); color: white; }
+.ova-acordeon__chev { transition: transform .3s; color: var(--text-mut); }
+.ova-acordeon__item.is-open .ova-acordeon__chev { transform: rotate(180deg); color: var(--c-acento); }
+/* El cuerpo abre de 0fr a 1fr: mide lo que mide su contenido, sin tope de altura
+   (un max-height fijo cortaba los cuerpos largos a 390 px). Cerrado, el interior va sin
+   padding inferior: una caja no mide menos que su padding y la fila quedaba en 22 px. KIT-003, D4. */
+.ova-acordeon__body { display: grid; grid-template-rows: 0fr; overflow: hidden; transition: grid-template-rows .4s ease; }
+.ova-acordeon__body-inner { min-height: 0; padding: 0 24px 22px 72px; color: var(--text-pri); transition: padding-bottom .4s ease; }
+.ova-acordeon__item:not(.is-open) .ova-acordeon__body-inner { padding-bottom: 0; }
+.ova-acordeon__item.is-open .ova-acordeon__body { grid-template-rows: 1fr; }
+@media (max-width: 600px) {
+  .ova-acordeon__body-inner { padding-left: 24px; }
+}
+
+/* TABS
+   Si los botones no caben en la fila, la fila se desliza en horizontal: antes
+   los que no cabían quedaban fuera de la caja e inalcanzables (6 pestañas a
+   390 px: 3 fuera, 2026-10-09). En ≤ 720 px cada botón conserva su ancho
+   natural en una línea y el que no cabe asoma cortado por el borde. */
+.ova-tabs { background: var(--bg-surface); border-radius: var(--r-lg); border: 1px solid var(--border-c); overflow: hidden; }
+.ova-tabs__nav {
+  display: flex;
+  background: var(--bg-muted);
+  border-bottom: 1px solid var(--border-c);
+  padding: 6px;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-padding-inline: 6px;
+}
+.ova-tabs__nav::-webkit-scrollbar { display: none; }
+.ova-tabs__btn {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  background: none;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: .9rem;
+  color: var(--text-mut);
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  transition: all .2s;
+}
+@media (max-width: 720px) {
+  .ova-tabs__nav { scroll-snap-type: x proximity; }
+  .ova-tabs__btn { flex: 0 0 auto; white-space: nowrap; scroll-snap-align: start; }
+}
+/* Mientras se arrastra la fila con el mouse (core.js · arrastrable): sin imán,
+   para que siga al puntero; al soltar vuelve. */
+.ova-tabs__nav.is-arrastrando {
+  scroll-snap-type: none;
+  cursor: grabbing;
+  user-select: none;
+}
+.ova-tabs__btn:hover { color: var(--text-head); }
+.ova-tabs__btn.is-active { background: var(--bg-surface); color: var(--c-acento); box-shadow: var(--shadow-sm); }
+.ova-tabs__panel { padding: 28px; display: none; }
+.ova-tabs__panel.is-active { display: block; }
+
+/* CALLOUTS · 4 variantes */
+.ova-callout {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 20px;
+  padding: 24px 28px;
+  border-radius: var(--r-md);
+  align-items: start;
+}
+.ova-callout__ico {
+  width: 56px; height: 56px;
+  border-radius: 16px;
+  display: grid; place-items: center;
+  color: white;
+  font-size: 1.3rem;
+}
+.ova-callout__tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.ova-callout h4 { margin-bottom: 8px; }
+.ova-callout p { margin-bottom: 0; font-size: 0.95rem; }
+
+/* Default · brand */
+.ova-callout {
+  background: var(--acento-soft);
+  border-left: 4px solid var(--c-acento);
+  color: var(--text-pri);
+}
+.ova-callout .ova-callout__ico { background: var(--grad-brand); box-shadow: 0 12px 30px color-mix(in srgb, var(--c-acento) 30%, transparent); }
+.ova-callout .ova-callout__tag { color: var(--c-acento); }
+.ova-callout h4 { color: var(--text-head); }
+
+/* Success */
+.ova-callout--success {
+  background: color-mix(in srgb, var(--success) 8%, transparent);
+  border-left-color: var(--success);
+}
+.ova-callout--success .ova-callout__ico { background: linear-gradient(135deg, var(--success), color-mix(in srgb, var(--success) 70%, #000)); box-shadow: 0 12px 30px color-mix(in srgb, var(--success) 25%, transparent); }
+.ova-callout--success .ova-callout__tag { color: var(--success); }
+
+/* Warning */
+.ova-callout--warning {
+  background: color-mix(in srgb, var(--warning) 10%, transparent);
+  border-left-color: var(--warning);
+}
+.ova-callout--warning .ova-callout__ico { background: linear-gradient(135deg, var(--warning), color-mix(in srgb, var(--warning) 70%, #000)); box-shadow: 0 12px 30px color-mix(in srgb, var(--warning) 25%, transparent); }
+.ova-callout--warning .ova-callout__tag { color: color-mix(in srgb, var(--warning) 80%, #000); }
+
+/* Danger */
+.ova-callout--danger {
+  background: color-mix(in srgb, var(--danger) 8%, transparent);
+  border-left-color: var(--danger);
+}
+.ova-callout--danger .ova-callout__ico { background: linear-gradient(135deg, var(--danger), color-mix(in srgb, var(--danger) 70%, #000)); box-shadow: 0 12px 30px color-mix(in srgb, var(--danger) 25%, transparent); }
+.ova-callout--danger .ova-callout__tag { color: var(--danger); }
+
+/* COMPARATIVO VS */
+.ova-vs {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 32px;
+  align-items: stretch;
+}
+.ova-vs__card {
+  background: var(--bg-surface);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-md);
+  border-top: 4px solid var(--c-acento);
+  border: 1px solid var(--border-c);
+  border-top: 4px solid var(--c-acento);
+}
+.ova-vs__card--alt { border-top-color: var(--c-info); }
+.ova-vs__card-tag {
+  display: inline-block;
+  background: var(--acento-soft);
+  color: var(--c-acento);
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.ova-vs__card--alt .ova-vs__card-tag { background: var(--info-soft); color: var(--c-info); }
+.ova-vs__card ul { margin: 16px 0 0; padding-left: 0; list-style: none; }
+.ova-vs__card li { padding: 10px 0 10px 28px; position: relative; border-top: 1px dashed var(--border-c); font-size: 0.95rem; }
+.ova-vs__card li::before {
+  content: ''; position: absolute; left: 4px; top: 16px;
+  width: 12px; height: 12px;
+  background: var(--c-acento);
+  clip-path: polygon(0 50%, 50% 0, 100% 50%, 50% 100%);
+}
+.ova-vs__card--alt li::before { background: var(--c-info); }
+.ova-vs__divider {
+  display: grid; place-items: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--text-mut);
+  width: 70px; height: 70px;
+  background: var(--bg-surface);
+  border-radius: 50%;
+  align-self: center;
+  box-shadow: var(--shadow-md);
+}
+/* Va detrás de la regla base del divisor: antes iba delante y su display:grid la anulaba. KIT-003, D11. */
+@media (max-width: 768px) {
+  .ova-vs { grid-template-columns: 1fr; }
+  .ova-vs__divider { display: none; }
+}
+
+/* STEPPER VERTICAL */
+.ova-stepper { position: relative; }
+.ova-stepper::before {
+  content: '';
+  position: absolute;
+  left: 47px; top: 30px; bottom: 30px;
+  width: 2px;
+  background: var(--grad-brand);
+  opacity: 0.3;
+}
+.ova-step {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 32px;
+  margin-bottom: 28px;
+  position: relative;
+}
+.ova-step__num {
+  width: 96px; height: 96px;
+  background: var(--bg-sidebar);
+  border: 2px solid color-mix(in srgb, var(--sb-text) 10%, transparent);
+  color: var(--sb-text);
+  border-radius: 28px;
+  display: grid; place-items: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.2rem;
+  position: relative;
+  z-index: 1;
+  box-shadow: var(--shadow-md);
+}
+.ova-step__num span {
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.ova-step__card {
+  background: var(--bg-surface);
+  border-radius: var(--r-lg);
+  padding: 28px 32px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-c);
+  transition: all .3s;
+}
+.ova-step__card:hover { box-shadow: var(--shadow-md); transform: translateX(4px); }
+.ova-step__tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--info-soft);
+  color: var(--c-info);
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+/* En el celular, el número de 96 px dejaba el texto en 17 caracteres por línea: número de 48,
+   la línea al centro del número y la tarjeta con el ancho que queda. KIT-003, D6. */
+@media (max-width: 600px) {
+  .ova-step { grid-template-columns: 48px minmax(0, 1fr); gap: 14px; }
+  .ova-step__num { width: 48px; height: 48px; border-radius: 14px; font-size: 1.1rem; }
+  .ova-stepper::before { left: 23px; top: 24px; bottom: 24px; }
+  .ova-step__card { padding: 20px; }
+}
+
+/* TIMELINE */
+.ova-timeline {
+  position: relative;
+  padding: 20px 0;
+}
+.ova-timeline::before {
+  content:''; position: absolute;
+  left: 50%; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--grad-brand);
+  opacity: 0.4;
+  transform: translateX(-50%);
+}
+.ova-timeline__item {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+.ova-timeline__item:nth-child(even) .ova-timeline__card { grid-column: 3; }
+.ova-timeline__item:nth-child(even) .ova-timeline__marker { grid-column: 2; }
+.ova-timeline__item:nth-child(odd) .ova-timeline__card { grid-column: 1; text-align: right; }
+.ova-timeline__item:nth-child(odd) .ova-timeline__marker { grid-column: 2; }
+.ova-timeline__marker {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  background: var(--grad-brand);
+  color: white;
+  display: grid; place-items: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0 auto;
+  z-index: 1;
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--c-acento) 30%, transparent);
+}
+.ova-timeline__card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-c);
+  border-radius: var(--r-md);
+  padding: 20px 24px;
+}
+.ova-timeline__card h4 { margin-bottom: 4px; }
+.ova-timeline__card p { font-size: .9rem; color: var(--text-mut); margin: 0; }
+
+/* TABLA */
+.ova-tabla {
+  background: var(--bg-surface);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-c);
+  box-shadow: var(--shadow-sm);
+}
+.ova-tabla table { width: 100%; border-collapse: collapse; }
+.ova-tabla th, .ova-tabla td { padding: 16px 20px; text-align: left; }
+.ova-tabla thead { background: var(--bg-muted); }
+.ova-tabla th {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: .82rem;
+  color: var(--text-head);
+  letter-spacing: .04em;
+  border-bottom: 1px solid var(--border-c);
+}
+.ova-tabla th.is-highlight { background: var(--acento-soft); color: var(--c-acento); }
+.ova-tabla td { border-top: 1px dashed var(--border-c); font-size: .92rem; color: var(--text-pri); }
+.ova-tabla tbody tr:hover { background: var(--bg-muted); }
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .06em;
+  font-weight: 600;
+}
+.badge--success { background: color-mix(in srgb, var(--success) 18%, transparent); color: color-mix(in srgb, var(--success) 80%, #000); }
+.badge--warning { background: color-mix(in srgb, var(--warning) 22%, transparent); color: color-mix(in srgb, var(--warning) 80%, #000); }
+.badge--danger  { background: color-mix(in srgb, var(--danger) 18%, transparent);  color: color-mix(in srgb, var(--danger) 80%, #000); }
+[data-version="oscura"] .badge--success { color: var(--success); }
+[data-version="oscura"] .badge--warning { color: var(--warning); }
+[data-version="oscura"] .badge--danger  { color: color-mix(in srgb, var(--danger) 60%, white); }
+
+/* CARRUSEL */
+.ova-carrusel { position: relative; }
+.ova-carrusel__track-wrap { overflow: hidden; }
+.ova-carrusel__track {
+  display: flex;
+  transition: transform .4s cubic-bezier(.2,.7,.2,1);
+  gap: 16px;
+}
+.ova-carrusel__slide {
+  flex: 0 0 calc((100% - 32px) / 3);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-c);
+  border-radius: var(--r-md);
+  padding: 24px;
+  min-height: 180px;
+}
+@media (max-width: 900px) { .ova-carrusel__slide { flex: 0 0 calc((100% - 16px) / 2); } }
+@media (max-width: 600px) { .ova-carrusel__slide { flex: 0 0 100%; } }
+/* data-ova-visibles baja los slides por vista (core.js · carruselVisibles) */
+.ova-carrusel[data-ova-visibles="1"] .ova-carrusel__slide { flex-basis: 100%; }
+@media (min-width: 601px) { .ova-carrusel[data-ova-visibles="2"] .ova-carrusel__slide { flex-basis: calc((100% - 16px) / 2); } }
+.ova-carrusel__nav {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 20px;
+}
+.ova-carrusel__dots { display: flex; gap: 6px; }
+.ova-carrusel__dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border-c);
+  border: none;
+  cursor: pointer;
+  transition: all .2s;
+}
+.ova-carrusel__dot.is-active { background: var(--c-acento); width: 24px; border-radius: 999px; }
+.ova-carrusel__arrows { display: flex; gap: 6px; }
+.ova-carrusel__arrow {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: var(--bg-muted);
+  border: none;
+  cursor: pointer;
+  display: grid; place-items: center;
+  color: var(--text-pri);
+}
+
+/* AUDIO */
+.ova-audio {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-c);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  gap: 14px;
+  align-items: center;
+}
+.ova-audio__play {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--grad-brand);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: grid; place-items: center;
+  font-size: 1.2rem;
+  box-shadow: var(--glow-brand);
+}
+.ova-audio__info { min-width: 0; }
+.ova-audio__title { font-family: var(--font-display); font-weight: 600; font-size: .92rem; color: var(--text-head); }
+.ova-audio__sub { font-size: .78rem; color: var(--text-mut); }
+.ova-audio__progress {
+  height: 4px;
+  background: var(--bg-muted);
+  border-radius: 2px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+.ova-audio__progress-fill { height: 100%; width: 0%; background: var(--grad-brand); transition: width .2s; }
+.ova-audio__time { font-family: var(--font-mono); font-size: .78rem; color: var(--text-mut); }
+
+/* PODCAST SECTION */
+.ova-podcast {
+  background: var(--bg-sidebar);
+  color: var(--sb-text);
+  border-radius: var(--r-xl);
+  padding: clamp(28px,5vw,48px);
+  position: relative;
+  overflow: hidden;
+}
+.ova-podcast::before { content:''; position:absolute; inset:0; background: var(--grad-mesh); pointer-events:none; }
+.ova-podcast > * { position: relative; }
+.ova-podcast__head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
+.ova-podcast__tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  color: var(--c-info);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.ova-podcast__head h3 { color: var(--sb-text); margin: 0; }
+.ova-podcast__list { display: grid; gap: 10px; }
+.ova-podcast__ep {
+  background: color-mix(in srgb, var(--sb-text) 4%, transparent);
+  border: 1px solid color-mix(in srgb, var(--sb-text) 8%, transparent);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  display: grid;
+  grid-template-columns: 36px 1fr auto auto;
+  gap: 14px;
+  align-items: center;
+}
+.ova-podcast__ep-num {
+  font-family: var(--font-mono);
+  color: var(--c-info);
+  font-size: .82rem;
+  font-weight: 700;
+}
+.ova-podcast__ep-title { font-family: var(--font-display); font-weight: 600; font-size: .9rem; color: var(--sb-text); }
+.ova-podcast__ep-meta { font-size: .72rem; color: var(--sb-text-mut); margin-top: 2px; display:flex; gap:14px; }
+.ova-podcast__ep-meta span { display: inline-flex; align-items: center; gap: 4px; }
+.ova-podcast__ep-duration { font-family: var(--font-mono); font-size: .78rem; color: var(--sb-text-mut); }
+.ova-podcast__ep-play {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--grad-brand);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: grid; place-items: center;
+  box-shadow: var(--glow-brand);
+}
+
+/* FIGURA · imagen con caption */
+.ova-figura {
+  margin: 0;
+  background: var(--bg-surface);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--border-c);
+  transition: all .25s;
+}
+.ova-figura:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: transparent; }
+.ova-figura__hero {
+  position: relative;
+  height: 240px;
+  display: grid; place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 0%, var(--acento-soft), transparent 60%),
+    linear-gradient(180deg, var(--bg-muted), var(--bg-surface));
+}
+.ova-figura__hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(color-mix(in srgb, currentColor 4%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, currentColor 4%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+.ova-figura__hero--dark { background: var(--bg-sidebar); color: var(--sb-text); }
+.ova-figura__hero img { max-width: 80%; max-height: 80%; position: relative; z-index: 1; }
+.ova-figura__hero .badge {
+  position: absolute; top: 14px; right: 14px;
+  background: color-mix(in srgb, var(--text-head) 80%, transparent);
+  color: white;
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  font-family: var(--font-mono);
+  font-size: .65rem;
+  letter-spacing: .12em;
+  z-index: 2;
+}
+.ova-figura__hero--dark .badge { background: var(--info-soft); color: var(--c-info); border: 1px solid color-mix(in srgb, var(--c-info) 25%, transparent); }
+.ova-figura__caption { padding: 18px 22px 22px; }
+.ova-figura__caption strong { display: block; font-family: var(--font-display); font-size: 1rem; color: var(--text-head); margin-bottom: 4px; }
+.ova-figura__caption span { font-size: .88rem; color: var(--text-mut); }
+
+/* FIGURA PLANA · sin caja ni pie, centrada en su lienzo. Leyenda solo si el DI la declara. */
+.ova-figura--plana { background: none; border: 0; border-radius: 0; overflow: visible; width: 100%; text-align: center; margin-bottom: 28px; }
+.ova-figura--plana:hover { transform: none; box-shadow: none; }
+.ova-figura--plana .ova-figura__hero { height: auto; padding: 0; background: none; display: block; overflow: visible; }
+.ova-figura--plana .ova-figura__hero::before { content: none; }
+.ova-figura--plana img { display: block; max-width: 100%; max-height: none; height: auto; margin-inline: auto; }
+.ova-figura--plana .ova-figura__leyenda {
+  margin-top: 10px; padding: 10px 14px;
+  background: var(--bg-muted); border-left: 3px solid var(--c-acento);
+  font-size: .9rem; color: var(--text-mut); text-align: left;
+}
+.ova-figura--plana .ova-figura__leyenda b { font-family: var(--font-display); color: var(--text-head); }
+
+/* ANTES / DESPUÉS */
+.ova-beforeafter {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  user-select: none;
+  cursor: ew-resize;
+}
+.ova-beforeafter img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ova-beforeafter__after { clip-path: inset(0 0 0 50%); transition: clip-path .1s; }
+.ova-beforeafter__handle {
+  position: absolute; top: 0; bottom: 0;
+  left: 50%; width: 3px;
+  background: var(--c-acento);
+  box-shadow: 0 0 12px var(--c-acento);
+  transform: translateX(-50%);
+}
+.ova-beforeafter__handle::after {
+  content: '⟷';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--c-acento);
+  color: white;
+  display: grid; place-items: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.ova-beforeafter__label {
+  position: absolute; top: 14px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.ova-beforeafter__label--before { left: 14px; }
+.ova-beforeafter__label--after { right: 14px; }
+
+/* HOTSPOTS */
+.ova-hotspots { background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: var(--r-lg); padding: 16px; }
+.ova-hotspots__img { position: relative; border-radius: var(--r-md); overflow: hidden; }
+.ova-hotspots__img img { width: 100%; display: block; }
+.ova-hotspot { position: absolute; transform: translate(-50%, -50%); }
+.ova-hotspot__dot {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--grad-brand);
+  color: white;
+  display: grid; place-items: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--c-acento) 40%, transparent);
+}
+.ova-hotspot__pulse {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  background: var(--c-acento);
+  animation: ova-pulse 2s infinite;
+}
+@keyframes ova-pulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.ova-hotspot__tooltip {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-sidebar);
+  color: var(--sb-text);
+  padding: 12px 16px;
+  border-radius: var(--r-md);
+  font-size: .82rem;
+  width: 220px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
+  box-shadow: var(--shadow-lg);
+  z-index: 10;
+}
+.ova-hotspot__tooltip strong { display: block; color: var(--c-acento); margin-bottom: 4px; font-family: var(--font-display); }
+.ova-hotspot:hover .ova-hotspot__tooltip { opacity: 1; }
+
+/* QUIZ */
+.ova-quiz {
+  background: var(--bg-surface);
+  border-radius: var(--r-lg);
+  padding: clamp(28px, 4vw, 44px);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-c);
+  position: relative;
+  overflow: hidden;
+}
+.ova-quiz::before { content:''; position:absolute; top:0; left:0; right:0; height: 4px; background: var(--grad-brand); }
+.ova-quiz__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.ova-quiz__progress { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-mut); }
+.ova-quiz__bar { height: 6px; background: var(--bg-muted); border-radius: var(--r-pill); margin-bottom: 32px; overflow: hidden; }
+.ova-quiz__bar-fill { height: 100%; width: 33%; background: var(--grad-brand); border-radius: var(--r-pill); transition: width .4s; }
+.ova-quiz__question { font-family: var(--font-display); font-size: 1.4rem; color: var(--text-head); margin-bottom: 24px; line-height: 1.3; }
+.ova-quiz__opts { display: grid; gap: 12px; }
+.ova-quiz__opt {
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 22px;
+  border: 2px solid var(--border-c);
+  border-radius: var(--r-md);
+  background: var(--bg-muted);
+  cursor: pointer;
+  transition: all .2s;
+  font-size: 0.98rem;
+  color: var(--text-pri);
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
+}
+.ova-quiz__opt:hover { border-color: var(--c-acento); background: var(--bg-surface); transform: translateX(4px); }
+.ova-quiz__opt-letter {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: var(--bg-surface);
+  display: grid; place-items: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--text-mut);
+  border: 2px solid var(--border-c);
+  flex-shrink: 0;
+  transition: all .2s;
+}
+.ova-quiz__opt:hover .ova-quiz__opt-letter { border-color: var(--c-acento); color: var(--c-acento); }
+.ova-quiz__opt.is-correct { border-color: var(--success); background: color-mix(in srgb, var(--success) 8%, transparent); }
+.ova-quiz__opt.is-correct .ova-quiz__opt-letter { background: var(--success); color: white; border-color: var(--success); }
+.ova-quiz__opt.is-wrong { border-color: var(--danger); background: color-mix(in srgb, var(--danger) 6%, transparent); }
+.ova-quiz__opt.is-wrong .ova-quiz__opt-letter { background: var(--danger); color: white; border-color: var(--danger); }
+.ova-quiz__feedback {
+  margin-top: 20px;
+  padding: 16px 20px;
+  background: var(--bg-muted);
+  border-radius: var(--r-md);
+  font-size: 0.95rem;
+  color: var(--text-pri);
+  display: none;
+  border-left: 3px solid var(--success);
+}
+.ova-quiz__feedback.is-visible { display: block; }
+.ova-quiz__feedback.is-wrong { border-left-color: var(--danger); }
+
+/* CHECKLIST */
+.ova-checklist { background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: var(--r-lg); padding: 28px; }
+.ova-checklist__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.ova-checklist__count { font-family: var(--font-mono); font-size: .85rem; color: var(--text-mut); }
+.ova-checklist__count strong { color: var(--c-acento); }
+.ova-checklist__list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.ova-checklist__item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 16px;
+  border-radius: var(--r-md);
+  background: var(--bg-muted);
+  cursor: pointer;
+  transition: all .2s;
+}
+.ova-checklist__item:hover { background: var(--acento-soft); }
+.ova-checklist__box {
+  width: 24px; height: 24px;
+  border-radius: 6px;
+  background: var(--bg-surface);
+  border: 2px solid var(--border-c);
+  display: grid; place-items: center;
+  color: transparent;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.ova-checklist__item.is-done .ova-checklist__box { background: var(--success); border-color: var(--success); color: white; }
+.ova-checklist__item.is-done .ova-checklist__text { text-decoration: line-through; color: var(--text-mut); }
+
+/* DRAG & DROP (Clasificar): el banco arriba, a todo el ancho, y las categorías en cuadrícula debajo */
+.ova-dnd { display: grid; gap: 18px; }
+.ova-dnd__bank {
+  display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px;
+  background: var(--bg-surface); border: 2px dashed var(--border-c); border-radius: var(--r-md);
+  padding: 16px 20px; min-height: 64px;
+}
+.ova-dnd__bank-title { flex-basis: 100%; font-family: var(--font-display); font-weight: 600; color: var(--text-head); font-size: .9rem; }
+.ova-dnd__zones { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+.ova-dnd__zone { background: var(--bg-muted); border: 2px dashed var(--border-c); border-radius: var(--r-md); padding: 16px; min-height: 140px; }
+@media (max-width: 600px) { .ova-dnd__zone { min-height: 96px; } }
+.ova-dnd__zone.is-over { border-color: var(--c-acento); background: var(--acento-soft); }
+.ova-dnd__zone h4 { margin: 0 0 12px; font-family: var(--font-display); font-size: .95rem; color: var(--text-head); }
+.ova-dnd__items { display: flex; flex-direction: column; gap: 8px; }
+.ova-dnd__item {
+  padding: 10px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-c);
+  border-radius: var(--r-md);
+  cursor: grab;
+  font: inherit;
+  font-size: .9rem;
+  text-align: left;
+  color: var(--text-pri);
+}
+.ova-dnd__item.is-selected { border-color: var(--c-acento); background: var(--acento-soft); box-shadow: 0 0 0 2px var(--c-acento); }
+/* El título de la categoría es un botón (tocar y tocar); se ve como el título */
+.ova-dnd__target { display: inline-flex; align-items: center; gap: 6px; padding: 0; background: none; border: 0; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+.ova-dnd__zone { cursor: pointer; }
+.ova-dnd__item.is-dragging { opacity: 0.5; }
+.ova-dnd__item.is-correct { border-color: var(--success); background: color-mix(in srgb, var(--success) 8%, transparent); }
+.ova-dnd__item.is-wrong { border-color: var(--danger); background: color-mix(in srgb, var(--danger) 6%, transparent); }
+
+/* ORDENAR */
+.ova-actividad { background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: var(--r-lg); padding: 28px; }
+.ova-actividad__head { margin-bottom: 16px; }
+.ova-actividad__tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px;
+  background: var(--info-soft);
+  color: var(--c-info);
+  border-radius: var(--r-pill);
+  font-size: .72rem;
+  font-family: var(--font-mono);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.ova-orden { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.ova-orden__item {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 18px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-c);
+  border-radius: var(--r-md);
+  cursor: grab;
+}
+.ova-orden__item.is-dragging { opacity: 0.5; }
+.ova-orden__num {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  background: var(--grad-brand);
+  color: white;
+  display: grid; place-items: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: .8rem;
+}
+.ova-orden__grip { color: var(--text-mut); cursor: grab; font-size: 1.1rem; }
+/* Subir y bajar sin arrastrar: toque y teclado (KIT-007, D8) */
+.ova-orden__mover { display: flex; gap: 6px; }
+.ova-orden__btn {
+  width: 36px; height: 36px; display: grid; place-items: center;
+  background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 8px;
+  color: var(--text-head); font-size: 1.1rem; cursor: pointer;
+}
+.ova-orden__btn:hover:not(:disabled) { border-color: var(--c-acento); }
+.ova-orden__btn:disabled { opacity: .35; pointer-events: none; }  /* sin toque: el ajuste de toque no lo elige en vez del vecino */
+@media (max-width: 600px) { .ova-orden__item { grid-template-columns: 30px 1fr auto; gap: 10px; padding: 12px; } .ova-orden__mover { flex-direction: column; } }
+.ova-orden__btn:focus-visible, .ova-dnd__item:focus-visible, .ova-dnd__target:focus-visible { outline: 3px solid var(--c-acento); outline-offset: 2px; }
+/* Texto solo para el lector de pantalla */
+.ova-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+/* «Verificar orden» separado de su lista, sin style en línea (KIT-007, D15). ~: el aviso de posición va entre los dos */
+.ova-orden ~ [data-ova-orden-check] { margin-top: 14px; }
+.ova-orden__item.is-correct { border-color: var(--success); background: color-mix(in srgb, var(--success) 8%, transparent); }
+.ova-orden__item.is-wrong { border-color: var(--danger); background: color-mix(in srgb, var(--danger) 6%, transparent); }
+
+/* EMPAREJAR */
+/* Columnas desiguales: términos cortos a la izquierda, definiciones a la derecha, también en el celular */
+.ova-empar { display: grid; grid-template-columns: 2fr 3fr; gap: 32px; }
+@media (max-width: 600px) { .ova-empar { gap: 12px; } }
+.ova-empar__col { display: grid; gap: 10px; grid-auto-rows: 1fr; }   /* mismo número de ítems y misma altura: las filas de las dos columnas coinciden */
+.ova-empar__item {
+  padding: 14px 18px;
+  background: var(--bg-surface);
+  border: 2px solid var(--border-c);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  font: inherit;
+  font-size: .92rem;
+  text-align: left;
+  color: var(--text-pri);
+  transition: all .2s;
+}
+.ova-empar__item:hover { border-color: var(--c-acento); }
+.ova-empar__item.is-selected { border-color: var(--c-acento); background: var(--acento-soft); }
+.ova-empar__item.is-matched { border-color: var(--success); background: color-mix(in srgb, var(--success) 8%, transparent); cursor: default; opacity: 0.7; }
+.ova-empar__item.is-wrong { border-color: var(--danger); background: color-mix(in srgb, var(--danger) 6%, transparent); animation: ova-shake .3s; }
+@keyframes ova-shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+/* MODAL */
+.ova-modal {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(7,24,46,0.7);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+.ova-modal.is-open { display: flex; }
+.ova-modal__dialog {
+  background: var(--bg-surface);
+  border-radius: var(--r-lg);
+  max-width: 560px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: auto;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-c);
+}
+.ova-modal__head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--border-c);
+}
+.ova-modal__head h3 { margin: 0; }
+.ova-modal__close {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: var(--bg-muted);
+  border: none;
+  cursor: pointer;
+  display: grid; place-items: center;
+  color: var(--text-pri);
+}
+.ova-modal__body { padding: 28px; }
+.ova-modal__foot {
+  display: flex; gap: 12px; justify-content: flex-end;
+  padding: 20px 28px;
+  border-top: 1px solid var(--border-c);
+}
+
+/* DESCARGAS */
+.ova-descargas { display: grid; gap: 10px; }
+.ova-descarga {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 18px;
+  align-items: center;
+  padding: 18px 24px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-c);
+  border-radius: var(--r-md);
+  color: var(--text-head);
+  text-decoration: none;
+  transition: all .2s;
+}
+.ova-descarga:hover { border-color: var(--c-acento); transform: translateY(-2px); box-shadow: var(--shadow-md); color: var(--text-head); }
+.ova-descarga__ico {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  background: var(--acento-soft);
+  color: var(--c-acento);
+  display: grid; place-items: center;
+  font-size: 1.6rem;
+}
+.ova-descarga__info strong { display: block; font-family: var(--font-display); font-size: 1rem; }
+.ova-descarga__info span { font-size: .82rem; color: var(--text-mut); }
+.ova-descarga__action {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px;
+  background: var(--grad-brand);
+  color: white;
+  border-radius: var(--r-pill);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .82rem;
+  box-shadow: var(--glow-brand);
+}
+
+/* OUTLINE BTN */
+.ova-btn--outline {
+  background: transparent;
+  color: var(--c-acento);
+  border: 1.5px solid var(--c-acento);
+}
+.ova-btn--outline:hover { background: var(--acento-soft); color: var(--c-acento); }
+
+/* UTILITIES */
+.ova-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.ova-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+@media (max-width: 768px) { .ova-grid-2, .ova-grid-3 { grid-template-columns: 1fr; } }
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);
+}
+[data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+
+
+/* ============================================
+   TIMELINE HORIZONTAL (ova-timeline-h)
+   (migrado desde pantalla inline · OVA-001 D5)
+   ============================================ */
+  .ova-timeline-h{ position: relative; margin: 24px 0; }
+  .ova-timeline-h__track{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 12px;
+    padding: 4px;
+    position: relative;
+  }
+  .ova-timeline-h__track::before{
+    content: "";
+    position: absolute;
+    top: 32px;
+    left: 4%;
+    right: 4%;
+    height: 2px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--border-c) 0,
+      var(--border-c) 8px,
+      transparent 8px,
+      transparent 14px
+    );
+    z-index: 0;
+  }
+  .ova-step-card{
+    position: relative;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-c);
+    border-radius: var(--r-md);
+    padding: 14px 12px;
+    cursor: pointer;
+    text-align: center;
+    transition: all .2s ease;
+    z-index: 1;
+    font-family: inherit;
+    color: var(--text-pri);
+  }
+  .ova-step-card:hover{
+    transform: translateY(-3px);
+    border-color: var(--c-acento);
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--c-acento) 15%, transparent);
+  }
+  .ova-step-card.is-active{
+    border-color: var(--c-acento);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--c-acento) 10%, var(--bg-surface)) 0%, var(--bg-surface) 100%);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--c-acento) 18%, transparent);
+    transform: translateY(-2px);
+  }
+  .ova-step-card.is-active .ova-step-card__num{
+    background: var(--c-acento);
+    color: white;
+    border-color: transparent;
+  }
+  .ova-step-card__num{
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: var(--bg-muted);
+    color: var(--c-acento);
+    display: grid; place-items: center;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: .85rem;
+    margin: 0 auto 8px;
+    transition: all .2s;
+    border: 1px solid var(--border-c);
+  }
+  .ova-step-card__icon{
+    font-size: 1.5rem;
+    color: var(--c-acento);
+    margin-bottom: 6px;
+    display: block;
+  }
+  .ova-step-card__label{
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--text-head);
+    line-height: 1.2;
+  }
+
+  /* Mobile · scroll horizontal con snap */
+  @media (max-width: 720px){
+    .ova-timeline-h__track{
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 10px;
+      padding-bottom: 8px;
+      scrollbar-width: thin;
+    }
+    .ova-step-card{
+      min-width: 130px;
+      scroll-snap-align: start;
+      flex-shrink: 0;
+    }
+    .ova-timeline-h__track::before{ display: none; }
+  }
+
+  /* Detalle expandido */
+  .ova-step-detail{
+    margin-top: 20px;
+    background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-muted) 100%);
+    border: 1px solid var(--border-c);
+    border-radius: var(--r-md);
+    padding: 24px;
+    display: grid;
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .ova-step-detail.is-loading{ display: none; }
+  @keyframes wgFadeUp{
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .ova-step-detail__icon{
+    width: 84px; height: 84px;
+    border-radius: 22px;
+    background: var(--grad-brand);
+    color: white;
+    display: grid; place-items: center;
+    font-size: 2.2rem;
+    box-shadow: 0 10px 28px color-mix(in srgb, var(--c-acento) 30%, transparent);
+    flex-shrink: 0;
+  }
+  .ova-step-detail__body{ min-width: 0; }
+  .ova-step-detail__tag{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--c-acento);
+    background: color-mix(in srgb, var(--c-acento) 12%, transparent);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .ova-step-detail__title{
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    color: var(--text-head);
+    margin: 0 0 10px;
+    line-height: 1.3;
+  }
+  .ova-step-detail__desc{
+    color: var(--text-pri);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0 0 14px;
+  }
+  .ova-step-detail__tip{
+    display: flex; gap: 10px;
+    padding: 12px 14px;
+    background: color-mix(in srgb, var(--c-info) 10%, var(--bg-surface));
+    border-left: 3px solid var(--c-info);
+    border-radius: 8px;
+    font-size: .9rem;
+    color: var(--text-pri);
+    margin-bottom: 14px;
+  }
+  .ova-step-detail__tip iconify-icon{
+    color: var(--c-info);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .ova-step-detail__nav{
+    display: flex; gap: 8px; align-items: center;
+    color: var(--text-mut);
+    font-size: .85rem;
+  }
+  .ova-step-detail__btn{
+    border: 1px solid var(--border-c);
+    background: var(--bg-surface);
+    border-radius: 8px;
+    padding: 7px 12px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .85rem;
+    color: var(--text-head);
+    font-weight: 500;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: all .15s;
+  }
+  .ova-step-detail__btn:hover{ background: var(--bg-muted); }
+  .ova-step-detail__btn:disabled{ opacity: .4; cursor: not-allowed; }
+  .ova-step-detail__btn--primary{
+    background: var(--c-acento);
+    color: white;
+    border-color: transparent;
+  }
+  .ova-step-detail__btn--primary:hover{
+    background: color-mix(in srgb, var(--c-acento) 85%, #000);
+  }
+  .ova-step-detail__progress{
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: .8rem;
+  }
+  @media (max-width: 720px){
+    .ova-step-detail{ grid-template-columns: 1fr; gap: 16px; padding: 18px; }
+    .ova-step-detail__icon{ width: 64px; height: 64px; font-size: 1.8rem; }
+  }
+
+
+/* ============================================
+   QUIZ SINGLE-PAGE DE EVALUACION (ova-evalquiz)
+   (migrado desde pantalla inline · OVA-001 D5)
+   ============================================ */
+  .ova-evalquiz{
+    position: relative;
+    margin-top: 8px;
+    padding-bottom: 100px; /* espacio para nav inferior fija */
+  }
+
+  /* Barra de progreso */
+  .ova-evalquiz__head{
+    position: sticky;
+    top: var(--topbar-h, 64px);
+    z-index: 30;
+    background: var(--bg-app);
+    padding: 16px 0 12px;
+    border-bottom: 1px solid var(--border-c);
+    margin: 0 -4px 24px;
+  }
+  .ova-evalquiz__progress-bar{
+    height: 6px;
+    background: var(--bg-muted);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .ova-evalquiz__progress-fill{
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--c-acento), color-mix(in srgb, var(--c-acento) 60%, var(--c-info)));
+    border-radius: 999px;
+    transition: width .35s cubic-bezier(.4,0,.2,1);
+  }
+  .ova-evalquiz__meta{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .ova-evalquiz__counter{ color: var(--text-mut); font-weight: 600; }
+  .ova-evalquiz__section{
+    color: var(--c-acento);
+    font-weight: 600;
+    margin-left: auto;
+    text-align: right;
+  }
+
+  /* Slides */
+  .ova-evalquiz__slide{
+    display: none;
+    animation: wgQuizFadeIn .35s ease-out;
+  }
+  .ova-evalquiz__slide.is-active{ display: block; }
+  @keyframes wgQuizFadeIn{
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .ova-evalquiz__chip{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* Nav inferior · fijo abajo */
+  .ova-evalquiz__nav{
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 40;
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-c);
+    border-radius: 999px;
+    box-shadow: 0 10px 32px rgba(0,0,0,.12);
+  }
+  .ova-evalquiz__btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    color: var(--text-head);
+    font-family: inherit;
+    font-size: .92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .18s;
+  }
+  .ova-evalquiz__btn:hover{ background: var(--bg-muted); }
+  .ova-evalquiz__btn:disabled{
+    opacity: .35;
+    cursor: not-allowed;
+  }
+  .ova-evalquiz__btn:disabled:hover{ background: transparent; }
+  .ova-evalquiz__btn--primary{
+    background: var(--c-acento);
+    color: white;
+  }
+  .ova-evalquiz__btn--primary:hover{
+    background: color-mix(in srgb, var(--c-acento) 85%, #000);
+  }
+
+  /* Sección del header se tinta según color */
+  .ova-evalquiz[data-color="acento"]  .ova-evalquiz__section{ color: var(--c-acento); }
+  .ova-evalquiz[data-color="info"]    .ova-evalquiz__section{ color: var(--c-info); }
+  .ova-evalquiz[data-color="success"] .ova-evalquiz__section{ color: var(--success); }
+  .ova-evalquiz[data-color="warning"] .ova-evalquiz__section{ color: var(--warning); }
+  .ova-evalquiz[data-color="acento"]  .ova-evalquiz__progress-fill{
+    background: linear-gradient(90deg, var(--c-acento), color-mix(in srgb, var(--c-acento) 60%, white));
+  }
+  .ova-evalquiz[data-color="info"]    .ova-evalquiz__progress-fill{
+    background: linear-gradient(90deg, var(--c-info), color-mix(in srgb, var(--c-info) 60%, white));
+  }
+  .ova-evalquiz[data-color="success"] .ova-evalquiz__progress-fill{
+    background: linear-gradient(90deg, var(--success), color-mix(in srgb, var(--success) 60%, white));
+  }
+  .ova-evalquiz[data-color="warning"] .ova-evalquiz__progress-fill{
+    background: linear-gradient(90deg, var(--warning), color-mix(in srgb, var(--warning) 60%, white));
+  }
+
+  @media (max-width: 720px){
+    .ova-evalquiz__nav{
+      left: 12px; right: 12px;
+      bottom: 12px;
+      transform: none;
+      justify-content: space-between;
+    }
+    .ova-evalquiz__btn{ flex: 1; justify-content: center; padding: 12px 16px; }
+  }
+
+/* ============================================
+   PORTADA FULL-BLEED (course.portadaFullBleed)
+   Multipagina: el molde portada-full pone la clase en <body>.
+   SPA: core.js la pone/quita al montar la pantalla.
+   ============================================ */
+body.ova-portada-full .ova-app{ display:block; }
+body.ova-portada-full .ova-sidebar,
+body.ova-portada-full .ova-burger,
+body.ova-portada-full .ova-sidebar__toggle{ display:none !important; }
+body.ova-portada-full .ova-main{ width:100%; max-width:none; margin:0; padding:0; }
+
+/* ============================================
+   WG-INFOGRAFIA · paneles visuales estilo "explicar simple"
+   (icono protagonista + numero + rotulo literal del DI)
+   Modificador --escalera: pasos escalonados (jerarquias)
+   (OVA-002 A2)
+   ============================================ */
+  .ova-infografia{ display:grid; gap:14px; margin-top:36px; }
+  .ova-infografia__paso{
+  --tinte: var(--c-acento); /* fallback: sin tinte declarado, toma el acento */
+    display:grid; grid-template-columns:auto auto 1fr; align-items:center; gap:clamp(16px,3vw,30px);
+    padding:clamp(18px,2.6vw,28px) clamp(20px,3vw,34px);
+    background:var(--bg-surface); border:1px solid var(--border-c); border-radius:var(--r-lg);
+    position:relative; overflow:hidden;
+  }
+  /* escalera (opt-in): cada paso es mas angosto (la opcion menos preferible es la ultima barrera) */
+  .ova-infografia--escalera .ova-infografia__paso:nth-child(1){ width:100%; }
+  .ova-infografia--escalera .ova-infografia__paso:nth-child(2){ width:92%; }
+  .ova-infografia--escalera .ova-infografia__paso:nth-child(3){ width:84%; }
+  .ova-infografia--escalera .ova-infografia__paso:nth-child(4){ width:76%; }
+  .ova-infografia--escalera .ova-infografia__paso:nth-child(5){ width:68%; }
+.ova-infografia--escalera .ova-infografia__paso:nth-child(6){ width:60%; }
+.ova-infografia__paso > div{ min-width:0; overflow-wrap:break-word; }
+@media (max-width: 720px){
+  /* en pantallas angostas la escalera colapsa a ancho completo (evita recorte de texto) */
+  .ova-infografia--escalera .ova-infografia__paso:nth-child(n){ width:100%; }
+}
+  .ova-infografia__num{
+    font-family:var(--font-mono); font-weight:600; font-size:clamp(2rem,4vw,3rem);
+    color:color-mix(in srgb, var(--tinte) 30%, transparent); line-height:1;
+  }
+  .ova-infografia__icono{
+    width:clamp(64px,8vw,92px); height:clamp(64px,8vw,92px); border-radius:22px;
+    display:grid; place-items:center; flex-shrink:0;
+    background:color-mix(in srgb, var(--tinte) 14%, var(--bg-surface));
+    border:1px solid color-mix(in srgb, var(--tinte) 36%, transparent);
+  }
+  .ova-infografia__icono iconify-icon{ font-size:clamp(2.2rem,4.4vw,3.2rem); color:var(--tinte); }
+  .ova-infografia__label{
+    font-family:var(--font-display); font-weight:800; letter-spacing:-.01em;
+    font-size:clamp(1.2rem,2.6vw,1.7rem); color:var(--text-head); margin:0 0 4px;
+  }
+  .ova-infografia__desc{ margin:0; color:var(--text-mut); font-size:.95rem; line-height:1.5; max-width:520px; }
+  .ova-infografia__paso::after{
+    content:''; position:absolute; inset:0 auto 0 0; width:5px; background:var(--tinte);
+  }
+
+
+/* =========================================================
+   GLOSARIO GENERADO · {{GLOSARIO}} en build.js
+   Índice alfabético + secciones por letra. Sin icono por término.
+   ========================================================= */
+.ova-glosario__indice{ margin-top:24px; display:flex; gap:8px; flex-wrap:wrap; }
+.ova-glosario-letra{
+  display:inline-grid; place-items:center;
+  width:36px; height:36px; border-radius:10px;
+  background:var(--bg-surface); border:1px solid var(--border-c);
+  text-decoration:none; color:var(--text-pri);
+  font-family:var(--font-display); font-weight:700; font-size:.92rem;
+  transition:background .18s, color .18s, transform .18s;
+}
+.ova-glosario-letra:hover{ background:var(--c-acento); color:#fff; transform:translateY(-2px); }
+.ova-glosario{ margin-top:32px; display:grid; gap:32px; }
+.ova-glosario__seccion{ scroll-margin-top:80px; }
+.ova-glosario__letra-titulo{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:52px; height:52px; border-radius:14px;
+  background:var(--grad-brand); color:#fff;
+  font-family:var(--font-display); font-weight:800; font-size:1.5rem;
+  box-shadow:0 8px 20px color-mix(in srgb, var(--c-acento) 25%, transparent);
+  margin-bottom:14px;
+}
+.ova-glosario__items{ display:grid; gap:14px; }
+.ova-glosario__item{
+  padding:22px 24px;
+  background:var(--bg-surface); border:1px solid var(--border-c);
+  border-radius:var(--r-md);
+  transition:border-color .18s, transform .18s, box-shadow .18s;
+}
+.ova-glosario__item:hover{
+  border-color:color-mix(in srgb, var(--c-acento) 40%, var(--border-c));
+  transform:translateY(-2px); box-shadow:0 12px 28px rgba(0,0,0,.06);
+}
+.ova-glosario__item h3{ margin:0 0 8px; font-size:1.1rem; color:var(--text-head); }
+.ova-glosario__item p{ margin:0; color:var(--text-pri); line-height:1.55; }
+
+
+/* =========================================================
+   MENÚ · SECCIONES DE UN TEMA (nivel 2)
+   Indentadas bajo su tema, con el 1.1, 1.2… que calcula el build.
+   ========================================================= */
+.ova-sidebar__menu-item[data-nivel="2"]{
+  margin-left:29px;
+  border-left:2px solid rgba(255,255,255,.16);
+  border-radius:0 var(--r-sm) var(--r-sm) 0;
+}
+.ova-sidebar__menu-item[data-nivel="2"]::after{ display:none; }
+.ova-sidebar__menu-item[data-nivel="2"] .title{ font-size:.92em; opacity:.82; }
+.ova-sidebar__menu-item .num--sub{
+  background:none; box-shadow:none; color:inherit; opacity:.6;
+  font-size:.78em; letter-spacing:.02em; min-width:0; width:auto; height:auto;
+}
+[data-version="clara"] .ova-sidebar__menu-item[data-nivel="2"]{ border-left-color:rgba(0,0,0,.14); }
+[data-sidebar-collapsed="true"] .ova-sidebar__menu-item[data-nivel="2"]{ display:none !important; }
+
+/* =========================================================
+   SECCIÓN DENTRO DE UN TEMA · .ova-seccion (ancla = id)
+   El número (data-num) lo pone core.js desde el config.
+   ========================================================= */
+.ova-seccion{ margin-top:56px; scroll-margin-top:calc(var(--topbar-h, 72px) + 18px); }
+.ova-seccion__titulo{
+  margin:0 0 12px; font-family:var(--font-display); font-weight:800;
+  font-size:clamp(1.45rem, 2.6vw, 1.9rem); line-height:1.2; color:var(--text-head);
+  letter-spacing:-.01em;
+}
+.ova-seccion__titulo[data-num]::before{
+  content:attr(data-num); display:inline-block; margin-right:12px;
+  font-family:var(--font-mono); font-weight:600; font-size:.62em; letter-spacing:.06em;
+  color:var(--c-acento); vertical-align:middle; transform:translateY(-2px);
+}
+.ova-seccion__lead{ margin:0 0 20px; font-size:1.06rem; line-height:1.65; color:var(--text-pri); max-width:68ch; }
+
+
+/* =========================================================
+   EVALUACIÓN ESTÁNDAR · cuerpo alineado a la izquierda, tema como eyebrow
+   dentro de cada actividad, retroalimentación con etiqueta y la franja
+   inferior (anterior · progreso · contador · siguiente) en el flujo.
+   Sin cabecera superior: partía la pregunta en dos.
+   ========================================================= */
+.ova-eval__cuerpo{ text-align:left; }   /* sin tope: la columna de lectura (2026-10-26) */
+.ova-eval__cuerpo h2{ margin:0 0 14px; }
+.ova-eval__lead{ font-size:1.12rem; line-height:1.6; color:var(--text-pri); margin:0 0 22px; }
+.ova-eval__datos{ display:flex; gap:14px; flex-wrap:wrap; margin:0 0 26px; }
+.ova-eval__dato{
+  flex:1 1 150px; background:var(--bg-surface); border:1px solid var(--border-c);
+  border-radius:var(--r-md); padding:16px 18px; display:grid; gap:4px; align-content:start;
+}
+.ova-eval__dato .v{ font-family:var(--font-display); font-weight:800; font-size:1.7rem; color:var(--c-acento); line-height:1; }
+.ova-eval__dato .l{ font-size:.85rem; color:var(--text-mut); line-height:1.35; }
+.ova-eval__tema{
+  display:block; font-family:var(--font-mono); font-size:.68rem; letter-spacing:.16em;
+  text-transform:uppercase; font-weight:600; color:var(--c-acento); margin:0 0 10px;
+}
+.ova-eval__contexto{ margin:0 0 14px; color:var(--text-pri); line-height:1.6; }
+.ova-eval__instruccion{ color:var(--text-mut); margin:0 0 18px; }
+.ova-eval__ayuda{ margin:14px 0 0; font-size:.85rem; color:var(--text-mut); }
+.ova-eval__cuerpo .ova-quiz__question{ font-size:1.12rem; font-weight:600; color:var(--text-head); margin:0 0 18px; }
+.ova-eval__cuerpo .ova-quiz{ padding-top:22px; }
+.ova-evalquiz .ova-quiz__feedback{
+  text-align:left; margin-top:28px; padding:18px 22px 20px;
+  background:color-mix(in srgb, var(--success) 9%, var(--bg-surface)); border-left-width:4px;
+}
+.ova-evalquiz .ova-quiz__feedback::before{
+  content:'Retroalimentación'; display:block;
+  font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; font-weight:700;
+  color:var(--success); margin-bottom:10px;
+}
+.ova-evalquiz .ova-quiz__feedback.is-wrong{ background:color-mix(in srgb, var(--danger) 8%, var(--bg-surface)); }
+.ova-evalquiz .ova-quiz__feedback.is-wrong::before{ color:var(--danger); }
+.ova-evalquiz__nav{
+  position:static; transform:none; width:100%; max-width:74ch;
+  margin:20px 0 0; align-items:center; gap:18px; padding:10px 10px 10px 20px;
+}
+.ova-evalquiz__nav .ova-evalquiz__progress-bar{ flex:1; height:6px; margin-bottom:0; min-width:80px; }
+.ova-evalquiz__nav .ova-evalquiz__counter{
+  white-space:nowrap; font-family:var(--font-mono); font-size:.72rem;
+  letter-spacing:.12em; text-transform:uppercase; font-weight:600;
+}
+.ova-evalquiz__btn--prev{ padding:12px 14px; }
+@media (max-width:720px){
+  .ova-evalquiz__nav{ gap:12px; padding-left:14px; }
+  .ova-evalquiz__nav .ova-evalquiz__progress-bar{ min-width:48px; }
+  .ova-evalquiz__nav .ova-evalquiz__btn{ flex:0 0 auto; }
+}
+/* Contador corto en el celular: «3 / 6» a la vista, la frase completa para el lector (KIT-007, D10) */
+.ova-evalquiz__counter-corto{ display:none; }
+@media (max-width:480px){
+  .ova-evalquiz__nav{ gap:10px; padding-left:10px; }
+  .ova-evalquiz__nav .ova-evalquiz__progress-bar{ min-width:32px; }
+  .ova-evalquiz__counter-largo{ position:absolute; width:1px; height:1px; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+  .ova-evalquiz__counter-corto{ display:inline; }
+}
+
+/* =========================================================
+   VIDEO LOCAL · reemplazo del iframe de YouTube cuando el curso
+   se abre desde el disco (file://). Ver setupVideoLocal en core.js.
+   ========================================================= */
+.ova-video__local{
+  position:absolute; inset:0; display:block; background:#000; color:#fff;
+  text-decoration:none; overflow:hidden;
+}
+.ova-video__local img{ width:100%; height:100%; object-fit:cover; display:block; opacity:.85; transition:opacity .2s ease; }
+.ova-video__local:hover img{ opacity:1; }
+.ova-video__local-play{
+  position:absolute; left:50%; top:50%; width:68px; height:48px; transform:translate(-50%,-50%);
+  border-radius:12px; background:rgba(0,0,0,.72);
+}
+.ova-video__local-play::after{
+  content:""; position:absolute; left:50%; top:50%; transform:translate(-40%,-50%);
+  border-style:solid; border-width:10px 0 10px 18px; border-color:transparent transparent transparent #fff;
+}
+.ova-video__local:hover .ova-video__local-play{ background:#f00; }
+.ova-video__local-nota{
+  position:absolute; left:0; right:0; bottom:0; padding:10px 14px;
+  font-size:.78rem; line-height:1.35; background:linear-gradient(transparent, rgba(0,0,0,.75));
+}
+
+/* =========================================================
+   HUECO DE LA MAQUETA VACÍA · [data-ova-hueco="qué va aquí"]
+   Texto o pieza del curso que falta llenar desde el DI. Recuadro
+   punteado con el rótulo del atributo; toma el color del texto que
+   lo rodea, así se lee sobre fondo claro u oscuro. verificar-di.py
+   no lo cuenta como contenido y la entrega final lo bloquea.
+   ========================================================= */
+[data-ova-hueco]{
+  border:2px dashed color-mix(in srgb, currentColor 45%, transparent);
+  border-radius:var(--r-sm);
+  background:color-mix(in srgb, currentColor 6%, transparent);
+  padding:.5em .75em; min-height:2.6em;
+}
+[data-ova-hueco]::before{
+  content:"Hueco · " attr(data-ova-hueco);
+  display:block; margin-bottom:.25em;
+  font-family:var(--font-body); font-size:.78rem; font-weight:600; line-height:1.4;
+  letter-spacing:.02em; text-transform:none; opacity:.75;
+}
+:is(span, a, strong, em, b, i)[data-ova-hueco]{ display:inline-block; min-height:0; padding:.1em .5em; }
+:is(span, a, strong, em, b, i)[data-ova-hueco]::before{ display:inline; margin:0 .4em 0 0; }
+
+/* @catalogo-variantes ======================================
+   VARIANTES DE PIEZAS DEL MOTOR que usa el catálogo (KIT-001,
+   choques.md §2). Cada selector lleva su modificador o un elemento
+   nuevo: quien no lo escriba en su HTML no ve ningún cambio. La
+   estructura vive aquí; la piel da el color con estas variables:
+     --ova-realce  número o paso activo, hilo     (def. --c-info)
+     --ova-ficha   fichas claras, operación       (def. --bg-muted)
+     --ova-franja  franja de situación, hover     (def. --bg-muted)
+     --ova-hondo   hover de las flechas           (def. --acento-deep)
+   El catálogo y las pieles pueden afinar estas clases (no son
+   reservadas: scripts/catalogo.js salta esta sección).
+   ========================================================= */
+
+/* Pestañas · píldoras: barra gris y la activa como píldora blanca, aunque la piel cambie la base */
+.ova-tabs.ova-tabs--pildoras { padding: 0; overflow: hidden; }
+.ova-tabs.ova-tabs--pildoras .ova-tabs__nav { background: var(--bg-muted); border-bottom: 1px solid var(--border-c); padding: 6px; gap: 4px; }
+.ova-tabs.ova-tabs--pildoras .ova-tabs__btn { margin: 0; padding: 10px 16px; border-radius: var(--r-md); font-weight: 600; color: var(--text-mut); }
+.ova-tabs.ova-tabs--pildoras .ova-tabs__btn::before,
+.ova-tabs.ova-tabs--pildoras .ova-tabs__btn::after { display: none; }
+.ova-tabs.ova-tabs--pildoras .ova-tabs__btn iconify-icon { font-size: 1.15rem; }
+.ova-tabs.ova-tabs--pildoras .ova-tabs__btn:not(.is-active):hover { color: var(--c-acento); background: color-mix(in srgb, var(--bg-surface) 65%, transparent); box-shadow: none; }
+.ova-tabs.ova-tabs--pildoras .ova-tabs__btn.is-active { background: var(--bg-surface); color: var(--c-acento); box-shadow: var(--shadow-sm); }
+.ova-tabs.ova-tabs--pildoras .ova-tabs__panel { padding: 26px 28px 28px; }
+@media (max-width: 720px) { .ova-tabs.ova-tabs--pildoras .ova-tabs__panel { padding: 20px 18px; } }
+
+/* Pestañas · panel con texto e imagen al lado (en cualquier variante) */
+.ova-tabs__media { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+.ova-tabs__media > :first-child > h4:first-child { margin-top: 0; }
+@media (max-width: 720px) { .ova-tabs__media { grid-template-columns: 1fr; } }
+
+/* Pestañas · verticales: columna de fichas a la izquierda y el panel como tarjeta aparte;
+   la activa, en acento con una punta hacia el panel. En móvil, fichas en fila. */
+.ova-tabs.ova-tabs--vertical {
+  display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 18px; align-items: start;
+  background: none; border: 0; border-radius: 0; padding: 0; overflow: visible;
+}
+.ova-tabs.ova-tabs--vertical .ova-tabs__nav {
+  flex-direction: column; overflow: visible; gap: 10px; padding: 0;
+  background: none; border: 0;
+}
+.ova-tabs.ova-tabs--vertical .ova-tabs__btn {
+  flex: none; position: relative; width: 100%; margin: 0;
+  justify-content: flex-start; text-align: left;
+  padding: 14px 18px; border-radius: 12px;
+  background: var(--ova-ficha, var(--bg-muted)); border: 1px solid var(--border-c);
+  color: var(--text-head); font-weight: 600; font-size: .95rem; line-height: 1.35; white-space: normal;
+  transition: background-color .2s, border-color .2s, color .2s, transform .2s;
+}
+.ova-tabs.ova-tabs--vertical .ova-tabs__btn::before { display: none; }
+.ova-tabs.ova-tabs--vertical .ova-tabs__btn::after {
+  content: ''; position: absolute; display: block; left: auto; right: -9px; top: 50%; bottom: auto; width: 0; height: 0; transform: translateY(-50%);
+  border: 9px solid transparent; border-left-color: var(--c-acento); border-right: 0; opacity: 0; transition: opacity .2s;
+}
+.ova-tabs.ova-tabs--vertical .ova-tabs__btn:not(.is-active):hover {
+  background: var(--ova-franja, var(--bg-muted)); border-color: color-mix(in srgb, var(--c-acento) 45%, var(--border-c));
+  color: var(--c-acento); box-shadow: none; transform: translateX(3px);
+}
+.ova-tabs.ova-tabs--vertical .ova-tabs__btn.is-active {
+  background: var(--c-acento); border-color: var(--c-acento); color: #FFFFFF; font-weight: 700; box-shadow: var(--shadow-sm);
+}
+.ova-tabs.ova-tabs--vertical .ova-tabs__btn.is-active::after { opacity: 1; }
+.ova-tabs.ova-tabs--vertical .ova-tabs__panels {
+  background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: var(--r-lg); min-height: 100%;
+}
+.ova-tabs.ova-tabs--vertical .ova-tabs__panel { padding: 26px 30px 28px; }
+@media (max-width: 720px) {
+  .ova-tabs.ova-tabs--vertical { grid-template-columns: 1fr; gap: 14px; }
+  .ova-tabs.ova-tabs--vertical .ova-tabs__nav { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .ova-tabs.ova-tabs--vertical .ova-tabs__btn { width: auto; flex: 0 1 auto; padding: 10px 14px; font-size: .9rem; }
+  .ova-tabs.ova-tabs--vertical .ova-tabs__btn::after { display: none; }
+  .ova-tabs.ova-tabs--vertical .ova-tabs__btn:not(.is-active):hover { transform: none; }
+  .ova-tabs.ova-tabs--vertical .ova-tabs__panel { padding: 22px 20px; }
+}
+
+/* Pestañas · slider de pasos: una tarjeta con la situación (opcional) arriba, los círculos
+   numerados unidos por una línea (los recorridos, .is-hecho, en acento; el actual en realce),
+   el panel y al pie la cuenta y las flechas. Flechas, cuenta e .is-hecho los pone catalogo.js. */
+.ova-tabs.ova-tabs--pasos {
+  position: relative; background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: var(--r-lg);
+  box-shadow: 0 22px 44px -30px color-mix(in srgb, var(--c-deep) 38%, transparent); padding: 0; overflow: hidden;
+}
+.ova-tabs--pasos .ova-tabs__situacion {
+  margin: 0; padding: 18px 32px; background: var(--ova-franja, var(--bg-muted)); border-bottom: 1px solid var(--border-c); color: var(--text-head);
+}
+.ova-tabs--pasos .ova-tabs__situacion strong { color: var(--c-acento); }
+.ova-tabs--pasos .ova-tabs__marco { padding: 30px 32px 22px; }
+.ova-tabs.ova-tabs--pasos .ova-tabs__nav { border: 0; padding: 0; gap: 0; overflow: visible; background: none; align-items: flex-start; }
+.ova-tabs.ova-tabs--pasos .ova-tabs__btn {
+  flex: 1; flex-direction: column; justify-content: flex-start; gap: 10px; position: relative; margin: 0; padding: 0 6px;
+  background: none; box-shadow: none; white-space: normal; font-size: .9rem; color: var(--text-mut); transition: color .2s;
+}
+.ova-tabs.ova-tabs--pasos .ova-tabs__btn:hover { color: var(--text-head); background: none; }
+.ova-tabs.ova-tabs--pasos .ova-tabs__btn::before,
+.ova-tabs.ova-tabs--pasos .ova-tabs__btn::after,
+.ova-tabs.ova-tabs--pasos .ova-tabs__btn.is-active::after { display: none; }
+.ova-tabs.ova-tabs--pasos .ova-tabs__btn + .ova-tabs__btn::before {
+  display: block; content: ''; position: absolute; top: 19px; bottom: auto; left: auto;
+  right: calc(50% + 26px); width: calc(100% - 52px); height: 3px; border-radius: 2px; background: var(--border-c); transition: background .3s;
+}
+.ova-tabs.ova-tabs--pasos .ova-tabs__btn.is-hecho + .ova-tabs__btn::before { background: var(--c-acento); }
+.ova-tabs--pasos .ova-tabs__num {
+  display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+  border: 2px solid var(--border-c); background: var(--bg-surface); color: var(--text-head);
+  font-family: var(--font-display); font-weight: 700; transition: background .2s, border-color .2s, box-shadow .2s;
+}
+.ova-tabs--pasos .ova-tabs__btn:hover .ova-tabs__num { border-color: var(--c-acento); }
+.ova-tabs--pasos .ova-tabs__btn.is-hecho .ova-tabs__num { background: var(--c-acento); border-color: var(--c-acento); color: #fff; }
+.ova-tabs.ova-tabs--pasos .ova-tabs__btn.is-active { color: var(--text-head); font-weight: 700; box-shadow: none; }
+.ova-tabs--pasos .ova-tabs__btn.is-active .ova-tabs__num {
+  background: var(--ova-realce, var(--c-info)); border-color: var(--ova-realce, var(--c-info)); color: var(--c-deep);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--ova-realce, var(--c-info)) 24%, transparent);
+}
+.ova-tabs.ova-tabs--pasos .ova-tabs__panels { margin-top: 26px; padding-top: 26px; border-top: 1px solid var(--border-c); }
+.ova-tabs.ova-tabs--pasos .ova-tabs__panel { padding: 0; }
+.ova-tabs.ova-tabs--pasos .ova-tabs__panel h4 { margin: 0 0 10px; font-size: 1.2rem; }
+.ova-tabs--pasos .ova-tabs__media { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px; }
+.ova-tabs--pasos .ova-tabs__operacion {
+  display: inline-block; margin: 6px 0 0; padding: 10px 20px; border-radius: 12px;
+  background: var(--ova-ficha, var(--bg-muted)); border-left: 4px solid var(--ova-realce, var(--c-info));
+  font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--c-acento); letter-spacing: .01em;
+}
+.ova-tabs--pasos .ova-tabs__figura { margin: 0; }
+.ova-tabs--pasos .ova-tabs__figura img { display: block; width: 100%; height: auto; border-radius: 14px; }
+.ova-tabs--pasos .ova-tabs__pie {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-c);
+}
+.ova-tabs--pasos .ova-tabs__cuenta { font-size: .9rem; font-weight: 600; color: var(--text-mut); }
+.ova-tabs--pasos .ova-tabs__flechas { display: flex; gap: 10px; }
+.ova-tabs--pasos .ova-tabs__flecha {
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; cursor: pointer;
+  border: 1.5px solid var(--c-acento); background: var(--bg-surface); color: var(--c-acento); font-size: 1.25rem;
+  transition: background .2s, color .2s, transform .2s;
+}
+.ova-tabs--pasos .ova-tabs__flecha[data-ova-paso="1"] { background: var(--c-acento); color: #fff; }
+.ova-tabs--pasos .ova-tabs__flecha:hover:not(:disabled) {
+  transform: translateY(-1px); background: var(--ova-hondo, var(--acento-deep)); border-color: var(--ova-hondo, var(--acento-deep)); color: #fff;
+}
+.ova-tabs--pasos .ova-tabs__flecha:focus-visible { outline: 3px solid var(--ova-realce, var(--c-info)); outline-offset: 2px; }
+.ova-tabs--pasos .ova-tabs__flecha:disabled { opacity: .3; cursor: default; }
+@media (max-width: 720px) {
+  .ova-tabs--pasos .ova-tabs__situacion { padding: 16px 18px; }
+  .ova-tabs--pasos .ova-tabs__marco { padding: 22px 18px 18px; }
+  .ova-tabs.ova-tabs--pasos .ova-tabs__btn > span:last-child { display: none; }
+  .ova-tabs--pasos .ova-tabs__media { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .ova-tabs--pasos .ova-tabs__operacion { font-size: 1.2rem; }
+}
+
+/* Stepper · listado de pasos vertical: círculos claros con borde de realce unidos por un hilo
+   que va de un círculo al siguiente; tarjetas compactas. Sin ova-step__tag. */
+.ova-stepper.ova-stepper--lista::before { display: none; }
+.ova-stepper--lista .ova-step:not(:last-child)::before {
+  content: ''; position: absolute; left: 23px; top: 38px; bottom: -52px; width: 2px; border-radius: 2px;
+  background: linear-gradient(180deg, var(--ova-realce, var(--c-info)), var(--c-acento));
+}
+.ova-stepper--lista .ova-step { grid-template-columns: 48px minmax(0, 1fr); gap: 22px; margin-bottom: 14px; }
+.ova-stepper--lista .ova-step:last-child { margin-bottom: 0; }
+.ova-stepper--lista .ova-step__num {
+  width: 48px; height: 48px; margin-top: 14px; border-radius: 50%;
+  background: var(--bg-surface); border: 2px solid var(--ova-realce, var(--c-info));
+  font-size: 1rem; font-weight: 800;
+  box-shadow: 0 0 0 6px var(--bg-app); transition: background .25s, border-color .25s;
+}
+.ova-stepper--lista .ova-step__num span {
+  background: none; color: var(--c-acento); -webkit-text-fill-color: var(--c-acento); transition: color .25s;
+}
+.ova-stepper--lista .ova-step:hover .ova-step__num { background: var(--c-acento); border-color: var(--c-acento); }
+.ova-stepper--lista .ova-step:hover .ova-step__num span { color: #fff; -webkit-text-fill-color: #fff; }
+.ova-stepper--lista .ova-step__card {
+  padding: 22px 28px; border-radius: var(--r-lg); border: 1px solid var(--border-c);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--c-deep) 4%, transparent);
+}
+.ova-stepper--lista .ova-step:hover .ova-step__card {
+  transform: translateX(3px); border-color: color-mix(in srgb, var(--ova-realce, var(--c-info)) 55%, var(--border-c));
+  box-shadow: 0 16px 32px -22px color-mix(in srgb, var(--c-deep) 35%, transparent);
+}
+.ova-stepper--lista .ova-step__card h3 { margin: 0 0 6px; font-size: 1.15rem; line-height: 1.35; }
+.ova-stepper--lista .ova-step__card p { margin: 0; }
+@media (max-width: 720px) {
+  .ova-stepper--lista .ova-step:not(:last-child)::before { left: 19px; top: 32px; bottom: -46px; }
+  .ova-stepper--lista .ova-step { grid-template-columns: 40px minmax(0, 1fr); gap: 14px; }
+  .ova-stepper--lista .ova-step__num { width: 40px; height: 40px; margin-top: 12px; font-size: .9rem; box-shadow: 0 0 0 4px var(--bg-app); }
+  .ova-stepper--lista .ova-step__card { padding: 18px 18px; }
+}
+
+/* Acordeón · numerado: el número (ova-acordeon__num) en una caja aparte a la izquierda, unidas
+   por una línea punteada; cerrados, franjas grises; el abierto, panel blanco con borde de acento. */
+.ova-acordeon.ova-acordeon--numerado { gap: 0; }
+.ova-acordeon--numerado .ova-acordeon__item {
+  position: relative; padding: 0 0 14px 62px;
+  background: none; border: 0; border-radius: 0; box-shadow: none; overflow: visible;
+}
+.ova-acordeon--numerado .ova-acordeon__item:not(:last-child)::before {
+  content: ''; position: absolute; left: 20px; top: 50px; bottom: 6px; width: 4px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--ova-realce, var(--c-info)) 55%, transparent) 1.6px, transparent 1.8px) 0 0 / 4px 8px repeat-y;
+}
+.ova-acordeon--numerado .ova-acordeon__head {
+  min-height: 44px; padding: 10px 18px 10px 20px; border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--c-deep) 7%, var(--bg-surface));
+  font-weight: 500; font-size: 1rem; transition: background .2s;
+}
+.ova-acordeon--numerado .ova-acordeon__head strong { font-weight: 500; }
+.ova-acordeon--numerado .ova-acordeon__head:hover { background: color-mix(in srgb, var(--c-deep) 11%, var(--bg-surface)); }
+.ova-acordeon--numerado .ova-acordeon__num {
+  position: absolute; left: 0; top: 0; margin: 0;
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 8px;
+  background: color-mix(in srgb, var(--c-deep) 7%, var(--bg-surface)); color: var(--text-head);
+  font-family: var(--font-display); font-size: .98rem; font-weight: 600;
+}
+.ova-acordeon--numerado .ova-acordeon__item.is-open .ova-acordeon__num { background: var(--ova-realce, var(--c-info)); color: var(--c-deep); font-weight: 800; }
+.ova-acordeon--numerado .ova-acordeon__item.is-open .ova-acordeon__head {
+  background: var(--bg-surface); border: 1px solid var(--c-acento); border-bottom: 0;
+  border-radius: var(--r-md) var(--r-md) 0 0; padding-top: 16px;
+}
+.ova-acordeon--numerado .ova-acordeon__item.is-open .ova-acordeon__head strong { font-weight: 700; }
+.ova-acordeon--numerado .ova-acordeon__body { background: var(--bg-surface); border-radius: 0 0 var(--r-md) var(--r-md); }
+.ova-acordeon--numerado .ova-acordeon__item.is-open .ova-acordeon__body { border: 1px solid var(--c-acento); border-top: 0; }
+.ova-acordeon--numerado .ova-acordeon__body-inner { padding: 0 20px 20px; }
+.ova-acordeon--numerado .ova-acordeon__chev { font-size: 1.1rem; }
+@media (max-width: 720px) {
+  .ova-acordeon--numerado .ova-acordeon__item { padding-left: 50px; }
+  .ova-acordeon--numerado .ova-acordeon__num { width: 38px; height: 38px; }
+  .ova-acordeon--numerado .ova-acordeon__item:not(:last-child)::before { left: 17px; top: 44px; }
+}
+
+/* Comparativo · error y acierto: la primera tarjeta es el error y la segunda el acierto;
+   el glifo lo pone la variante, sin estilos en línea en la etiqueta. */
+.ova-vs--error-acierto > .ova-vs__card:first-child { border-top-color: var(--danger); }
+.ova-vs--error-acierto > .ova-vs__card--alt { border-top-color: var(--success); }
+.ova-vs--error-acierto > .ova-vs__card:first-child .ova-vs__card-tag {
+  background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger);
+}
+.ova-vs--error-acierto > .ova-vs__card--alt .ova-vs__card-tag {
+  background: color-mix(in srgb, var(--success) 12%, transparent); color: var(--success);
+}
+.ova-vs--error-acierto > .ova-vs__card:first-child .ova-vs__card-tag::before { content: '✕  '; }
+.ova-vs--error-acierto > .ova-vs__card--alt .ova-vs__card-tag::before { content: '✓  '; }
+
+/* Puntos interactivos · sobre una figura: centrada; en móvil conserva 720 px y se desliza
+   dentro de su caja, con aire abajo para el globo. Los globos los ubica catalogo.js. */
+.ova-hotspots.ova-hotspots--figura { margin-inline: auto; }
+@media (max-width: 720px) {
+  .ova-hotspots.ova-hotspots--figura { overflow-x: auto; padding-bottom: 40px; }
+  .ova-hotspots--figura .ova-hotspots__img { min-width: 720px; }
+}
+
+/* Carrusel · tarjetas: icono, título y texto en cada slide. Todas las tarjetas miden lo que la
+   más alta del carrusel, también las que no están a la vista, para que la fila no quede
+   escalonada (decisión del 2026-10-25; antes cada una medía su texto, KIT-003 D5). El texto va
+   en --text-pri: --text-mut daba 4,29:1 (KIT-003, D8). */
+.ova-carrusel--tarjetas .ova-carrusel__track { align-items: stretch; }
+.ova-carrusel--tarjetas .ova-carrusel__slide > iconify-icon { font-size: 2.4rem; color: var(--c-acento); display: block; }
+.ova-carrusel--tarjetas .ova-carrusel__slide h4 { margin: 12px 0 6px; color: var(--text-head); }
+.ova-carrusel--tarjetas .ova-carrusel__slide p { margin: 0; color: var(--text-pri); font-size: .95rem; line-height: 1.6; }
+
+/* Carrusel · slide: una tarjeta por vista (va con data-ova-visibles="1"), texto y figura o
+   retrato; la navegación dentro de la tarjeta, puntos al centro y flechas abajo a la derecha. */
+.ova-carrusel--slide .ova-carrusel__slide {
+  flex: 0 0 100%; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+  gap: 24px; align-items: center; padding: 28px 28px 84px;
+}
+.ova-carrusel--slide:not(.ova-carrusel--fondo) .ova-carrusel__slide { background: var(--ova-ficha, var(--bg-muted)); border-color: transparent; }
+.ova-carrusel--slide .ova-carrusel__nav { position: absolute; left: 0; right: 0; bottom: 22px; margin: 0; padding: 0 28px; justify-content: center; pointer-events: none; }
+.ova-carrusel--slide .ova-carrusel__dots,
+.ova-carrusel--slide .ova-carrusel__arrows { pointer-events: auto; }
+.ova-carrusel--slide .ova-carrusel__arrows { position: absolute; right: 28px; bottom: 0; }
+.ova-carrusel--slide .ova-carrusel__arrow { background: #FFFFFF; color: var(--c-acento); box-shadow: 0 6px 16px -8px color-mix(in srgb, var(--c-deep) 50%, transparent); }
+.ova-carrusel--slide .ova-carrusel__dot { background: color-mix(in srgb, var(--c-deep) 18%, transparent); }
+.ova-carrusel--slide .ova-carrusel__dot.is-active { background: var(--c-acento); }
+.ova-carrusel--slide .ova-carrusel__texto h4 { margin: 0 0 10px; color: var(--text-head); }
+.ova-carrusel--slide .ova-carrusel__texto p { margin: 0 0 10px; line-height: 1.6; }
+.ova-carrusel--slide .ova-carrusel__texto p:last-child { margin-bottom: 0; }
+.ova-carrusel--slide .ova-figura { margin: 0; }
+.ova-carrusel--slide .ova-figura__hero img { max-width: 100%; max-height: none; }
+/* Retrato silueteado: círculo detrás y la foto (PNG sin fondo) que lo desborda solo por arriba.
+   La máscara va en el marco, de geometría fija (círculo de 88 % del ancho apoyado abajo). */
+.ova-carrusel__retrato { position: relative; justify-self: center; width: min(100%, 280px); aspect-ratio: 1 / 1.08; }
+.ova-carrusel__retrato-fondo { position: absolute; left: 6%; right: 6%; bottom: 0; aspect-ratio: 1; border-radius: 50%; background: #FFFFFF; box-shadow: 0 18px 40px -18px color-mix(in srgb, var(--c-deep) 40%, transparent); }
+.ova-carrusel__retrato-marco {
+  position: absolute; inset: 0; display: block;
+  -webkit-mask: radial-gradient(ellipse 44% 40.7% at 50% 59.3%, #000 99%, transparent 100%), linear-gradient(#000, #000) top / 100% 59.3% no-repeat;
+          mask: radial-gradient(ellipse 44% 40.7% at 50% 59.3%, #000 99%, transparent 100%), linear-gradient(#000, #000) top / 100% 59.3% no-repeat;
+}
+.ova-carrusel__retrato-foto { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 135%; max-width: none; height: auto; display: block; }
+@media (max-width: 760px) {
+  .ova-carrusel--slide .ova-carrusel__slide { grid-template-columns: 1fr; padding: 20px 20px 84px; }
+  .ova-carrusel__retrato { order: -1; width: 200px; }
+  .ova-carrusel--slide .ova-carrusel__nav { padding: 0 20px; }
+  .ova-carrusel--slide .ova-carrusel__arrows { right: 20px; }
+}
+
+/* Carrusel · slide con fondo (va con --slide): fondo oscuro y texto claro, número grande en
+   marca de agua, textura (--ova-textura) y la imagen o el icono en un disco a la derecha.
+   El color de cada lámina (fondo, --ova-icono, --ova-textura) lo pone la piel. */
+.ova-carrusel--fondo .ova-carrusel__slide {
+  position: relative; overflow: hidden; isolation: isolate; border: 0;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 28px; padding: 44px 40px 84px; min-height: 340px;
+  background: var(--grad-brand); color: #FFFFFF;
+}
+.ova-carrusel--fondo .ova-carrusel__slide::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--ova-textura, none); pointer-events: none; }
+.ova-carrusel--fondo .ova-carrusel__num {
+  position: absolute; left: 18px; top: -18px; z-index: -1; font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(120px, 16vw, 190px); line-height: 1; letter-spacing: -.04em; color: #FFFFFF; opacity: .08; pointer-events: none;
+}
+.ova-carrusel--fondo .ova-carrusel__texto { position: relative; }
+.ova-carrusel--fondo .ova-carrusel__texto h4 { color: #FFFFFF; font-size: 1.5rem; font-weight: 800; margin: 0 0 12px; }
+.ova-carrusel--fondo .ova-carrusel__texto p { color: rgba(255, 255, 255, .88); }
+.ova-carrusel--fondo .ova-carrusel__arte { position: relative; justify-self: center; width: min(100%, 240px); aspect-ratio: 1; display: grid; place-items: center; }
+.ova-carrusel--fondo .ova-carrusel__anillo { position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .75); opacity: .7; }
+.ova-carrusel--fondo .ova-carrusel__anillo::after { content: ''; position: absolute; right: 6px; top: 14px; width: 18px; height: 18px; border-radius: 50%; background: rgba(255, 255, 255, .75); }
+.ova-carrusel--fondo .ova-carrusel__disco {
+  width: 76%; aspect-ratio: 1; border-radius: 50%; background: #FFFFFF; color: var(--ova-icono, var(--c-acento));
+  display: grid; place-items: center; box-shadow: 0 18px 40px -18px rgba(0, 0, 0, .55);
+}
+.ova-carrusel--fondo .ova-carrusel__disco iconify-icon { font-size: 88px; }
+.ova-carrusel--fondo .ova-carrusel__dot { background: rgba(255, 255, 255, .45); }
+.ova-carrusel--fondo .ova-carrusel__dot.is-active { background: #FFFFFF; }
+.ova-carrusel--fondo .ova-carrusel__nav { z-index: 1; }
+@media (max-width: 760px) {
+  .ova-carrusel--fondo .ova-carrusel__slide { grid-template-columns: 1fr; padding: 28px 22px 84px; min-height: 0; }
+  .ova-carrusel--fondo .ova-carrusel__arte { order: -1; width: 150px; }
+  .ova-carrusel--fondo .ova-carrusel__disco iconify-icon { font-size: 56px; }
+  .ova-carrusel--fondo .ova-carrusel__num { font-size: 110px; left: auto; right: 14px; top: -10px; }
+  .ova-carrusel--fondo .ova-carrusel__texto h4 { font-size: 1.25rem; }
+}
+/* @fin-catalogo-variantes */

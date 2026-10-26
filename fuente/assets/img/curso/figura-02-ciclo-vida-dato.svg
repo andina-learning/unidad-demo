@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img"
+     aria-label="Ciclo de vida del dato en seis etapas, en fila de izquierda a derecha y unidas por flechas: Creación o captura, Almacenamiento, Uso, Compartición, Archivo y Destrucción. Cada etapa tiene su icono en un círculo. Debajo de toda la fila corre una flecha amarilla: el tiempo.">
+  <!-- Figura 02 · ciclo de vida del dato · base de los puntos de interés del tema 1.
+       Redibujo de producción de la Imagen-02 del diseñador (insumos/Imagenes/Imagen-02.png,
+       1055 × 1491, versión final según ERRORES-ORIGEN B2) en la familia de ilustración de la unidad (paleta Andina).
+       Reemplaza a la Imagen-02 en el curso por decisión del usuario (2026-10-10), registrada
+       como desviación en tema1.html y en insumos/MAPA-FIGURAS.md; a validar con el cliente.
+       Qué cambia frente a la Imagen-02: la fila es horizontal (1200 × 400) y no vertical; no
+       hay número dibujado ni recuadro vacío en cada etapa, porque el número lo pone el punto
+       de interés del componente; los iconos son los mismos seis motivos, redibujados con el
+       trazo de la casa.
+       Rótulos: los seis de la Imagen-02, literales del DI.
+       Único amarillo: la flecha del tiempo. El DI: «El ciclo de vida del dato organiza los
+       controles en el tiempo». -->
+  <defs>
+    <linearGradient id="ilu-ciclovida-fondo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#E6F3FA"/>
+      <stop offset="55%"  stop-color="#E8EDF5"/>
+      <stop offset="100%" stop-color="#F5F8FB"/>
+    </linearGradient>
+    <filter id="ilu-ciclovida-sombra" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#132B41" flood-opacity="0.14"/>
+    </filter>
+    <marker id="ilu-ciclovida-punta" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#00417B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="ilu-ciclovida-punta-tiempo" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#F0B443" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="400" rx="18" fill="url(#ilu-ciclovida-fondo)"/>
+
+  <!-- Flechas entre etapas -->
+  <g fill="none" stroke="#00417B" stroke-width="3" stroke-linecap="round" opacity=".7" marker-end="url(#ilu-ciclovida-punta)">
+    <path d="M180 150 H230"/>
+    <path d="M376 150 H426"/>
+    <path d="M572 150 H622"/>
+    <path d="M768 150 H818"/>
+    <path d="M964 150 H1014"/>
+  </g>
+
+  <!-- Círculos de las etapas -->
+  <g fill="#FFFFFF" stroke="#DCE8F3" stroke-width="10" filter="url(#ilu-ciclovida-sombra)">
+    <circle cx="110"  cy="150" r="58"/>
+    <circle cx="306"  cy="150" r="58"/>
+    <circle cx="502"  cy="150" r="58"/>
+    <circle cx="698"  cy="150" r="58"/>
+    <circle cx="894"  cy="150" r="58"/>
+    <circle cx="1090" cy="150" r="58"/>
+  </g>
+
+  <!-- Iconos · trazo de la casa: azul UAC, 4 px, puntas redondas -->
+  <g fill="none" stroke="#00417B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 1 · Creación o captura: hoja con un signo más -->
+    <g transform="translate(110 150)">
+      <path d="M0 28 H-22 V-28 H6 L18 -16 V0"/>
+      <path d="M6 -28 V-16 H18"/>
+      <path d="M-14 -12 H4 M-14 -2 H8 M-14 8 H-4"/>
+      <circle cx="14" cy="16" r="12" fill="#FFFFFF"/>
+      <path d="M14 10 V22 M8 16 H20"/>
+    </g>
+    <!-- 2 · Almacenamiento: base de datos con candado -->
+    <g transform="translate(306 150)">
+      <ellipse cx="-6" cy="-20" rx="20" ry="8"/>
+      <path d="M-26 -20 V20 A20 8 0 0 0 -4 28"/>
+      <path d="M14 -20 V-2"/>
+      <path d="M-26 0 A20 8 0 0 0 0 7.6"/>
+      <rect x="4" y="8" width="22" height="18" rx="3" fill="#FFFFFF"/>
+      <path d="M9 8 V2 A6 6 0 0 1 21 2 V8"/>
+    </g>
+    <!-- 3 · Uso: gráfico con lupa -->
+    <g transform="translate(502 150)">
+      <path d="M2 16 H-26 V-26 H14 V-6"/>
+      <path d="M-16 6 V-2 M-8 6 V-10 M0 6 V-16"/>
+      <circle cx="12" cy="12" r="11" fill="#FFFFFF"/>
+      <path d="M20 20 L28 28"/>
+    </g>
+    <!-- 4 · Compartición: tres nodos unidos -->
+    <g transform="translate(698 150)">
+      <circle cx="16" cy="-18" r="8"/>
+      <circle cx="-16" cy="0" r="8"/>
+      <circle cx="16" cy="18" r="8"/>
+      <path d="M-9 -4 L9 -14 M-9 4 L9 14"/>
+    </g>
+    <!-- 5 · Archivo: caja de archivo -->
+    <g transform="translate(894 150)">
+      <rect x="-26" y="-24" width="52" height="14" rx="3"/>
+      <path d="M-22 -10 V24 H22 V-10"/>
+      <path d="M-7 2 H7"/>
+    </g>
+    <!-- 6 · Destrucción: papelera -->
+    <g transform="translate(1090 150)">
+      <path d="M-24 -16 H24"/>
+      <path d="M-8 -16 V-24 H8 V-16"/>
+      <path d="M-19 -16 L-16 26 H16 L19 -16"/>
+      <path d="M-6 -6 V16 M6 -6 V16"/>
+    </g>
+  </g>
+
+  <!-- Rótulos · literales del DI (los de la Imagen-02) -->
+  <g font-family="Manrope, system-ui, sans-serif" font-size="21" font-weight="600" fill="#132B41" text-anchor="middle">
+    <text x="110"  y="252">Creación o</text>
+    <text x="110"  y="278">captura</text>
+    <text x="306"  y="252">Almacenamiento</text>
+    <text x="502"  y="252">Uso</text>
+    <text x="698"  y="252">Compartición</text>
+    <text x="894"  y="252">Archivo</text>
+    <text x="1090" y="252">Destrucción</text>
+  </g>
+
+  <!-- El tiempo: el único amarillo -->
+  <path d="M70 330 H1128" fill="none" stroke="#F0B443" stroke-width="5" stroke-linecap="round" marker-end="url(#ilu-ciclovida-punta-tiempo)"/>
+</svg>

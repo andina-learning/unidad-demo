@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420" role="img"
+     aria-label="Cinco piezas en fila, unidas por flechas de izquierda a derecha: una norma con su sello oficial; una política con sus reglas y la firma de una persona responsable; una base de datos con un candado puesto sobre ella; un registro de auditoría con sus entradas, el único contorneado en amarillo; y un calendario con una revisión marcada a intervalos regulares, del que sale una flecha que vuelve al registro. Debajo, cada pieza lleva su nombre: obligación, decisión de gobierno, control técnico, evidencia y verificación periódica.">
+  <!-- Ilustración de marca · Universidad Andina Virtual · Unidad 3 · introducción (apertura)
+       Concepto (DI): «el gobierno de datos se demuestra con evidencia, no se declara con
+       políticas» y su cadena «obligación, decisión de gobierno, control técnico, evidencia y
+       verificación periódica». Cada eslabón es un objeto, no una caja con texto; los cinco
+       rótulos son literales del DI. La flecha de vuelta: «una evidencia que nadie revisa
+       caduca». Guion en insumos/ILUSTRACIONES.md.
+       Único amarillo: el contorno continuo del registro de auditoría (la evidencia). En
+       ilustracion-dos-cifras.svg el amarillo punteado es lo que falta; aquí, continuo, es lo
+       que demuestra. -->
+  <defs>
+    <linearGradient id="ilu-cadena-fondo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#E6F3FA"/>
+      <stop offset="55%"  stop-color="#E8EDF5"/>
+      <stop offset="100%" stop-color="#F5F8FB"/>
+    </linearGradient>
+    <filter id="ilu-cadena-sombra" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#132B41" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="420" rx="18" fill="url(#ilu-cadena-fondo)"/>
+
+  <!-- Las cinco hojas de la cadena -->
+  <g filter="url(#ilu-cadena-sombra)" fill="#FFFFFF">
+    <rect x="48"  y="110" width="184" height="200" rx="16"/>
+    <rect x="278" y="110" width="184" height="200" rx="16"/>
+    <rect x="508" y="110" width="184" height="200" rx="16"/>
+    <rect x="738" y="110" width="184" height="200" rx="16"/>
+    <rect x="968" y="110" width="184" height="200" rx="16"/>
+  </g>
+
+  <!-- ══ 1 · Obligación: la norma, con el sello de quien la impone ══ -->
+  <circle cx="140" cy="158" r="24" fill="none" stroke="#132B41" stroke-width="3" opacity=".7"/>
+  <circle cx="140" cy="158" r="13" fill="#132B41" opacity=".2"/>
+  <g fill="#132B41" opacity=".22">
+    <rect x="76" y="200" width="128" height="8" rx="4"/>
+    <rect x="76" y="218" width="128" height="8" rx="4"/>
+    <rect x="76" y="236" width="108" height="8" rx="4"/>
+    <rect x="76" y="254" width="128" height="8" rx="4"/>
+    <rect x="76" y="272" width="80"  height="8" rx="4"/>
+  </g>
+
+  <!-- ══ 2 · Decisión de gobierno: reglas y un responsable con nombre ══ -->
+  <rect x="306" y="134" width="96" height="9" rx="4.5" fill="#132B41" opacity=".85"/>
+  <g fill="#00417B" opacity=".55">
+    <circle cx="312" cy="166" r="4"/>
+    <circle cx="312" cy="186" r="4"/>
+    <circle cx="312" cy="206" r="4"/>
+  </g>
+  <g fill="#132B41" opacity=".25">
+    <rect x="324" y="162" width="110" height="8" rx="4"/>
+    <rect x="324" y="182" width="90"  height="8" rx="4"/>
+    <rect x="324" y="202" width="104" height="8" rx="4"/>
+  </g>
+  <rect x="306" y="230" width="128" height="2.5" rx="1.25" fill="#132B41" opacity=".12"/>
+  <!-- quien responde -->
+  <circle cx="324" cy="258" r="11" fill="none" stroke="#00417B" stroke-width="4"/>
+  <path d="M305 292 a19 14 0 0 1 38 0" fill="none" stroke="#00417B" stroke-width="4" stroke-linecap="round"/>
+  <!-- su firma -->
+  <path d="M354 270 c 6 -14 12 -14 14 0 s 10 10 16 -2 s 12 -10 16 2 s 10 6 24 -6"
+        fill="none" stroke="#132B41" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/>
+  <rect x="352" y="284" width="82" height="2.5" rx="1.25" fill="#132B41" opacity=".25"/>
+
+  <!-- ══ 3 · Control técnico: el candado, puesto sobre el dato ══ -->
+  <path d="M546 150 v104 a54 15 0 0 0 108 0 v-104" fill="#DCE8F3" stroke="#00417B" stroke-width="3" opacity=".9"/>
+  <g fill="none" stroke="#00417B" stroke-width="3" opacity=".35">
+    <path d="M546 188 a54 15 0 0 0 108 0"/>
+    <path d="M546 222 a54 15 0 0 0 108 0"/>
+  </g>
+  <ellipse cx="600" cy="150" rx="54" ry="15" fill="#C5DCEB" stroke="#00417B" stroke-width="3"/>
+  <path d="M628 226 v-12 a12 12 0 0 1 24 0 v12" fill="none" stroke="#132B41" stroke-width="6"
+        stroke-linecap="round"/>
+  <rect x="616" y="224" width="48" height="40" rx="8" fill="#132B41"/>
+  <circle cx="640" cy="240" r="5" fill="#FFFFFF"/>
+  <rect x="638" y="242" width="4" height="12" rx="2" fill="#FFFFFF"/>
+
+  <!-- ══ 4 · Evidencia: el registro de auditoría, entrada por entrada ══ -->
+  <g fill="#132B41" opacity=".35">
+    <rect x="760" y="138" width="34" height="8" rx="4"/>
+    <rect x="760" y="164" width="34" height="8" rx="4"/>
+    <rect x="760" y="190" width="34" height="8" rx="4"/>
+    <rect x="760" y="216" width="34" height="8" rx="4"/>
+    <rect x="760" y="242" width="34" height="8" rx="4"/>
+    <rect x="760" y="268" width="34" height="8" rx="4"/>
+  </g>
+  <g fill="#00417B" opacity=".6">
+    <circle cx="810" cy="142" r="4"/>
+    <circle cx="810" cy="168" r="4"/>
+    <circle cx="810" cy="194" r="4"/>
+    <circle cx="810" cy="220" r="4"/>
+    <circle cx="810" cy="246" r="4"/>
+    <circle cx="810" cy="272" r="4"/>
+  </g>
+  <g fill="#132B41" opacity=".2">
+    <rect x="822" y="138" width="76" height="8" rx="4"/>
+    <rect x="822" y="164" width="60" height="8" rx="4"/>
+    <rect x="822" y="190" width="82" height="8" rx="4"/>
+    <rect x="822" y="216" width="54" height="8" rx="4"/>
+    <rect x="822" y="242" width="70" height="8" rx="4"/>
+    <rect x="822" y="268" width="64" height="8" rx="4"/>
+  </g>
+  <!-- ÚNICO AMARILLO: la evidencia, lo que vuelve demostrable todo lo anterior -->
+  <rect x="738" y="110" width="184" height="200" rx="16" fill="none" stroke="#F0B443" stroke-width="4"/>
+
+  <!-- ══ 5 · Verificación periódica: una revisión a intervalos regulares ══ -->
+  <path d="M968 126 a16 16 0 0 1 16 -16 h152 a16 16 0 0 1 16 16 v14 h-184 z" fill="#00417B"/>
+  <rect x="1008" y="98" width="8" height="24" rx="4" fill="#132B41"/>
+  <rect x="1104" y="98" width="8" height="24" rx="4" fill="#132B41"/>
+  <g fill="#132B41" opacity=".1">
+    <rect x="1015" y="168" width="26" height="24" rx="4"/><rect x="1047" y="168" width="26" height="24" rx="4"/><rect x="1079" y="168" width="26" height="24" rx="4"/><rect x="1111" y="168" width="26" height="24" rx="4"/>
+    <rect x="1015" y="198" width="26" height="24" rx="4"/><rect x="1047" y="198" width="26" height="24" rx="4"/><rect x="1079" y="198" width="26" height="24" rx="4"/><rect x="1111" y="198" width="26" height="24" rx="4"/>
+    <rect x="1015" y="228" width="26" height="24" rx="4"/><rect x="1047" y="228" width="26" height="24" rx="4"/><rect x="1079" y="228" width="26" height="24" rx="4"/><rect x="1111" y="228" width="26" height="24" rx="4"/>
+    <rect x="1015" y="258" width="26" height="24" rx="4"/><rect x="1047" y="258" width="26" height="24" rx="4"/><rect x="1079" y="258" width="26" height="24" rx="4"/><rect x="1111" y="258" width="26" height="24" rx="4"/>
+  </g>
+  <!-- el mismo día de cada periodo, revisado -->
+  <g fill="#00417B" opacity=".85">
+    <rect x="983" y="168" width="26" height="24" rx="4"/>
+    <rect x="983" y="198" width="26" height="24" rx="4"/>
+    <rect x="983" y="228" width="26" height="24" rx="4"/>
+    <rect x="983" y="258" width="26" height="24" rx="4"/>
+  </g>
+  <g fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M990 180 l5 5 9 -10"/>
+    <path d="M990 210 l5 5 9 -10"/>
+    <path d="M990 240 l5 5 9 -10"/>
+    <path d="M990 270 l5 5 9 -10"/>
+  </g>
+
+  <!-- La cadena: cada eslabón lleva al siguiente -->
+  <g fill="none" stroke="#00417B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".75">
+    <line x1="240" y1="210" x2="268" y2="210"/>
+    <path d="M262 202 l8 8 -8 8"/>
+    <line x1="470" y1="210" x2="498" y2="210"/>
+    <path d="M492 202 l8 8 -8 8"/>
+    <line x1="700" y1="210" x2="728" y2="210"/>
+    <path d="M722 202 l8 8 -8 8"/>
+    <line x1="930" y1="210" x2="958" y2="210"/>
+    <path d="M952 202 l8 8 -8 8"/>
+  </g>
+
+  <!-- La verificación vuelve sobre la evidencia: la que nadie revisa caduca -->
+  <g fill="none" stroke="#00417B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".55">
+    <path d="M1060 96 C 1052 34, 852 34, 842 96"/>
+    <path d="M834 88 l8 10 8 -10"/>
+  </g>
+
+  <!-- Los nombres de los eslabones, literales del DI -->
+  <g font-family="Manrope, system-ui, sans-serif" font-size="17" font-weight="600" fill="#132B41" text-anchor="middle">
+    <text x="140"  y="356">obligación</text>
+    <text x="370"  y="356">decisión de gobierno</text>
+    <text x="600"  y="356">control técnico</text>
+    <text x="830"  y="356">evidencia</text>
+    <text x="1060" y="356">verificación periódica</text>
+  </g>
+</svg>

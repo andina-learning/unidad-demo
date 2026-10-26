@@ -1,0 +1,1536 @@
+/* Catálogo de componentes (KIT-001): estructura de las piezas ova- del catálogo, con variables que pone la piel. */
+
+/* =========================================================
+   INTERFAZ DE LA PLANTILLA · el botón «Cómo va en el Word» y la hoja de
+   Word dentro de su ventana. La pone scripts/generar-plantilla.js; no es piel.
+   El rojo es el de los rótulos del Word, no un color de marca.
+   ========================================================= */
+.ova-catalogo__acciones { display: flex; justify-content: flex-end; margin: 18px 0 0; }
+.ova-catalogo__cab {
+  display: flex; align-items: center; gap: 10px; margin: 0 0 10px;
+  font-family: var(--font-display); font-weight: 700; font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: var(--text-mut);
+}
+.ova-catalogo__word {
+  margin: 0; padding: 14px 16px; border: 1px dashed var(--border-c); border-radius: var(--r-md);
+  background: var(--bg-surface); font-family: 'Aptos', 'Calibri', var(--font-body); font-size: .88rem; line-height: 1.6;
+  color: var(--text-pri); white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.ova-catalogo__word b { font-weight: 700; color: var(--text-pri); }
+.ova-catalogo__word .ova-catalogo__gris { color: var(--text-mut); }
+.ova-catalogo__word .ova-catalogo__rojo { color: #D62828; font-weight: 700; }
+.ova-catalogo__word .ova-catalogo__celda { display: block; margin: 8px 0; padding: 8px 10px; border: 1px solid var(--border-c); border-radius: 3px; }
+
+/* =========================================================
+   FIGURA PENDIENTE (.ova-pendiente) · el hueco de una figura que diseño
+   gráfico todavía debe entregar, con la descripción que el DI le dio.
+   ========================================================= */
+.ova-pendiente {
+  display: grid; gap: 14px; place-items: center; text-align: center;
+  padding: 44px 28px; border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--text-mut) 10%, var(--bg-surface));
+  border: 1px dashed color-mix(in srgb, var(--text-mut) 45%, transparent);
+  color: var(--text-mut);
+}
+.ova-pendiente__marco {
+  width: 96px; height: 72px; display: grid; place-items: center; border-radius: 8px;
+  background: color-mix(in srgb, var(--text-mut) 16%, transparent);
+}
+.ova-pendiente__marco iconify-icon { font-size: 2.2rem; color: color-mix(in srgb, var(--text-mut) 70%, transparent); }
+.ova-pendiente__tag {
+  font-family: var(--font-display);
+  font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+}
+.ova-pendiente__desc { margin: 0; max-width: 62ch; font-size: 0.9rem; line-height: 1.6; }
+.ova-pendiente + figcaption { font-size: 0.85rem; color: var(--text-mut); margin-top: 10px; }
+
+/* =========================================================
+   FOTO DECORATIVA (.ova-foto-ancha) · a todo el ancho, recortada a franja.
+   Los decorativos de la marca (esquinas, recursos gráficos) los pone la piel.
+   ========================================================= */
+.ova-foto-ancha { margin: 40px 0; }
+.ova-foto-ancha img {
+  display: block; width: 100%; max-height: 340px;
+  object-fit: cover; object-position: center 38%; border-radius: var(--r-md);
+}
+.ova-foto-ancha figcaption { margin-top: 14px; font-size: .88rem; color: var(--text-mut); line-height: 1.55; }
+
+/* =========================================================
+   ILUSTRACIÓN EXPLICATIVA (.ova-ilustracion) · la del agente ilustrador,
+   a ancho completo. En una ventana, la ventana se ensancha para que sus
+   rótulos se lean.
+   ========================================================= */
+.ova-ilustracion { position: relative; margin: 40px 0; border-radius: var(--r-md); overflow: hidden; }
+.ova-ilustracion img { display: block; width: 100%; height: auto; }
+.ova-ilustracion figcaption { font-size: .86rem; color: var(--text-mut); padding: 14px 4px 0; }
+.ova-modal__dialog:has(.ova-ilustracion) { max-width: min(900px, 94vw); }
+.ova-modal__body .ova-ilustracion { margin: 0 0 20px; }
+.ova-acordeon__body-inner > .ova-ilustracion:first-child { margin-top: 0; }   /* el cuerpo ya trae su aire */
+/* Ampliable en el celular (2026-10-25): a 390 px los rótulos del SVG quedaban de 3 a 5 px. Una lupa
+   en la esquina abre la ventana del motor (.ova-modal) con la ilustración a 1000 px, centrada, que
+   se recorre con el dedo (catalogo.js). */
+.ova-ampliar { display: none; }
+@media (max-width: 720px) {
+  .ova-ilustracion img { cursor: zoom-in; }
+  .ova-ilustracion .ova-ampliar {
+    display: grid; place-items: center;
+    position: absolute; top: 8px; right: 8px; z-index: 1;
+    width: 36px; height: 36px; padding: 0;
+    border: 1px solid var(--border-c); border-radius: 50%;
+    background: #fff; color: var(--c-acento); font-size: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+    cursor: pointer;
+  }
+  .ova-ilustracion .ova-ampliar:focus-visible { outline: 2px solid var(--c-acento); outline-offset: 2px; }
+}
+.ova-ampliada .ova-modal__dialog { position: relative; width: 96vw; max-width: 96vw; }
+.ova-ampliada .ova-modal__head {
+  position: absolute; top: 8px; right: 8px; z-index: 2;
+  padding: 0; border: 0; background: none;
+}
+.ova-ampliada .ova-modal__body { padding: 0; }
+.ova-ampliada__lienzo { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.ova-ampliada__lienzo img { display: block; width: 1000px; max-width: none; height: auto; }
+
+@media (max-width: 720px) {
+  .ova-foto-ancha img { max-height: 220px; }
+  .ova-ilustracion { margin: 28px 0; }
+}
+
+/* =========================================================
+   VIDEO CON MARCO (.ova-video--marco) · el video dentro de la figura plana
+   ocupa el ancho completo; la leyenda queda alineada a la izquierda.
+   ========================================================= */
+.ova-video--marco { text-align: left; margin-top: 8px; }
+
+/* =========================================================
+   LLAMADO A LA ACCIÓN (.ova-llamado) e indicio de interacción
+   Va justo antes del componente interactivo. Cada vez que el componente
+   aparece en pantalla, catalogo.js pone .is-indicio al componente y a su
+   llamado: la manito hace dos toques con un aro que se abre. El halo del
+   componente lo pone la piel. Con movimiento reducido no se mueve nada.
+   ========================================================= */
+.ova-llamado {
+  display: flex; align-items: flex-start; gap: 10px; margin: 24px 0 0;
+  font-size: .95rem; line-height: 1.5;
+  color: color-mix(in srgb, var(--text-pri) 85%, transparent);
+}
+.ova-llamado + .ova-acordeon, .ova-llamado + .ova-carrusel, .ova-llamado + .ova-tabs, .ova-llamado + .ova-timeline-h,
+.ova-llamado + .ova-hotspots, .ova-llamado + .ova-video, .ova-llamado + .ova-audio, .ova-llamado + .ova-beforeafter { margin-top: 22px; }
+.ova-llamado__mano {
+  position: relative; flex: none; display: inline-flex;
+  width: 22px; height: 22px; font-size: 22px;
+  color: color-mix(in srgb, var(--c-acento) 75%, transparent);
+  transform-origin: 50% 85%;
+}
+.ova-llamado__mano::after {      /* el aro del toque, en la yema del dedo de mdi:cursor-pointer */
+  content: ''; position: absolute; left: 5px; top: -3px;
+  width: 10px; height: 10px; border-radius: 50%;
+  border: 1.5px solid var(--c-acento); opacity: 0;
+}
+@keyframes ova-llamado-toque {
+  0%, 100% { transform: none; }
+  35%      { transform: translateY(2px) scale(.86); }
+  60%      { transform: none; }
+}
+@keyframes ova-llamado-aro {
+  0%, 30% { opacity: 0; transform: scale(.4); }
+  45%     { opacity: .7; }
+  100%    { opacity: 0; transform: scale(2.2); }
+}
+.ova-llamado.is-indicio .ova-llamado__mano        { animation: ova-llamado-toque 1s ease-in-out .3s 2; }
+.ova-llamado.is-indicio .ova-llamado__mano::after { animation: ova-llamado-aro 1s ease-out .3s 2; }
+@media (prefers-reduced-motion: reduce) {
+  .ova-llamado__mano, .ova-llamado__mano::after { animation: none !important; }
+}
+
+/* =========================================================
+   PÓDCAST (.ova-episodio) · cabecera con portada, título y conductor;
+   reproductor Plyr con controles propios (catalogo.js); transcripción
+   desplegable. La piel pone el fondo de la portada por defecto
+   (--ova-episodio-portada) y el aro del botón de reproducir (--ova-episodio-aro).
+   ========================================================= */
+.ova-episodio {
+  margin: 40px 0; padding: clamp(20px, 3vw, 28px);   /* 40 px como cualquier bloque (2026-10-25; antes 48/24) */
+  border: 1px solid var(--border-c); border-radius: var(--r-lg); background: var(--bg-surface); box-shadow: var(--shadow-sm);
+}
+.ova-episodio__cabecera { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 20px; align-items: center; }
+.ova-episodio__portada {
+  width: 104px; aspect-ratio: 1; border-radius: var(--r-lg); overflow: hidden; display: grid; place-items: center; color: #fff;
+  background: var(--ova-episodio-portada, radial-gradient(120% 90% at 30% 20%, color-mix(in srgb, var(--c-acento) 70%, #fff) 0%, var(--c-acento) 45%, var(--c-deep) 100%));
+}
+.ova-episodio__portada img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ova-episodio__portada iconify-icon { font-size: 46px; }
+.ova-episodio__eyebrow { display: block; font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--c-acento); }
+.ova-episodio__titulo { margin: 4px 0 2px; font-size: clamp(1.15rem, 2vw, 1.4rem); line-height: 1.25; color: var(--text-head); }
+.ova-episodio__conductor { margin: 0; color: var(--text-mut); font-size: .95rem; }
+.ova-episodio > .ova-llamado { margin: 20px 0 8px; }
+
+/* Reproductor: catalogo.js añade a los controles de Plyr las clases ova-episodio__* */
+.ova-episodio .ova-episodio__reproductor { margin-top: 14px; --plyr-color-main: var(--c-acento); --plyr-audio-controls-background: transparent; --plyr-audio-control-color: var(--text-head); --plyr-range-track-height: 4px; --plyr-range-thumb-height: 14px; --plyr-control-spacing: 8px; --plyr-font-size-time: 13px; }
+.ova-episodio .ova-episodio__reproductor .ova-episodio__controles { padding: 0; gap: 6px; }
+.ova-episodio .ova-episodio__control svg:not(.ova-episodio__ico) { display: none; }
+.ova-episodio .ova-episodio__control .ova-episodio__ico { width: 32px !important; height: 32px !important; display: block; }
+.ova-episodio .ova-episodio__control[data-plyr="rewind"], .ova-episodio .ova-episodio__control[data-plyr="fast-forward"] { padding: 4px; }
+.ova-episodio .ova-episodio__control[data-plyr="play"] { width: 52px; height: 52px; border-radius: 50%; background: var(--text-head) !important; color: #fff !important; display: grid; place-items: center; padding: 0; margin-right: 4px; box-shadow: 0 0 0 6px var(--ova-episodio-aro, rgba(0, 0, 0, .08)); }
+.ova-episodio .ova-episodio__control[data-plyr="play"] .ova-episodio__ico { width: 26px !important; height: 26px !important; }
+.ova-episodio .ova-episodio__control[data-plyr="play"] .ova-episodio__ico--pausa { display: none; }
+.ova-episodio .ova-episodio__reproductor.is-playing .ova-episodio__control[data-plyr="play"] .ova-episodio__ico--play { display: none; }
+.ova-episodio .ova-episodio__reproductor.is-playing .ova-episodio__control[data-plyr="play"] .ova-episodio__ico--pausa { display: block; }
+.ova-episodio .ova-episodio__control:hover { background: transparent !important; color: var(--c-acento) !important; }
+.ova-episodio .ova-episodio__control[data-plyr="play"]:hover { background: var(--c-acento) !important; color: #fff !important; }
+.ova-episodio .ova-episodio__control:focus-visible, .ova-episodio .ova-episodio__velocidad:focus-visible { outline: 3px solid var(--c-info); outline-offset: 3px; }
+.ova-episodio .ova-episodio__control[data-plyr="mute"] .ova-episodio__ico { width: 24px !important; height: 24px !important; }
+.ova-episodio .ova-episodio__control[data-plyr="mute"] .ova-episodio__ico--mudo { display: none; }
+.ova-episodio .ova-episodio__reproductor.is-muted .ova-episodio__control[data-plyr="mute"] .ova-episodio__ico--volumen { display: none; }
+.ova-episodio .ova-episodio__reproductor.is-muted .ova-episodio__control[data-plyr="mute"] .ova-episodio__ico--mudo { display: block; }
+.ova-episodio .ova-episodio__volumen { max-width: 90px; min-width: 70px; margin-right: 6px; }
+.ova-episodio .ova-episodio__progreso { flex: 1; margin: 0 10px; }
+.ova-episodio .ova-episodio__tiempo { color: var(--text-mut); font-variant-numeric: tabular-nums; }
+.ova-episodio .ova-episodio__tiempo--duracion { padding-left: 6px; }   /* no pegada a la barra */
+.ova-episodio__velocidad { border: 1px solid var(--border-c); background: var(--bg-surface); color: var(--text-head); border-radius: 999px; padding: 6px 12px; font: 600 13px/1 var(--font-body); cursor: pointer; min-width: 52px; }
+.ova-episodio__velocidad:hover { border-color: var(--c-acento); color: var(--c-acento); }
+
+.ova-episodio__transcripcion { margin-top: 16px; border-top: 1px solid var(--border-c); padding-top: 12px; }
+.ova-episodio__transcripcion summary { display: flex; align-items: center; gap: 8px; cursor: pointer; list-style: none; font-weight: 600; color: var(--c-acento); }
+.ova-episodio__transcripcion summary::-webkit-details-marker { display: none; }
+.ova-episodio__transcripcion summary::before { content: ''; width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform .2s; }
+.ova-episodio__transcripcion[open] summary::before { transform: rotate(-135deg) translateY(-2px); }
+.ova-episodio__texto { max-height: 420px; overflow-y: auto; padding: 8px 2px 4px; }
+/* Hay más texto: un degradado fijo al pie de la caja mientras se desliza; al llegar al final queda
+   sobre el espacio vacío que deja, sin tapar texto (2026-10-25). */
+.ova-episodio__texto::after {
+  content: ''; display: block; position: sticky; bottom: -4px; height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--bg-surface));
+  pointer-events: none;
+}
+/* Dos clases: la piel suele fijar el interlineado de .ova-screen p y se carga después. */
+.ova-episodio .ova-episodio__texto p { margin: 0 0 12px; font-size: .95rem; line-height: 1.65; }
+@media (max-width: 560px) {
+  .ova-episodio__cabecera { grid-template-columns: 1fr; }
+  .ova-episodio__portada { width: 100%; height: 160px; aspect-ratio: auto; }
+  /* La barra de avance en su propia fila, a todo el ancho, con los dos tiempos; los botones debajo.
+     A 390 px quedaba de unos 40 px y sin la duración (2026-10-25). */
+  .ova-episodio .ova-episodio__reproductor .ova-episodio__controles { flex-wrap: wrap; row-gap: 14px; justify-content: center; }
+  .ova-episodio .ova-episodio__tiempo, .ova-episodio .ova-episodio__progreso { order: -1; }
+  .ova-episodio .ova-episodio__progreso { flex: 1 1 calc(100% - 112px); margin: 0 8px; }
+}
+
+/* =========================================================
+   TEXTO Y ÉNFASIS (KIT-001 T6) · subtítulos, listas, tablas APA,
+   bloques destacados y descargas. La estructura vive aquí; la piel da
+   la marca con estas variables (todas con un valor del motor por defecto):
+     --ova-subtitulo-vineta-1 / -2   la viñeta de los subtítulos sin número (un fondo)
+     --ova-vineta-cuadro             el cuadro de la lista de viñetas con cuadro
+     --ova-tono-importante, -exito, -alerta, -error, -reflexion   el tono de cada aviso
+     --ova-fondo                     el fondo pastel de un aviso de fondo de color
+     --ova-destacado-filo, -suave    el filo y el fondo del bloque destacado simple
+     --ova-oscuro-tarjeta, -accion, -texto, -suave, -rotulo, -tinta, -icono   el fondo oscuro
+     --ova-oscuro-boton, -boton-tinta, -boton-hover                           su botón claro
+     --ova-descargable-fondo, -filo, --ova-descargable-imagen-fondo           la descarga
+     --ova-eval-intro-fondo                                                    la presentación de la evaluación
+   ========================================================= */
+
+/* Descarga simple (.ova-descargable): título y texto a la izquierda, el botón a la derecha. */
+.ova-descargable {
+  display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  background: var(--ova-descargable-fondo, var(--bg-muted)); border-radius: var(--r-md);
+  border-left: 5px solid var(--ova-descargable-filo, var(--c-info));
+  padding: 24px 28px; margin: 36px 0;
+}
+.ova-descargable__info { flex: 1; min-width: 220px; }
+.ova-descargable__info b { display: block; font-size: 1.05rem; color: var(--text-head); }
+.ova-descargable__info span { font-size: .9rem; color: var(--text-mut); }
+.ova-llamado + .ova-descargable { margin-top: 22px; }
+
+/* Bloque destacado sin fondo (.ova-campos): varios subtítulos del mismo nivel, cada uno con su
+   texto y el icono al margen, sin tarjeta; un filete fino arriba de cada campo. */
+.ova-campo { margin: 32px 0 0; }
+.ova-campos {
+  display: grid;
+  gap: 32px;
+  margin: 32px 0 0;
+}
+.ova-campos > .ova-campo {
+  margin: 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-c);
+}
+.ova-campo {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  column-gap: 20px;
+  align-items: start;
+}
+.ova-campo > :not(.ova-campo__icono) { grid-column: 2; }
+.ova-campo__icono {
+  grid-column: 1; grid-row: 1 / span 3;
+  display: block;
+  width: 34px; height: 34px;
+  margin: 0;
+  font-size: 34px;
+  color: var(--c-info);
+}
+@media (max-width: 560px) {
+  .ova-campo { grid-template-columns: 28px minmax(0, 1fr); column-gap: 14px; }
+  .ova-campo__icono { width: 28px; height: 28px; font-size: 28px; }
+}
+.ova-campo__titulo {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--text-head);
+}
+.ova-campo > p { margin: 0; }
+
+/* Lista numerada (.ova-numerada): sin la numeración del navegador.
+   Con icono (--icono): ítems de un párrafo, sin tarjeta, filete fino arriba; al margen, el
+   número grande y, opcional, el icono (decorativos: el <ol> ya numera). En ≤ 720 px la marca
+   pasa a una fila encima del texto. */
+.ova-numerada { list-style: none; padding: 0; margin: 0; }
+.ova-screen > .ova-numerada { margin-block: 40px; }   /* suelta en la pantalla, como cualquier bloque */
+/* Con la regla de aire del motor (core.css, 2026-10-25): el llamado va pegado a su pieza, sea cual
+   sea (22 px), y la fuente a la pieza que cita (12 px). */
+.ova-screen > .ova-llamado + * { margin-top: 22px; }
+/* Lo mismo dentro de una diapositiva de la evaluación, donde las actividades no son hijas de la
+   pantalla (KIT-007, D15). */
+.ova-evalquiz__slide .ova-llamado + * { margin-top: 22px; }
+.ova-screen > :has(+ .ova-fuente) { margin-bottom: 12px; }
+.ova-numerada--icono {
+  list-style: none;
+  margin: 40px 0;
+  padding: 0;
+  display: grid;
+  gap: 32px;
+}
+.ova-numerada__item {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  column-gap: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-c);
+}
+.ova-numerada__marca {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+.ova-numerada__num {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 2.3rem;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: color-mix(in srgb, var(--c-acento) 46%, transparent);
+}
+.ova-numerada__icono {
+  display: block;
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  color: color-mix(in srgb, var(--c-acento) 55%, transparent);
+}
+.ova-numerada__item > p { margin: 0; }
+@media (max-width: 720px) {
+  .ova-numerada__item { grid-template-columns: minmax(0, 1fr); row-gap: 10px; }
+  .ova-numerada__marca { flex-direction: row; align-items: center; gap: 12px; }
+  .ova-numerada__num { font-size: 1.9rem; }
+}
+
+/* Subtítulos (.ova-subtitulo): nivel 1 (h2) 1,6 rem · 800; nivel 2 (h3) 1,3 rem · 700;
+   nivel 3 (h4) 1,1 rem · 700, sin número. Del subtítulo a lo que sigue 36 / 28 / 24 px;
+   de lo anterior al subtítulo 48 / 36 / 28 px. Sin número, los niveles 1 y 2 llevan viñeta. */
+.ova-subtitulo {
+  position: relative;
+  font-family: var(--font-display);
+  color: var(--text-head);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.ova-subtitulo--1 { font-size: clamp(1.4rem, 2.2vw, 1.6rem); font-weight: 800; margin: 48px 0 36px; }
+.ova-subtitulo--2 { font-size: 1.3rem;  font-weight: 700; margin: 36px 0 28px; }
+.ova-subtitulo--3 { font-size: 1.1rem;  font-weight: 700; margin: 28px 0 24px; }
+.ova-subtitulo + * { margin-top: 0; }
+.ova-subtitulo__num { color: var(--c-acento); margin-right: .45em; font-variant-numeric: tabular-nums; }
+.ova-subtitulo--vineta.ova-subtitulo--1 { padding-left: 30px; }
+.ova-subtitulo--vineta.ova-subtitulo--1::before {
+  content: ''; position: absolute; left: 0; top: .2em; width: 16px; height: 16px;
+  background: var(--ova-subtitulo-vineta-1, var(--c-acento));
+}
+.ova-subtitulo--vineta.ova-subtitulo--2 { padding-left: 22px; }
+.ova-subtitulo--vineta.ova-subtitulo--2::before {
+  content: ''; position: absolute; left: 0; top: .42em; width: 9px; height: 9px;
+  background: var(--ova-subtitulo-vineta-2, var(--c-info));
+}
+
+/* Lista numerada básica (--basica): el número en negrilla y el subnivel con letras.
+   Con cuadro (--cuadro): el número en un cuadro de color con texto blanco. */
+.ova-numerada--basica, .ova-numerada--basica ol { list-style: none; padding: 0; margin: 0; counter-reset: ova-numerada; }
+.ova-numerada--basica li { counter-increment: ova-numerada; position: relative; padding-left: 2em; margin: 0 0 10px; }
+.ova-numerada--basica li::before {
+  content: counter(ova-numerada) '.'; position: absolute; left: 0;
+  font-weight: 700; color: var(--c-acento); font-variant-numeric: tabular-nums;
+}
+.ova-numerada--basica ol { margin-top: 10px; }
+.ova-numerada--basica ol li::before { content: counter(ova-numerada, lower-alpha) '.'; }
+.ova-numerada--cuadro { list-style: none; padding: 0; margin: 0; counter-reset: ova-numerada-cuadro; }
+.ova-numerada--cuadro li {
+  counter-increment: ova-numerada-cuadro; display: grid; grid-template-columns: 28px minmax(0, 1fr);
+  column-gap: 14px; align-items: start; margin: 0 0 12px;
+}
+.ova-numerada--cuadro li::before {
+  content: counter(ova-numerada-cuadro); display: grid; place-items: center;
+  width: 28px; height: 28px; margin-top: .1em; border-radius: 4px;
+  background: var(--c-acento); color: #fff;
+  font-family: var(--font-display); font-weight: 700; font-size: .9rem;
+}
+
+/* Lista de viñetas (.ova-vinetas): un punto; con cuadro (--cuadro), un cuadro. */
+.ova-vinetas { list-style: none; padding: 0; margin: 0; }
+.ova-vinetas li { position: relative; padding-left: 1.6em; margin: 0 0 10px; }
+.ova-vinetas li::before {
+  content: ''; position: absolute; left: .35em; top: .72em;
+  width: 7px; height: 7px; border-radius: 50%; background: var(--c-acento);
+}
+.ova-vinetas--cuadro li::before { border-radius: 1px; width: 8px; height: 8px; top: .68em; background: var(--ova-vineta-cuadro, var(--c-info)); }
+
+/* Bloque destacado (.ova-destacados / .ova-destacado): icono en círculo + título + texto, en
+   una tarjeta del tono del aviso. Fondo claro (base), oscuro (--oscuro; con --marca, el tono de
+   acción) o de color (--color: el fondo pastel lo da el título). Sin icono: --sin-icono. */
+.ova-destacados { display: grid; gap: 12px; }
+.ova-destacado {
+  --ova-tono: var(--c-acento);
+  display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 18px; align-items: start;
+  padding: 18px 22px; border-radius: 14px;
+  background: color-mix(in srgb, var(--ova-tono) 8%, var(--bg-surface));
+}
+.ova-destacado--importante { --ova-tono: var(--ova-tono-importante, var(--c-acento)); }
+.ova-destacado--exito      { --ova-tono: var(--ova-tono-exito, var(--success)); }
+.ova-destacado--alerta     { --ova-tono: var(--ova-tono-alerta, var(--warning)); }
+.ova-destacado--error      { --ova-tono: var(--ova-tono-error, var(--danger)); }
+.ova-destacado--reflexion  { --ova-tono: var(--ova-tono-reflexion, var(--c-info)); }
+.ova-destacado__icono {
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--ova-tono); color: #fff; font-size: 22px;
+}
+.ova-destacado__titulo {
+  margin: 2px 0 4px; font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; line-height: 1.3;
+  color: var(--ova-tono);
+}
+.ova-destacado p { margin: 0; }
+.ova-destacado .ova-destacado__fuente { margin-top: 12px; font-size: .85rem; color: var(--text-mut); }
+.ova-destacados--oscuro .ova-destacado { background: var(--ova-oscuro-tarjeta, var(--c-deep)); }
+.ova-destacados--oscuro .ova-destacado__icono { background: color-mix(in srgb, var(--ova-tono) 55%, white); color: var(--ova-oscuro-tinta, var(--c-deep)); }
+.ova-destacados--oscuro .ova-destacado__titulo { color: color-mix(in srgb, var(--ova-tono) 30%, white); }
+.ova-destacados--oscuro .ova-destacado p { color: var(--ova-oscuro-texto, #fff); }
+.ova-destacados--oscuro .ova-destacado .ova-destacado__fuente { color: var(--ova-oscuro-suave, color-mix(in srgb, #fff 70%, transparent)); }
+.ova-destacados--oscuro.ova-destacados--marca .ova-destacado { background: var(--ova-oscuro-accion, var(--c-acento)); }
+.ova-destacados--oscuro.ova-destacados--marca .ova-destacado__icono { background: var(--ova-oscuro-icono, var(--c-info)); color: var(--ova-oscuro-tinta, var(--c-deep)); }
+.ova-destacados--oscuro.ova-destacados--marca .ova-destacado__titulo { color: var(--ova-oscuro-rotulo, #fff); }
+.ova-destacado--sin-icono {
+  grid-template-columns: minmax(0, 1fr); border-left: 4px solid var(--ova-destacado-filo, var(--c-info));
+  background: var(--ova-destacado-suave, var(--bg-muted)); border-radius: 0 14px 14px 0; padding: 22px 28px;
+}
+.ova-destacado--sin-icono .ova-destacado__titulo { color: var(--c-acento); }
+@media (max-width: 720px) {
+  .ova-destacado { grid-template-columns: 36px minmax(0, 1fr); column-gap: 14px; padding: 16px 18px; }
+  .ova-destacado__icono { width: 36px; height: 36px; font-size: 18px; }
+}
+
+/* En columnas: dos por fila (icono al lado) o tres por fila (icono arriba). En celular, uno. */
+.ova-destacados--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.ova-destacados--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.ova-destacados--3 .ova-destacado { grid-template-columns: minmax(0, 1fr); row-gap: 14px; padding: 24px 22px; align-content: start; }
+@media (max-width: 900px) { .ova-destacados--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 720px) {
+  .ova-destacados--2, .ova-destacados--3 { grid-template-columns: minmax(0, 1fr); }
+  .ova-destacados--3 .ova-destacado { grid-template-columns: 36px minmax(0, 1fr); column-gap: 14px; padding: 16px 18px; }
+}
+
+/* Tabla en formato APA (.ova-apa-tabla): número, título, la tabla y debajo la nota y la fuente.
+   En celular la tabla ancha se desliza dentro de su contenedor. */
+.ova-apa-tabla { margin: 44px 0 0; }
+.ova-apa-tabla figcaption { margin-bottom: 12px; }
+.ova-apa-tabla__num { display: block; font-weight: 700; color: var(--text-head); font-size: .95rem; margin-bottom: 2px; }
+.ova-apa-tabla__titulo { display: block; font-style: italic; line-height: 1.5; }
+.ova-apa-tabla__nota, .ova-apa-tabla__fuente { margin: 10px 0 0; font-size: .85rem; font-style: italic; color: var(--text-mut); line-height: 1.55; }
+.ova-apa-tabla__fuente { margin-top: 4px; }
+.ova-apa-tabla .ova-tabla { overflow-x: auto; }
+.ova-apa-tabla .ova-tabla table { min-width: 620px; }
+
+/* Tabla con celdas combinadas (.ova-tabla--combinada): el encabezado que agrupa columnas va
+   centrado; la celda que agrupa filas, arriba, en negrilla y separada por una línea vertical. */
+.ova-tabla--combinada table { min-width: 760px; }
+.ova-tabla--combinada th[colspan] { text-align: center; }
+.ova-tabla--combinada thead tr + tr th { text-align: center; background: color-mix(in srgb, var(--c-deep) 4%, var(--bg-muted)); }
+.ova-tabla--combinada th[rowspan] { vertical-align: bottom; }
+.ova-tabla--combinada th + th, .ova-tabla--combinada thead tr + tr th:first-child { border-left: 1px solid var(--border-c); }
+.ova-tabla--combinada td[rowspan] {
+  vertical-align: top; font-weight: 700; color: var(--text-head);
+  background: var(--bg-muted); border-right: 1px solid var(--border-c);
+}
+.ova-tabla--combinada tbody tr:hover { background: none; }
+
+/* Bloque destacado de fondo de color: el fondo es el pastel del aviso (--ova-fondo). */
+.ova-destacados--color .ova-destacado { background: var(--ova-fondo, color-mix(in srgb, var(--ova-tono) 12%, var(--bg-surface))); }
+.ova-destacado--sin-icono { margin-top: 0; }
+
+/* Descarga con icono (.ova-destacado--boton): el botón a la derecha del texto, centrado en
+   altura; en celular, debajo del texto. Sobre fondo oscuro, el botón va claro. */
+.ova-destacado--boton { grid-template-columns: 44px minmax(0, 1fr) auto; align-items: center; }
+.ova-destacado--boton .ova-destacado__boton { white-space: nowrap; }
+.ova-destacados--oscuro .ova-destacado__boton { background: var(--ova-oscuro-boton, var(--bg-surface)); color: var(--ova-oscuro-boton-tinta, var(--c-deep)); border-color: var(--ova-oscuro-boton, var(--bg-surface)); }
+.ova-destacados--oscuro .ova-destacado__boton:hover { background: var(--ova-oscuro-boton-hover, var(--bg-muted)); border-color: var(--ova-oscuro-boton-hover, var(--bg-muted)); color: var(--ova-oscuro-boton-tinta, var(--c-deep)); }
+@media (max-width: 720px) {
+  .ova-destacado--boton { grid-template-columns: 36px minmax(0, 1fr); align-items: start; }
+  .ova-destacado--boton .ova-destacado__boton { grid-column: 2; justify-self: start; margin-top: 12px; }
+}
+.ova-destacado--boton { padding: 28px 34px; column-gap: 24px; }
+@media (max-width: 720px) { .ova-destacado--boton { padding: 20px 20px; } }
+
+/* Descarga con imagen (.ova-descargable--imagen): tarjeta de color con la imagen grande a la
+   izquierda y el título, el texto y el botón apilados a la derecha; en celular, la imagen arriba. */
+.ova-descargable.ova-descargable--imagen {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 40px; align-items: center;
+  padding: 40px 48px; border-radius: 22px; border-left: 0; margin: 0;
+  background: var(--ova-descargable-imagen-fondo, color-mix(in srgb, var(--c-info) 20%, var(--bg-surface)));
+}
+.ova-descargable__img { display: block; width: 100%; max-height: 300px; object-fit: contain; }
+.ova-descargable__titulo { margin: 0 0 12px; font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; line-height: 1.3; color: var(--text-head); }
+.ova-descargable__cuerpo p { margin: 0 0 22px; }
+@media (max-width: 720px) {
+  .ova-descargable.ova-descargable--imagen { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 24px 22px; }
+  .ova-descargable__img { max-height: 200px; }
+}
+
+/* Presentación de la evaluación (.ova-eval-intro, KIT-007 D16): la primera diapositiva, diagramada
+   como «Descarga - con imagen» y con su mismo fondo; dentro de la tarjeta, el texto del banco y
+   «Comenzar»; la ayuda de las flechas, bajo la tarjeta. Sin <img> (variante sin imagen), la tarjeta
+   va sola. En celular, la imagen arriba. */
+.ova-eval-intro__tarjeta {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; align-items: center;
+  padding: 40px 48px; border-radius: 22px;
+  background: var(--ova-eval-intro-fondo, color-mix(in srgb, var(--c-info) 20%, var(--bg-surface)));
+}
+.ova-eval-intro__tarjeta:has(> .ova-eval-intro__img) { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
+.ova-eval-intro__img { display: block; width: 100%; max-height: 300px; object-fit: contain; }
+.ova-eval-intro__texto { margin: 0 0 22px; font-size: 1.15rem; line-height: 1.6; color: var(--text-head); }
+@media (max-width: 720px) {
+  .ova-eval-intro__tarjeta, .ova-eval-intro__tarjeta:has(> .ova-eval-intro__img) { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 24px 22px; }
+  .ova-eval-intro__img { max-height: 200px; }
+}
+
+/* =========================================================
+   TEXTO Y ÉNFASIS II · rótulo, recursos, citas, banner y código
+   (KIT-001 T7). Van en este orden: el margen de .ova-rotulo + * cede
+   ante el de la pieza que nombra.
+   Variables que pone la piel (con defecto del motor):
+     --ova-recurso-fondo                     fondo de cada recurso
+     --ova-cita-claro / -bloque / -luz       fondo claro, bloque de la tipo 3 y acento claro de las citas
+     --ova-banner-realce / -claro            la negrilla del banner oscuro y el fondo del claro
+     --ova-codigo-fondo / -clave / -cadena / -numero / -resalte
+   ========================================================= */
+
+/* Rótulo del componente (.ova-rotulo): el «Título:» que el Word le pone a un bloque. Va pegado a él. */
+.ova-rotulo {
+  margin: 40px 0 0;
+  font-family: var(--font-display); font-size: 1.14rem; font-weight: 600; line-height: 1.3;
+  color: var(--text-head);
+}
+.ova-rotulo + * { margin-top: 12px; }
+
+/* Recursos y enlaces (.ova-recursos / .ova-recurso): tipo + nombre + descripción, uno, dos o tres
+   por fila; en celular, uno. El color de cada tipo de archivo es el de su programa. */
+.ova-recursos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 24px 0; }
+.ova-recursos--uno { grid-template-columns: 1fr; }
+.ova-recursos--dos { grid-template-columns: repeat(2, 1fr); }
+.ova-recursos--tres { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 720px) { .ova-recursos--dos, .ova-recursos--tres { grid-template-columns: 1fr; } }
+.ova-recurso {
+  display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 14px;
+  padding: 14px 16px; border-radius: var(--r-md); text-decoration: none;
+  background: var(--ova-recurso-fondo, var(--bg-muted)); border: 1px solid var(--border-c); color: var(--text-head);
+}
+.ova-recurso:hover { border-color: var(--c-acento); color: var(--text-head); }
+.ova-recurso:focus-visible { outline: 3px solid var(--c-info); outline-offset: 2px; }
+.ova-recurso__tipo {
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px;
+  font-family: var(--font-display); font-weight: 800; font-size: .7rem; letter-spacing: .04em; color: #fff; background: var(--c-acento);
+}
+.ova-recurso[data-tipo="pdf"] .ova-recurso__tipo { background: #C62828; }
+.ova-recurso[data-tipo="doc"] .ova-recurso__tipo { background: #185ABD; }
+.ova-recurso[data-tipo="xls"] .ova-recurso__tipo { background: #1E7145; }
+.ova-recurso[data-tipo="ppt"] .ova-recurso__tipo { background: #C43E1C; }
+.ova-recurso[data-tipo="zip"] .ova-recurso__tipo { background: #5E6B78; }
+.ova-recurso[data-tipo="url"] .ova-recurso__tipo { background: var(--c-info); font-size: 1.1rem; }
+.ova-recurso__info strong { display: block; font-size: .95rem; line-height: 1.35; }
+.ova-recurso__info span { font-size: .8rem; color: var(--text-mut); }
+.ova-recurso__ir { color: var(--c-acento); font-size: 1.2rem; }
+
+/* Citas (.ova-cita): tipo 1, banda con comillas grandes fuera de la caja, autor y foto redonda
+   sobre el borde inferior; tipo 2, caja con la comilla arriba y la frase grande; tipo 3, frase
+   grande sin caja con un bloque de color detrás. Fondo neutro (gris frío) u oscuro por variante.
+   Los remates de la caja (cuadros, píxeles) son de la piel. */
+.ova-cita {
+  margin: 0; position: relative;
+  --ova-cita-fondo: var(--ova-cita-claro, color-mix(in srgb, var(--c-info) 18%, var(--bg-surface)));
+  --ova-cita-texto: var(--text-pri); --ova-cita-titulo: var(--text-head); --ova-cita-suave: var(--text-mut);
+  --ova-cita-comilla: var(--c-acento);
+}
+.ova-cita--neutra { --ova-cita-fondo: #ECEFF3; --ova-cita-comilla: var(--text-head); }
+.ova-cita--oscura {
+  --ova-cita-fondo: var(--c-deep); --ova-cita-texto: rgba(255,255,255,.88); --ova-cita-titulo: #fff; --ova-cita-suave: rgba(255,255,255,.62);
+  --ova-cita-comilla: var(--ova-cita-luz, var(--c-info));
+}
+.ova-cita blockquote { margin: 0; padding: 0; border: 0; background: none; }
+.ova-cita blockquote p { margin: 0; }
+.ova-cita--tipo1::before, .ova-cita--tipo1::after, .ova-cita--tipo2::before,
+.ova-cita--tipo3 blockquote p::before, .ova-cita--tipo3 blockquote p::after {
+  font-family: Georgia, 'Times New Roman', serif; font-weight: 700; line-height: 1; color: var(--ova-cita-comilla);
+}
+.ova-cita--tipo1 {
+  margin: 28px 0 80px; padding: 44px 56px 68px; text-align: center;
+  background: var(--ova-cita-fondo);
+}
+.ova-cita--tipo1::before { content: '\201C'; position: absolute; left: 18px; top: -26px; font-size: 5.5rem; }
+.ova-cita--tipo1::after  { content: '\201D'; position: absolute; right: 18px; bottom: 0; font-size: 5.5rem; transform: translateY(45%); }
+.ova-cita--tipo1 blockquote p { font-size: 1.12rem; line-height: 1.7; color: var(--ova-cita-texto); }
+.ova-cita--tipo1 figcaption { margin-top: 18px; display: grid; gap: 2px; font-size: .92rem; color: var(--ova-cita-suave); }
+.ova-cita--tipo1 figcaption strong { font-family: var(--font-display); font-size: 1.02rem; color: var(--ova-cita-titulo); }
+.ova-cita__foto {
+  position: absolute; left: 50%; bottom: 0; transform: translate(-50%, 50%);
+  width: 88px; height: 88px; border-radius: 50%; object-fit: cover;
+  border: 5px solid var(--bg-surface); box-shadow: 0 6px 18px rgba(19,43,65,.18);
+}
+.ova-cita--tipo2 { padding: 72px 48px 48px; background: var(--ova-cita-fondo); }
+.ova-cita--tipo2::before { content: '\201D'; position: absolute; left: 44px; top: 18px; font-size: 4.5rem; }
+.ova-cita--tipo2 blockquote p { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.3rem, 2.2vw, 1.6rem); line-height: 1.3; color: var(--ova-cita-titulo); }
+.ova-cita--tipo2 figcaption { margin-top: 14px; font-size: .95rem; color: var(--ova-cita-texto); }
+.ova-cita--tipo3 { padding: 8px 0 40px; isolation: isolate; }
+.ova-cita--tipo3::after {
+  content: ''; position: absolute; right: 0; bottom: 0; width: 46%; height: 62%; z-index: -1;
+  background: var(--ova-cita-bloque, color-mix(in srgb, var(--c-info) 22%, var(--bg-surface)));
+}
+.ova-cita--tipo3 blockquote p { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.4rem, 2.6vw, 1.85rem); line-height: 1.3; color: var(--text-head); max-width: 34ch; }
+.ova-cita--tipo3 blockquote p::before { content: '\201C'; display: inline-block; line-height: 0; font-size: 1.9em; vertical-align: -.42em; margin-right: .12em; }
+.ova-cita--tipo3 blockquote p::after  { content: '\201D'; display: inline-block; line-height: 0; font-size: 1.9em; vertical-align: -.42em; margin-left: .08em; }
+.ova-cita--tipo3 figcaption { margin-top: 12px; font-size: .95rem; color: var(--text-pri); }
+@media (max-width: 720px) {
+  .ova-cita--tipo1 { padding: 40px 22px 64px; }
+  .ova-cita--tipo1::before { left: 6px; top: -20px; font-size: 4.2rem; }
+  .ova-cita--tipo1::after { right: 6px; font-size: 4.2rem; }
+  .ova-cita--tipo2 { padding: 60px 22px 60px; }
+  .ova-cita--tipo2::before { left: 20px; }
+  .ova-cita--tipo3::after { width: 50%; height: 45%; }
+}
+
+/* Banner (.ova-banner): una banda de fondo oscuro, o claro (--claro), con una sola frase grande; su
+   negrilla se enciende. En celular sale al ancho de la pantalla. La textura y el remate son de la piel. */
+.ova-banner {
+  position: relative; overflow: hidden; isolation: isolate;
+  margin: 72px 0; padding: clamp(48px, 6vw, 72px) clamp(28px, 6vw, 72px);
+  border-radius: var(--r-lg); background: var(--c-deep); color: #FFFFFF;
+}
+/* Dos clases: la piel suele fijar el interlineado de .ova-screen p y se carga después. */
+.ova-banner .ova-banner__frase {
+  position: relative; z-index: 1; margin: 0; padding-right: clamp(0px, 10vw, 140px);
+  font-size: clamp(1.35rem, 2.6vw, 2rem); line-height: 1.42; font-weight: 300; letter-spacing: -0.01em;
+}
+.ova-screen .ova-banner strong,
+.ova-banner strong { font-weight: 700; color: var(--ova-banner-realce, var(--c-info)); }
+.ova-banner--claro { background: var(--ova-banner-claro, var(--bg-muted)); color: var(--text-head); }
+.ova-screen .ova-banner--claro strong,
+.ova-banner--claro strong { color: var(--c-acento); }
+@media (max-width: 720px) { .ova-banner { margin: 48px calc(-1 * clamp(20px, 5vw, 64px)); } }
+
+/* Bloque de código (.ova-codigo): cabecera oscura con el lenguaje, cuerpo en mono y líneas
+   numeradas (catalogo.js envuelve cada una; el número no se copia). data-ova-resaltar="5,8" marca
+   esas líneas. El coloreado va en spans: __clave, __cadena, __numero y __comentario. */
+.ova-codigo { margin: 28px 0; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border-c); background: var(--ova-codigo-fondo, var(--bg-muted)); }
+.ova-codigo figcaption {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px; background: var(--c-deep); color: #fff;
+  font-family: var(--font-mono); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase;
+}
+.ova-codigo figcaption::before {
+  content: ''; width: 10px; height: 10px; border-radius: 50%; background: #ED6A48;
+  box-shadow: 16px 0 0 #F0B443, 32px 0 0 #3FC0F0; margin-right: 32px;
+}
+.ova-codigo pre { margin: 0; padding: 18px 20px; overflow-x: auto; font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .88rem; line-height: 1.65; color: var(--text-pri); }
+.ova-codigo code { background: none; padding: 0; color: inherit; font-size: inherit; font-family: inherit; font-variant-ligatures: none; }
+.ova-codigo .ova-codigo__clave { color: var(--ova-codigo-clave, var(--c-acento)); font-weight: 600; }
+.ova-codigo .ova-codigo__cadena { color: var(--ova-codigo-cadena, #B8650F); }
+.ova-codigo .ova-codigo__numero { color: var(--ova-codigo-numero, var(--c-acento)); }
+.ova-codigo .ova-codigo__comentario { color: var(--text-mut); font-style: italic; }
+.ova-codigo pre:has(.ova-codigo__linea) { padding-left: 0; padding-right: 0; }
+.ova-codigo code:has(.ova-codigo__linea) { display: block; width: 100%; min-width: max-content; counter-reset: ova-linea; }
+.ova-codigo__linea { display: block; position: relative; padding: 0 20px 0 3.6em; min-height: 1.65em; counter-increment: ova-linea; }
+.ova-codigo__linea::before {
+  content: counter(ova-linea); position: absolute; left: 0; width: 2.4em; text-align: right;
+  color: color-mix(in srgb, var(--text-mut) 70%, transparent); user-select: none; -webkit-user-select: none;
+}
+.ova-codigo__linea.is-resaltada {
+  background: color-mix(in srgb, var(--ova-codigo-resalte, var(--c-info)) 16%, transparent);
+  box-shadow: inset 3px 0 0 var(--ova-codigo-resalte, var(--c-info));
+}
+.ova-codigo__linea.is-resaltada::before { color: var(--c-acento); font-weight: 700; }
+
+/* =========================================================
+   COMPONENTES INTERACTIVOS (KIT-001 T8) · acordeón con figura al lado,
+   carrusel de fotos y pestañas con imagen. El carrusel, el slide y las
+   pestañas son variantes del motor (core.css, @catalogo-variantes).
+   Variables que pone la piel (con defecto del motor):
+     --ova-galeria-fondo / -pie / -velo   fondo de cada foto, «Escena N» y el velo bajo el pie
+     --ova-ficha                          la ficha del icono de una pestaña sin imagen
+   ========================================================= */
+
+/* Bajo el rótulo, el llamado conserva su aire: .ova-rotulo + * no lo pega al título. */
+.ova-rotulo + .ova-llamado { margin-top: 24px; }
+
+/* Acordeón · ítem con la figura al lado: texto en dos tercios y la figura en uno. */
+.ova-acordeon__media { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+.ova-acordeon__media > div > p:first-child { margin-top: 0; }
+.ova-acordeon__media .ova-figura { margin: 0; }
+@media (max-width: 720px) { .ova-acordeon__media { grid-template-columns: minmax(0, 1fr); } }
+
+/* Carrusel de fotos (.ova-galeria): una foto protagonista y las vecinas asomando. Botones, puntos,
+   flechas del teclado y scroll-snap (catalogo.js). */
+.ova-galeria { position: relative; margin: 28px 0; }
+.ova-galeria__pista {
+  display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  padding: 8px 15% 12px; scrollbar-width: none;
+}
+.ova-galeria__pista::-webkit-scrollbar { display: none; }
+.ova-galeria__item {
+  /* 100 % del área de contenido de la pista (con 15 % de relleno a cada lado): la protagonista queda
+     centrada desde el arranque y las vecinas asoman el 15 % menos el hueco. */
+  flex: 0 0 100%; scroll-snap-align: center; position: relative;
+  border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 16 / 9; background: var(--ova-galeria-fondo, var(--bg-muted));
+  transform: scale(.92); opacity: .55; transition: transform .35s, opacity .35s;
+}
+.ova-galeria__item.is-active { transform: scale(1); opacity: 1; box-shadow: var(--shadow-md); }
+.ova-galeria__item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ova-galeria__item > .ova-pendiente { position: absolute; inset: 0; margin: 0; border-radius: 0; }
+.ova-galeria__pie {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 36px 20px 16px; color: #fff;
+  background: var(--ova-galeria-velo, linear-gradient(to top, rgba(0, 0, 0, .75), rgba(0, 0, 0, 0)));
+}
+.ova-galeria__pie small { display: block; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ova-galeria-pie, #FFFFFF); margin-bottom: 4px; }
+.ova-galeria__pie strong { font-size: 1.05rem; }
+.ova-galeria__nav { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 12px; }
+.ova-galeria__btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border-c); background: var(--bg-surface); color: var(--c-acento); display: grid; place-items: center; cursor: pointer; font-size: 1.2rem; }
+.ova-galeria__btn:hover { border-color: var(--c-acento); }
+.ova-galeria__btn:focus-visible { outline: 3px solid var(--c-info); outline-offset: 2px; }
+.ova-galeria__puntos { display: flex; gap: 8px; }
+.ova-galeria__punto { width: 8px; height: 8px; border-radius: 50%; background: var(--border-c); border: 0; padding: 0; cursor: pointer; }
+.ova-galeria__punto.is-active { width: 22px; border-radius: 4px; background: var(--c-acento); }
+.ova-galeria__ayuda { margin: 10px 0 0; text-align: center; font-size: .85rem; color: var(--text-mut); }
+@media (max-width: 640px) { .ova-galeria__pista { padding-inline: 7%; } }
+
+/* Pestañas · la ficha con el icono que ocupa el lugar de la imagen cuando no llega. */
+.ova-tabs__icono { align-self: stretch; min-height: 180px; border-radius: var(--r-md); background: var(--ova-ficha, var(--bg-muted)); border: 1px solid var(--border-c); display: grid; place-items: center; color: var(--c-acento); }
+.ova-tabs__icono iconify-icon { font-size: 96px; }
+@media (max-width: 720px) { .ova-tabs__icono { min-height: 120px; } .ova-tabs__icono iconify-icon { font-size: 64px; } }
+
+/* =========================================================
+   PASOS Y LÍNEAS DE TIEMPO (KIT-001 T9) · rutas, recorrido de inicio a
+   meta, pasos con tarjetas y las tres líneas de tiempo. El acordeón
+   numerado, el slider y el listado vertical son variantes del motor
+   (core.css, @catalogo-variantes); aquí solo se afinan.
+   Variables que pone la piel (con defecto del motor):
+     --ova-realce        hilo, punto o número activo          (def. --c-info)
+     --ova-franja        riel y panel claros                  (def. --bg-muted)
+     --ova-ficha         fila al pasar el mouse               (def. --bg-muted)
+     --ova-meta / -tinta la meta o el último hito y su texto  (def. --c-acento / #fff)
+     --ova-ruta-tenue    la ruta con iconos                   (def. --border-c)
+   La forma de la marca de inicio y de meta del recorrido la pone la piel.
+   ========================================================= */
+
+/* Acordeón numerado: el hilo de puntos un poco más marcado, y la misma caja en celular que en
+   escritorio (así se publicó la primera plantilla-base generada, 2e4ba). */
+.ova-acordeon--numerado .ova-acordeon__item:not(:last-child)::before {
+  background: radial-gradient(circle, color-mix(in srgb, var(--ova-realce, var(--c-info)) 60%, transparent) 1.6px, transparent 1.9px) 0 0 / 4px 8px repeat-y;
+}
+@media (max-width: 720px) {
+  .ova-acordeon--numerado .ova-acordeon__item { padding-left: 62px; }
+  .ova-acordeon--numerado .ova-acordeon__num { width: 44px; height: 44px; }
+  .ova-acordeon--numerado .ova-acordeon__item:not(:last-child)::before { left: 20px; top: 50px; }
+}
+
+/* Slider de pasos: el texto y la imagen del paso, centrados en alto. */
+.ova-tabs--pasos .ova-tabs__media { align-items: center; }
+.ova-tabs--pasos .ova-tabs__media > div > p:first-child { margin-top: 0; }
+
+/* Ruta en zigzag (.ova-ruta): cada paso alterna texto e imagen; una línea sale del número, baja y
+   cruza al otro lado hasta el número siguiente. Todas las esquinas son curvas: la de llegada a cada
+   paso la dibuja su ::after, y la línea horizontal del paso anterior se detiene un radio antes. */
+.ova-ruta { --ova-ruta-x: 30px; --ova-ruta-r: 18px; --ova-ruta-c: var(--ova-realce, var(--c-info)); list-style: none; margin: 0; padding: 0; }
+.ova-ruta__paso {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 32px; align-items: center; padding: 36px 84px;
+}
+.ova-ruta__paso::before {
+  content: ''; position: absolute; top: 0; bottom: 0; left: var(--ova-ruta-x); right: calc(var(--ova-ruta-x) + var(--ova-ruta-r)); pointer-events: none;
+  border: 0 solid var(--ova-ruta-c); border-left-width: 2px; border-bottom-width: 2px; border-bottom-left-radius: var(--ova-ruta-r);
+}
+.ova-ruta__paso:nth-child(even)::before {
+  left: calc(var(--ova-ruta-x) + var(--ova-ruta-r)); right: var(--ova-ruta-x);
+  border-left-width: 0; border-right-width: 2px; border-bottom-left-radius: 0; border-bottom-right-radius: var(--ova-ruta-r);
+}
+.ova-ruta__paso:not(:first-child)::before { top: var(--ova-ruta-r); }
+.ova-ruta__paso:not(:first-child)::after {
+  content: ''; position: absolute; top: -2px; left: var(--ova-ruta-x); width: var(--ova-ruta-r); height: calc(var(--ova-ruta-r) + 2px); pointer-events: none;
+  border: 0 solid var(--ova-ruta-c); border-top-width: 2px; border-left-width: 2px; border-top-left-radius: var(--ova-ruta-r);
+}
+.ova-ruta__paso:nth-child(even)::after {
+  left: auto; right: var(--ova-ruta-x);
+  border-left-width: 0; border-right-width: 2px; border-top-left-radius: 0; border-top-right-radius: var(--ova-ruta-r);
+}
+.ova-ruta__paso:first-child::before { top: 50%; }
+.ova-ruta__paso:last-child::before { bottom: 50%; border-bottom-width: 0; border-radius: 0; }
+.ova-ruta__paso:nth-child(even) > .ova-ruta__texto { order: 2; }
+.ova-ruta__num {
+  position: absolute; top: 50%; left: var(--ova-ruta-x); transform: translate(-50%, -50%); z-index: 1;
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--c-acento); color: #fff; font-family: var(--font-display); font-weight: 800; font-size: 1.05rem;
+  box-shadow: 0 0 0 5px var(--bg-app);
+}
+.ova-ruta__paso:nth-child(even) > .ova-ruta__num { left: auto; right: var(--ova-ruta-x); transform: translate(50%, -50%); }
+.ova-ruta__texto h4 { margin: 0 0 8px; font-family: var(--font-display); font-size: 1.1rem; color: var(--text-head); }
+.ova-ruta__texto p { margin: 0; }
+.ova-ruta .ova-figura, .ova-ruta .ova-pendiente { margin: 0; }
+/* Sin imagen (--texto): el texto ocupa todo el ancho y se alinea hacia su número. Con --iconos, el
+   círculo lleva un icono, la ruta va tenue y el icono sobresale en un círculo más grande, con sombra. */
+.ova-ruta--texto .ova-ruta__paso { grid-template-columns: minmax(0, 1fr); padding-block: 28px; }
+.ova-ruta--texto .ova-ruta__paso:nth-child(even) > .ova-ruta__texto { text-align: right; }
+.ova-ruta--iconos { --ova-ruta-x: 34px; --ova-ruta-c: var(--ova-ruta-tenue, var(--border-c)); }
+.ova-ruta--iconos .ova-ruta__num {
+  width: 60px; height: 60px; background: var(--ova-realce, var(--c-info)); color: var(--c-deep);
+  box-shadow: 0 0 0 6px var(--bg-app), 0 10px 22px -6px color-mix(in srgb, var(--ova-realce, var(--c-info)) 70%, transparent);
+}
+.ova-ruta__num iconify-icon { font-size: 24px; }
+.ova-ruta--iconos .ova-ruta__num iconify-icon { font-size: 28px; }
+@media (max-width: 720px) {
+  .ova-ruta__paso { grid-template-columns: minmax(0, 1fr); gap: 16px; padding: 24px 0 24px 64px; }
+  .ova-ruta--texto .ova-ruta__paso:nth-child(even) > .ova-ruta__texto { text-align: left; }
+  .ova-ruta__paso::before, .ova-ruta__paso:nth-child(even)::before {
+    left: 22px; right: auto; width: 0; border-width: 0 0 0 2px; border-radius: 0;
+  }
+  .ova-ruta__paso:not(:first-child)::before { top: 0; }
+  .ova-ruta__paso::after { display: none; }
+  .ova-ruta__paso:nth-child(even) > .ova-ruta__texto { order: 0; }
+  .ova-ruta__num, .ova-ruta__paso:nth-child(even) > .ova-ruta__num { left: 22px; right: auto; top: 40px; transform: translate(-50%, -50%); }
+  .ova-ruta__paso:first-child::before { top: 40px; }
+  .ova-ruta__paso:last-child::before { bottom: auto; height: 40px; }
+  .ova-ruta--iconos .ova-ruta__paso { padding-left: 80px; }
+  .ova-ruta--iconos .ova-ruta__paso::before, .ova-ruta--iconos .ova-ruta__paso:nth-child(even)::before { left: 30px; }
+  .ova-ruta--iconos .ova-ruta__num, .ova-ruta--iconos .ova-ruta__paso:nth-child(even) > .ova-ruta__num { left: 30px; top: 46px; }
+  .ova-ruta--iconos .ova-ruta__paso:first-child::before { top: 46px; }
+  .ova-ruta--iconos .ova-ruta__paso:last-child::before { height: 46px; }
+}
+
+/* Ruta de inicio a meta (.ova-trayecto): la línea serpentea por filas. Cada fila es una caja que va
+   del centro de la primera columna al de la tercera; su borde superior es el tramo horizontal y su
+   borde lateral baja a la fila siguiente (derecha en las impares, izquierda en las pares). Las
+   paradas van sobre el borde superior: 0 %, 50 % y 100 %, al revés en las pares. En celular, una
+   línea vertical con las paradas a la derecha. */
+.ova-trayecto { --ova-linea: 2px; --ova-marca: 46px; margin: 34px 0 10px; padding-top: calc(var(--ova-marca) / 2); }
+.ova-trayecto__fila {
+  position: relative; list-style: none; margin: 0 calc(100% / 6); padding: 0; min-height: 168px;
+  border-top: var(--ova-linea) solid var(--c-acento);
+}
+.ova-trayecto__fila:nth-child(odd):not(:last-child) { border-right: var(--ova-linea) solid var(--c-acento); }
+.ova-trayecto__fila:nth-child(even):not(:last-child) { border-left: var(--ova-linea) solid var(--c-acento); }
+.ova-trayecto__fila:last-child { border-top: 0; min-height: 120px; }
+.ova-trayecto__parada {
+  position: absolute; top: calc(var(--ova-marca) / -2 - var(--ova-linea) / 2); width: 220px; margin-left: -110px;
+  display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center;
+}
+.ova-trayecto__fila:last-child .ova-trayecto__parada { top: calc(var(--ova-marca) / -2); }
+.ova-trayecto__fila:nth-child(odd) .ova-trayecto__parada:nth-child(1),
+.ova-trayecto__fila:nth-child(even) .ova-trayecto__parada:nth-child(3) { left: 0; }
+.ova-trayecto__parada:nth-child(2) { left: 50%; }
+.ova-trayecto__fila:nth-child(odd) .ova-trayecto__parada:nth-child(3),
+.ova-trayecto__fila:nth-child(even) .ova-trayecto__parada:nth-child(1) { left: 100%; }
+.ova-trayecto__marca {
+  display: grid; place-items: center; width: var(--ova-marca); height: var(--ova-marca); border-radius: 50%;
+  background: var(--c-acento); color: #fff; font-family: var(--font-display); font-weight: 800; font-size: 1.1rem;
+  box-shadow: 0 0 0 6px var(--bg-app);
+  transition: transform .25s ease, background .25s ease;
+}
+.ova-trayecto__parada:hover .ova-trayecto__marca { transform: scale(1.1); background: var(--c-info); }
+.ova-trayecto__texto { font-size: .98rem; line-height: 1.45; color: var(--text-pri); }
+/* En la parada donde la línea baja, el texto se corre al lado para que la línea no lo cruce. */
+@media (min-width: 721px) {
+  .ova-trayecto__fila:not(:last-child) .ova-trayecto__parada:nth-child(3) .ova-trayecto__texto {
+    position: absolute; top: calc(var(--ova-marca) + 10px); width: 190px;
+  }
+  .ova-trayecto__fila:nth-child(odd):not(:last-child) .ova-trayecto__parada:nth-child(3) .ova-trayecto__texto { right: calc(50% + 16px); text-align: right; }
+  .ova-trayecto__fila:nth-child(even):not(:last-child) .ova-trayecto__parada:nth-child(3) .ova-trayecto__texto { left: calc(50% + 16px); text-align: left; }
+}
+/* Inicio y meta: sin número; la meta, más grande y en su color. El rótulo, en versalitas. */
+.ova-trayecto__parada--meta .ova-trayecto__marca { background: var(--ova-meta, var(--c-acento)); width: 56px; height: 56px; }
+.ova-trayecto__parada--inicio .ova-trayecto__texto,
+.ova-trayecto__parada--meta .ova-trayecto__texto {
+  font-family: var(--font-display); font-weight: 800; font-size: .76rem; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--c-acento);
+}
+@media (max-width: 720px) {
+  .ova-trayecto { position: relative; padding-top: 0; }
+  .ova-trayecto::before {   /* la línea vertical que une todas las paradas */
+    content: ''; position: absolute; left: calc(var(--ova-marca) / 2 - 1px); top: 23px; bottom: 40px;
+    width: var(--ova-linea); background: var(--c-acento);
+  }
+  .ova-trayecto__fila, .ova-trayecto__fila:last-child { margin: 0; min-height: 0; border: 0 !important; }
+  .ova-trayecto__parada, .ova-trayecto__fila:last-child .ova-trayecto__parada {
+    position: relative; top: auto; left: auto !important; width: auto; margin: 0 0 22px;
+    flex-direction: row; text-align: left; gap: 16px;
+  }
+  .ova-trayecto__marca { flex: none; }
+  .ova-trayecto__parada--meta .ova-trayecto__marca { width: var(--ova-marca); height: var(--ova-marca); }
+}
+
+/* Listado de pasos con tarjetas (.ova-escenas): cada paso, una tarjeta con número grande, icono y el
+   texto íntegro; un hilo punteado baja de una tarjeta a la siguiente. */
+.ova-escenas { display: flex; flex-direction: column; gap: 18px; margin: 44px 0; }
+.ova-rotulo + .ova-escenas { margin-top: 12px; }
+.ova-escena {
+  position: relative; display: grid; grid-template-columns: 104px 1fr; gap: 30px; align-items: start;
+  padding: 34px 38px; background: var(--bg-surface); border-radius: var(--r-md); box-shadow: var(--shadow-sm);
+}
+.ova-escena:not(:last-child)::after {
+  content: ''; position: absolute; left: 90px; bottom: -18px; width: 2px; height: 18px;
+  background: repeating-linear-gradient(to bottom, color-mix(in srgb, var(--c-acento) 45%, transparent) 0 5px, transparent 5px 10px);
+}
+.ova-escena__marca { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.ova-escena__num {
+  font-size: 3.2rem; font-weight: 300; line-height: 1; letter-spacing: -0.03em;
+  color: color-mix(in srgb, var(--c-acento) 46%, transparent);
+}
+.ova-escena__icono {
+  width: 62px; height: 62px; border-radius: 50%; display: grid; place-items: center; font-size: 1.75rem;
+  background: color-mix(in srgb, var(--c-acento) 12%, transparent); color: var(--c-acento);
+}
+.ova-escena__titulo { margin: 4px 0 12px; font-size: 1.3rem; font-weight: 600; color: var(--text-head); }
+.ova-escena__texto { margin: 0; }
+@media (max-width: 720px) {
+  .ova-escena { grid-template-columns: 1fr; gap: 16px; padding: 26px 24px; }
+  .ova-escena__marca { flex-direction: row; align-items: center; gap: 16px; }
+  .ova-escena:not(:last-child)::after { left: 42px; }
+  .ova-escena__num { font-size: 2.6rem; }
+}
+
+/* Línea de tiempo tipo 1 (.ova-hitos): eje central con la fecha en píldora sobre él; a un lado la
+   tarjeta de texto y al otro su imagen, alternados. La última fecha, en el color de la meta. En
+   celular, eje a la izquierda: fecha, imagen y texto. */
+.ova-hitos { list-style: none; margin: 28px 0 0; padding: 0; position: relative; }
+.ova-hitos::before {
+  content: ''; position: absolute; left: 50%; top: 8px; bottom: 8px; width: 3px; transform: translateX(-50%);
+  border-radius: 3px; background: linear-gradient(180deg, var(--ova-realce, var(--c-info)), var(--c-acento));
+}
+.ova-hitos__hito { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 116px minmax(0, 1fr); align-items: center; margin: 0; padding: 16px 0; }
+.ova-hitos__fecha {
+  grid-column: 2; grid-row: 1; justify-self: center; z-index: 1; padding: 8px 16px; border-radius: 999px;
+  background: var(--c-acento); color: #fff; font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; letter-spacing: .02em;
+  box-shadow: 0 0 0 6px var(--bg-app);
+}
+.ova-hitos__hito:last-child .ova-hitos__fecha { background: var(--ova-meta, var(--c-acento)); color: var(--ova-meta-tinta, #fff); }
+.ova-hitos__texto {
+  grid-column: 1; grid-row: 1; text-align: right; padding: 22px 26px; background: var(--bg-surface);
+  border: 1px solid var(--border-c); border-radius: var(--r-lg); box-shadow: 0 16px 32px -26px color-mix(in srgb, var(--c-deep) 40%, transparent);
+}
+.ova-hitos__texto h3 { margin: 0 0 8px; font-size: 1.15rem; line-height: 1.3; color: var(--text-head); }
+.ova-hitos__texto p { margin: 0; }
+.ova-hitos__imagen { grid-column: 3; grid-row: 1; margin: 0; }
+.ova-hitos__imagen img {
+  display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--r-lg);
+  box-shadow: 0 16px 32px -24px color-mix(in srgb, var(--c-deep) 50%, transparent);
+}
+.ova-hitos__hito:nth-child(even) .ova-hitos__texto { grid-column: 3; text-align: left; }
+.ova-hitos__hito:nth-child(even) .ova-hitos__imagen { grid-column: 1; }
+@media (max-width: 720px) {
+  .ova-hitos::before { left: 14px; transform: none; }
+  .ova-hitos__hito { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 0 0 32px 40px; }
+  .ova-hitos__fecha { grid-column: 1; grid-row: 1; justify-self: start; margin-left: -44px; box-shadow: 0 0 0 4px var(--bg-app); font-size: .95rem; padding: 6px 12px; }
+  .ova-hitos__imagen, .ova-hitos__hito:nth-child(even) .ova-hitos__imagen { grid-column: 1; grid-row: 2; }
+  .ova-hitos__texto, .ova-hitos__hito:nth-child(even) .ova-hitos__texto { grid-column: 1; grid-row: 3; text-align: left; padding: 18px 18px; }
+}
+
+/* Línea de tiempo tipo 2 (.ova-cronograma): una tarjeta con filas compactas. Fecha y etapa a la
+   izquierda, un riel con un punto por hito y el título con una línea de texto. El último punto, en
+   el color de la meta. */
+.ova-cronograma {
+  list-style: none; margin: 20px 0 0; padding: 8px 0; background: var(--bg-surface);
+  border: 1px solid var(--border-c); border-radius: var(--r-lg); box-shadow: 0 16px 32px -28px color-mix(in srgb, var(--c-deep) 40%, transparent);
+}
+.ova-cronograma__hito {
+  --ova-riel: 182px; position: relative; display: grid; grid-template-columns: 140px minmax(0, 1fr); column-gap: 64px;
+  margin: 0; padding: 14px 28px; transition: background .2s;
+}
+.ova-cronograma__hito:hover { background: var(--ova-ficha, var(--bg-muted)); }
+.ova-cronograma__hito::before {
+  content: ''; position: absolute; left: var(--ova-riel); top: 0; bottom: 0; width: 2px; background: var(--ova-franja, var(--bg-muted));
+}
+.ova-cronograma__hito:first-child::before { top: 22px; }
+.ova-cronograma__hito:last-child::before { bottom: auto; height: 22px; }
+.ova-cronograma__hito::after {
+  content: ''; position: absolute; left: calc(var(--ova-riel) - 6px); top: 16px; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--bg-surface); border: 3px solid var(--ova-realce, var(--c-info)); box-sizing: border-box;
+}
+.ova-cronograma__hito:last-child::after { background: var(--ova-meta, var(--c-acento)); border-color: var(--ova-meta, var(--c-acento)); }
+.ova-cronograma__fecha { text-align: right; }
+.ova-cronograma__fecha strong { display: block; font-family: var(--font-display); font-size: 1rem; color: var(--c-acento); }
+.ova-cronograma__fecha span { display: block; margin-top: 2px; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-mut); }
+.ova-cronograma__cuerpo h3 { margin: 0 0 2px; font-size: 1.02rem; line-height: 1.35; color: var(--text-head); }
+.ova-cronograma__cuerpo p { margin: 0; font-size: .95rem; color: var(--text-mut); }
+@media (max-width: 720px) {
+  .ova-cronograma__hito { --ova-riel: 24px; grid-template-columns: minmax(0, 1fr); padding: 12px 18px 12px 48px; }
+  .ova-cronograma__fecha { text-align: left; display: flex; gap: 8px; align-items: baseline; margin-bottom: 4px; }
+  .ova-cronograma__fecha span { margin: 0; }
+}
+
+/* Etiqueta de un componente (.ova-etiqueta): la línea «Etiqueta:» del Word, sobre el rótulo. */
+.ova-etiqueta {
+  display: flex; align-items: center; gap: 8px; margin: 0 0 6px;
+  font-family: var(--font-display); font-weight: 800; font-size: .74rem; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--c-info);
+}
+.ova-etiqueta::before { content: ''; width: 22px; height: 2px; background: currentColor; }
+
+/* Línea de tiempo tipo 3 (.ova-cronologia): interactiva. Un punto por fecha; al tocar una, la línea se
+   llena hasta ella y debajo se abre su panel (año, título y texto). Todo el texto está en la página;
+   catalogo.js cambia el panel visible y pone --ova-n (cuántas fechas) y --ova-activo (cuál). */
+.ova-cronologia {
+  margin-top: 20px; padding: clamp(22px, 3vw, 34px);
+  background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: var(--r-lg); box-shadow: var(--shadow-sm);
+}
+.ova-cronologia__eje {
+  --ova-punto: 38px;
+  position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr);
+  margin: 30px 0 26px;
+}
+.ova-cronologia__eje::before, .ova-cronologia__eje::after {
+  content: ''; position: absolute; top: calc(var(--ova-punto) / 2 - 1.5px); height: 3px; border-radius: 2px;
+  left: calc(100% / var(--ova-n, 1) / 2);
+}
+.ova-cronologia__eje::before { right: calc(100% / var(--ova-n, 1) / 2); background: var(--border-c); }
+.ova-cronologia__eje::after {
+  width: calc((100% - 100% / var(--ova-n, 1)) * var(--ova-activo, 0) / max(var(--ova-n, 1) - 1, 1));
+  background: linear-gradient(90deg, var(--ova-realce, var(--c-info)), var(--c-acento)); transition: width .45s ease;
+}
+.ova-cronologia__hito {
+  position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center;
+  padding: 0 4px; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; text-align: center;
+}
+.ova-cronologia__punto {
+  display: grid; place-items: center; width: var(--ova-punto); height: var(--ova-punto); border-radius: 50%;
+  border: 2.5px solid var(--c-acento); background: var(--bg-surface); color: var(--c-acento);
+  font-family: var(--font-display); font-weight: 800; font-size: .8rem;
+  transition: background .25s ease, color .25s ease, box-shadow .25s ease, transform .25s ease, border-color .25s ease;
+}
+.ova-cronologia__hito.is-pasado .ova-cronologia__punto { background: var(--ova-franja, var(--bg-muted)); }
+.ova-cronologia__hito:hover .ova-cronologia__punto { border-color: var(--ova-realce, var(--c-info)); transform: translateY(-2px); }
+.ova-cronologia__hito.is-activo .ova-cronologia__punto {
+  background: var(--c-acento); border-color: var(--c-acento); color: #fff;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--ova-realce, var(--c-info)) 35%, transparent); transform: scale(1.15);
+}
+.ova-cronologia__hito:focus-visible { outline: none; }
+.ova-cronologia__hito:focus-visible .ova-cronologia__punto { outline: 3px solid var(--ova-realce, var(--c-info)); outline-offset: 4px; }
+.ova-cronologia__fecha { margin-top: 12px; font-weight: 800; font-size: .98rem; color: var(--text-head); }
+.ova-cronologia__rotulo { font-size: .8rem; color: var(--text-mut); }
+.ova-cronologia__hito.is-activo .ova-cronologia__fecha { color: var(--c-acento); }
+.ova-cronologia__panel {
+  padding: 22px 26px; border-left: 4px solid var(--c-acento); border-radius: var(--r-md);
+  background: var(--ova-franja, var(--bg-muted)); animation: ova-cronologia-entra .35s ease;
+}
+.ova-cronologia__anio { margin: 0 0 6px; font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; line-height: 1; color: var(--c-acento); }
+.ova-cronologia__panel h4 { margin: 0 0 8px; font-size: 1.15rem; color: var(--text-head); }
+.ova-cronologia__panel p:last-child { margin: 0; line-height: 1.65; }
+@keyframes ova-cronologia-entra { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .ova-cronologia__panel { animation: none; }
+  .ova-cronologia__eje::after, .ova-cronologia__punto { transition: none; }
+}
+@media (max-width: 600px) {
+  .ova-cronologia__eje { --ova-punto: 30px; }
+  .ova-cronologia__fecha { margin-top: 10px; font-size: .82rem; }
+  .ova-cronologia__rotulo { display: none; }   /* el rótulo vuelve en el título del panel */
+  .ova-cronologia__panel { padding: 18px 18px; }
+}
+
+/* =========================================================
+   TARJETAS (KIT-001 T10) · tarjetas con icono (izquierda, centradas, con
+   cifra o con retrato), conectadas clara y oscura, con foto, con foto y
+   descripción, que giran y con botón. Van después de .ova-rotulo: el margen
+   de .ova-rotulo + * cede ante el de las tarjetas.
+   Variables que pone la piel (con defecto del motor):
+     --ova-ficha                          el círculo del icono
+     --ova-realce                         franja y borde al pasar el mouse, tercera conectada, línea del pie
+                                          de las fotos, número y aviso de las que giran
+     --ova-clara-1 / -2 / -3              las tres columnas de las conectadas claras
+     --ova-hondo                          el arranque del degradado del frente de las que giran
+     --ova-mosaico-velo                   el velo bajo el pie de las tarjetas con foto
+   La greca y el escalón del frente de las que giran son decorativos de la piel.
+   ========================================================= */
+
+/* Tarjetas (.ova-tarjetas / .ova-tarjeta): cuadrícula de 3 (auto), una columna en celular. */
+.ova-tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin: 28px 0; }
+.ova-tarjeta {
+  display: flex; flex-direction: column;
+  background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: var(--r-lg);
+  overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.ova-tarjeta__cuerpo { padding: 20px 22px 22px; }
+.ova-tarjeta__cuerpo h4 { margin: 0 0 8px; font-size: 1.08rem; color: var(--text-head); }
+/* Dos clases: la piel suele fijar el interlineado de .ova-screen p y se carga después. */
+.ova-tarjeta .ova-tarjeta__cuerpo p { margin: 0; font-size: .95rem; line-height: 1.6; color: var(--text-pri); }
+/* el icono en un círculo claro o la foto redonda */
+.ova-tarjeta__avatar {
+  width: 96px; height: 96px; border-radius: 50%; overflow: hidden;
+  display: grid; place-items: center;
+  background: var(--ova-ficha, var(--bg-muted)); color: var(--c-acento); font-size: 2.4rem;
+}
+.ova-tarjeta__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.ova-tarjeta__avatar--icono { width: 56px; height: 56px; font-size: 1.6rem; margin: 0 0 14px; }
+.ova-tarjeta__avatar--destacado { background: var(--c-info); color: #fff; }
+.ova-tarjeta__rol { display: block; margin: -4px 0 8px; font-size: .82rem; color: var(--text-mut); }
+/* centradas: el icono arriba y todo al centro */
+.ova-tarjetas--centradas > .ova-tarjeta { align-items: center; text-align: center; padding-top: 26px; }
+.ova-tarjetas--centradas .ova-tarjeta__cuerpo h4 { font-size: 1.02rem; }
+/* con foto y descripción: la foto arriba, a lo ancho */
+.ova-tarjetas--foto > .ova-tarjeta > img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.ova-tarjetas--foto > .ova-tarjeta > .ova-pendiente { aspect-ratio: 16 / 10; margin: 0; border-radius: 0; border-width: 0 0 1px; }
+/* conectadas: tres columnas de color sin separación; la tercera clara, con texto oscuro */
+.ova-tarjetas--conectadas { gap: 0; border-radius: var(--r-lg); overflow: hidden; }
+.ova-tarjetas--conectadas .ova-tarjeta { border: 0; border-radius: 0; box-shadow: none; color: #fff; background: var(--c-deep); }
+.ova-tarjetas--conectadas .ova-tarjeta:nth-child(2) { background: var(--c-acento); }
+.ova-tarjetas--conectadas .ova-tarjeta:nth-child(3) { background: var(--ova-realce, var(--c-info)); color: var(--c-deep); }
+.ova-tarjetas--conectadas .ova-tarjeta__cuerpo h4,
+.ova-tarjetas--conectadas .ova-tarjeta .ova-tarjeta__cuerpo p,
+.ova-tarjetas--conectadas .ova-tarjeta__cuerpo strong { color: inherit; }
+.ova-tarjetas--conectadas .ova-tarjeta__avatar { background: rgba(255,255,255,.16); color: #fff; }
+.ova-tarjetas--conectadas .ova-tarjeta:nth-child(3) .ova-tarjeta__avatar { background: color-mix(in srgb, var(--c-deep) 14%, transparent); color: var(--c-deep); }
+/* conectadas - clara: la misma progresión en tonos claros, texto oscuro y círculo blanco */
+.ova-tarjetas--conectadas.ova-tarjetas--claras .ova-tarjeta { background: var(--ova-clara-1, color-mix(in srgb, var(--c-info) 10%, #fff)); color: var(--c-deep); }
+.ova-tarjetas--conectadas.ova-tarjetas--claras .ova-tarjeta:nth-child(2) { background: var(--ova-clara-2, color-mix(in srgb, var(--c-info) 20%, #fff)); }
+.ova-tarjetas--conectadas.ova-tarjetas--claras .ova-tarjeta:nth-child(3) { background: var(--ova-clara-3, color-mix(in srgb, var(--c-info) 32%, #fff)); }
+.ova-tarjetas--conectadas.ova-tarjetas--claras .ova-tarjeta__avatar,
+.ova-tarjetas--conectadas.ova-tarjetas--claras .ova-tarjeta:nth-child(3) .ova-tarjeta__avatar { background: #fff; color: var(--c-acento); }
+/* conectadas con figura: columnas con aire, todo centrado y la imagen redonda arriba */
+.ova-tarjetas--conectadas .ova-tarjeta__cuerpo:has(> .ova-tarjeta__figura) {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: clamp(32px, 4vw, 48px) clamp(24px, 3vw, 40px) clamp(32px, 4vw, 44px);
+}
+.ova-tarjeta__figura {
+  width: 128px; height: 128px; margin: 0 0 24px; border-radius: 50%;
+  box-shadow: 0 0 0 6px rgba(255,255,255,.14);
+}
+.ova-tarjetas--conectadas .ova-tarjeta__cuerpo:has(> .ova-tarjeta__figura) h4 { margin-bottom: 14px; font-size: 1.3rem; }
+.ova-tarjetas--conectadas .ova-tarjeta .ova-tarjeta__cuerpo:has(> .ova-tarjeta__figura) p + p { margin-top: 14px; }
+/* Al pasar el mouse: la tarjeta sube, gana sombra y borde, y una franja corre por el borde
+   superior; el círculo del icono se llena. No aplica a las conectadas. */
+.ova-tarjetas:not(.ova-tarjetas--conectadas) > .ova-tarjeta {
+  position: relative;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.ova-tarjetas:not(.ova-tarjetas--conectadas) > .ova-tarjeta::before {
+  content: ''; position: absolute; inset: 0 0 auto; height: 4px; z-index: 1;
+  background: linear-gradient(90deg, var(--ova-realce, var(--c-info)), var(--c-acento));
+  transform: scaleX(0); transform-origin: left; transition: transform .35s ease;
+}
+.ova-tarjetas:not(.ova-tarjetas--conectadas) > .ova-tarjeta:hover {
+  transform: translateY(-4px); border-color: var(--ova-realce, var(--c-info));
+  box-shadow: 0 16px 32px color-mix(in srgb, var(--c-acento) 14%, transparent);
+}
+.ova-tarjetas:not(.ova-tarjetas--conectadas) > .ova-tarjeta:hover::before { transform: scaleX(1); }
+.ova-tarjetas:not(.ova-tarjetas--conectadas) .ova-tarjeta__avatar:not(.ova-tarjeta__avatar--foto) { transition: background .25s ease, color .25s ease; }
+.ova-tarjetas:not(.ova-tarjetas--conectadas) > .ova-tarjeta:hover .ova-tarjeta__avatar:not(.ova-tarjeta__avatar--foto) { background: var(--c-acento); color: #fff; }
+@media (prefers-reduced-motion: reduce) {
+  .ova-tarjetas:not(.ova-tarjetas--conectadas) > .ova-tarjeta:hover { transform: none; }
+}
+/* con cifra: la cifra grande ocupa el lugar del icono; la unidad, más pequeña */
+.ova-tarjeta__cifra {
+  display: flex; align-items: baseline; gap: 6px; margin: 0 0 12px;
+  font-family: var(--font-display); font-weight: 800; font-size: 3rem; line-height: 1;
+  letter-spacing: -.02em; color: var(--c-acento);
+}
+.ova-tarjeta__cifra span { font-size: 1.5rem; font-weight: 700; color: var(--c-info); }
+/* cuatro tarjetas: dos por fila, para que ninguna quede sola en la segunda fila */
+.ova-tarjetas:has(> .ova-tarjeta:nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 760px) { .ova-tarjetas:has(> .ova-tarjeta:nth-child(4):last-child) { grid-template-columns: 1fr; } }
+/* con botón: el llamado y el botón cierran el cuerpo de la tarjeta */
+.ova-tarjeta--boton .ova-tarjeta__cuerpo .ova-llamado { margin: 14px 0 10px; }
+.ova-tarjeta--boton .ova-tarjeta__cuerpo .ova-btn { align-self: flex-start; }
+
+/* Tarjetas con foto (.ova-mosaico): la foto llena la tarjeta (4:5, todas del mismo alto); abajo un
+   velo oscuro y, encima, una línea, el título y el texto al pie en blanco. */
+.ova-mosaico { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: 24px 0; }
+.ova-mosaico__tarjeta {
+  position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; isolation: isolate;
+  border-radius: var(--r-lg); background: var(--c-deep); box-shadow: var(--shadow-sm);
+}
+.ova-mosaico__tarjeta img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.ova-mosaico__tarjeta::after {
+  content: ''; position: absolute; inset: 0; z-index: 1;
+  background: var(--ova-mosaico-velo, linear-gradient(180deg, rgba(0,0,0,0) 38%, rgba(0,0,0,.6) 62%, rgba(0,0,0,.9) 100%));
+}
+.ova-mosaico__tarjeta figcaption { position: absolute; inset: auto 0 0; z-index: 2; padding: 0 24px 24px; color: #fff; }
+.ova-mosaico__tarjeta figcaption::before {
+  content: ''; display: block; width: 32px; height: 3px; margin-bottom: 14px; border-radius: 2px;
+  background: var(--ova-realce, var(--c-info)); transition: width .35s ease;
+}
+.ova-mosaico__tarjeta h4 { margin: 0 0 6px; color: #fff; font-size: 1.2rem; line-height: 1.25; }
+.ova-mosaico .ova-mosaico__tarjeta p { margin: 0; color: rgba(255,255,255,.9); font-size: .95rem; line-height: 1.5; }
+.ova-mosaico__tarjeta:hover img { transform: scale(1.05); }
+.ova-mosaico__tarjeta:hover figcaption::before { width: 56px; }
+@media (prefers-reduced-motion: reduce) { .ova-mosaico__tarjeta:hover img { transform: none; } }
+@media (max-width: 760px) {
+  .ova-mosaico { grid-template-columns: 1fr; }
+  .ova-mosaico__tarjeta { aspect-ratio: 4 / 3; }
+}
+
+/* Tarjetas que giran (.ova-giros / .ova-giro): frente oscuro con número, título y aviso; al tocarla
+   gira en Y (catalogo.js) y el reverso claro muestra «Responde a», la pregunta y el texto. Las dos
+   caras comparten celda: la tarjeta toma el alto de la cara más larga y todas quedan iguales. */
+.ova-giros { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: 20px 0 8px; perspective: 1400px; }
+.ova-giro {
+  display: grid; padding: 0; border: 0; background: none; font: inherit; text-align: left; color: inherit;
+  cursor: pointer; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.3,.7,.2,1);
+  border-radius: var(--r-lg); min-height: 280px;
+}
+.ova-giro.is-girada { transform: rotateY(180deg); }
+.ova-giro:focus-visible { outline: 3px solid var(--ova-realce, var(--c-info)); outline-offset: 4px; }
+.ova-giro__cara {
+  grid-area: 1 / 1; display: flex; flex-direction: column; padding: 26px 24px 22px;
+  border-radius: var(--r-lg); backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: hidden;
+}
+.ova-giro__frente {
+  position: relative; isolation: isolate; color: #fff;
+  background: linear-gradient(150deg, var(--ova-hondo, var(--c-acento)) 0%, var(--c-deep) 70%);
+  box-shadow: 0 10px 26px color-mix(in srgb, var(--c-deep) 22%, transparent);
+}
+.ova-giro__num { font-family: var(--font-display); font-weight: 800; font-size: 2.6rem; line-height: 1; color: var(--ova-realce, var(--c-info)); }
+.ova-giro__titulo { margin: auto 0; padding: 24px 0; font-family: var(--font-display); font-weight: 800; font-size: 1.45rem; line-height: 1.2; }
+.ova-giro__pista {
+  display: flex; align-items: center; gap: 8px; font-size: .74rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ova-realce, var(--c-info));
+}
+.ova-giro__pista iconify-icon { font-size: 1.1rem; transition: transform .5s ease; }
+.ova-giro:hover .ova-giro__pista iconify-icon { transform: rotate(180deg); }
+.ova-giro__dorso {
+  transform: rotateY(180deg); background: var(--bg-surface);
+  border: 1.5px solid var(--c-info); box-shadow: 0 10px 26px color-mix(in srgb, var(--c-acento) 12%, transparent);
+}
+.ova-giro__etiqueta { font-size: .72rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--c-info); }
+.ova-giro__pregunta { margin: 10px 0 12px; font-family: var(--font-display); font-weight: 800; font-size: 1.18rem; line-height: 1.25; color: var(--c-acento); }
+.ova-giro__texto { font-size: .95rem; line-height: 1.6; color: var(--text-pri); }
+@media (prefers-reduced-motion: reduce) {
+  .ova-giro, .ova-giro.is-girada { transform: none; transition: none; }
+  .ova-giro__cara { backface-visibility: visible; }
+  .ova-giro__dorso { transform: none; visibility: hidden; }
+  .ova-giro.is-girada .ova-giro__dorso { visibility: visible; }
+  .ova-giro.is-girada .ova-giro__frente { visibility: hidden; }
+}
+@media (max-width: 760px) {
+  .ova-giros { grid-template-columns: 1fr; }
+  .ova-giro { min-height: 230px; }
+}
+
+/* =========================================================
+   INFOGRAFÍAS (KIT-001 T11) · puntos interactivos sobre una figura,
+   tarjeta y bloque con cifra destacada (claros y oscuros), proceso
+   escalonado (escalera de cuadros y en fila) y antes y después. Son
+   compartidas: cada piel dibuja su versión (D6) y la declara en su
+   catalogo.json → versiones. Los puntos interactivos son variante del
+   motor (core.css, @catalogo-variantes) y antes y después es la pieza
+   del motor sin variante.
+   Variables que pone la piel (con defecto del motor):
+     --ova-realce                         franjas, cifras y negrilla de las oscuras, iconos de los pasos
+     --ova-ficha                          los puntos apagados de la retícula clara
+     --ova-cifra-fondo                    el fondo de la tarjeta oscura (valor completo)
+     --ova-indicador-fondo                el fondo de cada bloque, claro u oscuro (valor completo)
+     --ova-escalon-1 … -4                 la cima de cada peldaño (y el sol, el 4)
+     --ova-escalon-tinta-1 … -4           el número sobre cada cima
+     --ova-escalon-pila / -pila-4         los cuadros bajo la cima; los del último peldaño
+     --ova-escalon-borde-1                la raya sobre el título del primer paso en fila
+   La greca de las oscuras y el color de cada paso del proceso escalonado son de la piel.
+   ========================================================= */
+
+/* Puntos interactivos (.ova-hotspots--figura): la caja deja de recortar, el globo cerrado no
+   existe en el layout y catalogo.js lo abre hacia donde cabe (.is-arriba) y lo corre si se sale
+   por un costado (--ova-globo-dx). */
+.ova-hotspots--figura .ova-hotspots__img { overflow: visible; }
+.ova-hotspots--figura .ova-hotspots__img > img { border-radius: inherit; }
+.ova-hotspots--figura .ova-hotspot__tooltip {
+  display: none;
+  transform: translateX(calc(-50% + var(--ova-globo-dx, 0px)));
+}
+.ova-hotspots--figura .ova-hotspot:hover .ova-hotspot__tooltip,
+.ova-hotspots--figura .ova-hotspot.is-open .ova-hotspot__tooltip { display: block; opacity: 1; }
+.ova-hotspots--figura .ova-hotspot:hover,
+.ova-hotspots--figura .ova-hotspot.is-open { z-index: 5; }
+.ova-hotspots--figura .ova-hotspot.is-arriba .ova-hotspot__tooltip { top: auto; bottom: calc(100% + 14px); }
+
+/* Tarjeta con cifra destacada (.ova-cifra): un dato enorme, una frase con la palabra clave
+   resaltada y una retícula de 100 puntos con la cifra encendida (la arma catalogo.js desde
+   data-ova-puntos). Cuando la sección aparece, los puntos se encienden uno tras otro (--i) y el
+   número sube (data-ova-contar). */
+.ova-cifra {
+  position: relative; isolation: isolate; overflow: hidden; max-width: 520px; margin: 24px 0;
+  padding: clamp(30px, 4vw, 44px) clamp(26px, 3.5vw, 40px) 26px; border-radius: var(--r-lg);
+}
+.ova-cifra p { margin: 0; }
+.ova-cifra__num {
+  display: flex; align-items: baseline; gap: 6px;
+  font-family: var(--font-display); font-weight: 800; font-size: clamp(4.6rem, 11vw, 7.2rem);
+  line-height: .9; letter-spacing: -.04em; font-variant-numeric: tabular-nums;
+}
+.ova-cifra__num small { font-size: .42em; letter-spacing: 0; }
+.ova-cifra__texto { margin: 18px 0 28px !important; max-width: 30ch; font-size: 1.2rem; line-height: 1.45; }
+.ova-cifra__reticula { display: grid; grid-template-columns: repeat(10, 1fr); gap: 7px; max-width: 320px; }
+.ova-cifra__punto { aspect-ratio: 1; border-radius: 50%; }
+.ova-cifra__nota { margin-top: 22px !important; font-size: .78rem; text-align: right; }
+/* clara */
+.ova-cifra--clara { background: var(--bg-surface); border: 1px solid var(--border-c); box-shadow: var(--shadow-sm); }
+.ova-cifra--clara::before {
+  content: ''; position: absolute; inset: 0 0 auto; height: 5px;
+  background: linear-gradient(90deg, var(--ova-realce, var(--c-info)), var(--c-acento));
+}
+.ova-cifra--clara .ova-cifra__num { color: var(--c-acento); }
+.ova-cifra--clara .ova-cifra__num small { color: var(--c-info); }
+.ova-cifra--clara .ova-cifra__texto { color: var(--text-pri); }
+.ova-screen .ova-cifra--clara strong { color: var(--c-info); }
+.ova-cifra--clara .ova-cifra__punto { background: var(--ova-ficha, var(--bg-muted)); }
+.ova-cifra--clara .ova-cifra__punto--lleno { background: var(--c-info); --ova-encendido: var(--c-info); --ova-apagado: var(--ova-ficha, var(--bg-muted)); }
+.ova-cifra--clara .ova-cifra__nota { color: var(--text-mut); }
+/* oscura */
+.ova-cifra--oscura {
+  color: #fff;
+  background: var(--ova-cifra-fondo, linear-gradient(160deg, var(--c-deep) 0%, color-mix(in srgb, var(--c-deep) 70%, #000) 100%));
+  box-shadow: 0 18px 40px rgba(11, 30, 49, .28);
+}
+.ova-cifra--oscura .ova-cifra__num small { color: var(--ova-realce, var(--c-info)); }
+.ova-cifra--oscura .ova-cifra__texto { color: rgba(255, 255, 255, .92); }
+.ova-screen .ova-cifra--oscura strong { color: var(--ova-realce, var(--c-info)); }
+.ova-cifra--oscura .ova-cifra__punto { background: rgba(255, 255, 255, .13); }
+.ova-cifra--oscura .ova-cifra__punto--lleno { background: var(--ova-realce, var(--c-info)); --ova-encendido: var(--ova-realce, var(--c-info)); --ova-apagado: rgba(255, 255, 255, .13); }
+.ova-cifra--oscura .ova-cifra__nota { color: var(--ova-realce, var(--c-info)); }
+/* los puntos se encienden en orden cuando la sección termina de aparecer */
+[data-reveal] .ova-cifra__punto--lleno { background: var(--ova-apagado); }
+[data-reveal].is-visible .ova-cifra__punto--lleno {
+  animation: ova-punto-enciende .35s ease forwards; animation-delay: calc(.8s + var(--i) * 14ms);
+}
+@keyframes ova-punto-enciende { from { background: var(--ova-apagado); transform: scale(.5); } to { background: var(--ova-encendido); transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] .ova-cifra__punto--lleno, [data-reveal].is-visible .ova-cifra__punto--lleno { animation: none; background: var(--ova-encendido); }
+}
+
+/* Bloque con cifra destacada (.ova-indicador): la cifra grande a la izquierda, etiqueta, texto y
+   fuente a la derecha; el oscuro admite una fila de pasos debajo. El número (data-ova-contar)
+   sube de 0 a su valor al entrar en pantalla (catalogo.js). */
+.ova-indicador {
+  position: relative; isolation: isolate; overflow: hidden;
+  display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.6fr); gap: 20px 40px; align-items: center;
+  margin: 24px 0; padding: clamp(28px, 4vw, 44px); border-radius: var(--r-lg);
+}
+.ova-indicador p { margin: 0; }
+.ova-indicador__num {
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 4px;
+  font-family: var(--font-display); font-weight: 800; font-size: clamp(2.6rem, 5vw, 3.6rem);
+  line-height: 1; letter-spacing: -.03em; font-variant-numeric: tabular-nums;
+}
+.ova-indicador__num small { font-size: .5em; font-weight: 700; letter-spacing: 0; }
+.ova-indicador__num--grande { font-size: clamp(4.2rem, 9vw, 6.4rem); }
+.ova-indicador__flecha { margin: 0 8px; font-size: .7em; }
+.ova-indicador__mide { margin-top: 12px !important; font-size: .95rem; line-height: 1.5; }
+.ova-indicador__cuerpo { display: flex; flex-direction: column; gap: 12px; font-size: 1.05rem; line-height: 1.65; }
+.ova-indicador__etiqueta {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-display); font-weight: 800; font-size: .74rem; letter-spacing: .18em; text-transform: uppercase;
+}
+.ova-indicador__etiqueta::before { content: ''; width: 24px; height: 2px; background: currentColor; }
+.ova-indicador__fuente { font-size: .82rem; line-height: 1.5; }
+/* claro: superficie clara con la franja de marca a la izquierda */
+.ova-indicador--claro {
+  background: var(--ova-indicador-fondo, var(--bg-surface));
+  border: 1px solid var(--border-c); box-shadow: var(--shadow-sm);
+}
+.ova-indicador--claro::before {
+  content: ''; position: absolute; inset: 0 auto 0 0; width: 5px;
+  background: linear-gradient(180deg, var(--ova-realce, var(--c-info)), var(--c-acento));
+}
+.ova-indicador--claro .ova-indicador__num { color: var(--c-acento); }
+.ova-indicador--claro .ova-indicador__num small, .ova-indicador--claro .ova-indicador__flecha { color: var(--c-info); }
+.ova-indicador--claro .ova-indicador__mide, .ova-indicador--claro .ova-indicador__fuente { color: var(--text-mut); }
+.ova-indicador--claro .ova-indicador__etiqueta { color: var(--c-info); }
+/* oscuro */
+.ova-indicador--oscuro {
+  color: #fff;
+  background: var(--ova-indicador-fondo, linear-gradient(140deg, color-mix(in srgb, var(--c-deep) 70%, #000) 0%, var(--c-deep) 100%));
+  box-shadow: 0 18px 40px rgba(11, 30, 49, .28);
+}
+.ova-indicador--oscuro .ova-indicador__num small { color: var(--ova-realce, var(--c-info)); }
+.ova-indicador--oscuro .ova-indicador__etiqueta { color: var(--ova-realce, var(--c-info)); }
+.ova-indicador--oscuro .ova-indicador__cuerpo { color: rgba(255, 255, 255, .9); }
+.ova-screen .ova-indicador--oscuro strong { color: var(--ova-realce, var(--c-info)); }
+.ova-indicador--oscuro .ova-indicador__fuente { color: rgba(255, 255, 255, .66); text-transform: uppercase; letter-spacing: .08em; font-size: .74rem; }
+.ova-indicador__pasos {
+  grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  margin-top: 12px; padding-top: 26px; border-top: 1px solid rgba(255, 255, 255, .16);
+}
+.ova-indicador__paso { display: flex; flex-direction: column; gap: 4px; padding: 0 20px; border-left: 1px solid rgba(255, 255, 255, .14); }
+.ova-indicador__paso:first-child { padding-left: 0; border-left: 0; }
+.ova-indicador__paso iconify-icon { margin-bottom: 8px; font-size: 1.6rem; color: var(--ova-realce, var(--c-info)); }
+.ova-screen .ova-indicador__paso strong { color: #fff; font-size: 1rem; }
+.ova-indicador__paso span { color: rgba(255, 255, 255, .74); font-size: .88rem; line-height: 1.5; }
+@media (max-width: 760px) {
+  .ova-indicador { grid-template-columns: 1fr; gap: 18px; }
+  .ova-indicador__pasos { grid-template-columns: 1fr 1fr; gap: 22px 0; }
+  .ova-indicador__paso:nth-child(odd) { padding-left: 0; border-left: 0; }
+}
+
+/* Proceso escalonado (.ova-ciclo--escalonado): la escalera de cuadros hace de imagen grande y los
+   cuatro pasos quedan visibles a la vez; la escalera acompaña el desplazamiento. Cada peldaño se
+   pinta con las variables --ova-escalon-*; el color de cada paso (--ova-tinte), con la piel. */
+.ova-ciclo {
+  display: grid;
+  grid-template-columns: minmax(280px, 38%) 1fr;
+  gap: 44px;
+  align-items: center;
+  margin: 44px 0;
+}
+.ova-ciclo__escalera { width: 100%; height: auto; display: block; }
+.ova-ciclo__pasos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ova-ciclo__paso {
+  --ova-tinte: var(--c-acento);
+  position: relative;
+  padding: 22px 22px 22px 24px;
+  background: var(--bg-surface);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--ova-tinte);
+}
+.ova-ciclo__num {
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  color: var(--ova-tinte);
+}
+.ova-ciclo__titulo {
+  margin: 6px 0 8px;
+  font-size: 1.06rem;
+  font-weight: 600;
+  color: var(--text-head);
+  display: flex; align-items: center; gap: 9px;
+}
+.ova-ciclo__titulo iconify-icon { font-size: 1.3rem; color: var(--ova-tinte); }
+.ova-ciclo__desc { margin: 0; font-size: .94rem; color: var(--text-mut); line-height: 1.55; }
+.ova-ciclo--escalonado { align-items: start; }
+.ova-ciclo--escalonado .ova-ciclo__escalera { position: sticky; top: 96px; }
+@media (max-width: 1000px) { .ova-ciclo--escalonado .ova-ciclo__escalera { position: static; } }
+.ova-ciclo__escalera text { font-family: var(--font-display); }
+.ova-ciclo__pila { fill: var(--ova-escalon-pila, color-mix(in srgb, var(--c-acento) 10%, #fff)); }
+.ova-ciclo__peldano:nth-of-type(1) .ova-ciclo__cima { fill: var(--ova-escalon-1, color-mix(in srgb, var(--c-acento) 25%, #fff)); }
+.ova-ciclo__peldano:nth-of-type(2) .ova-ciclo__cima { fill: var(--ova-escalon-2, var(--c-info)); }
+.ova-ciclo__peldano:nth-of-type(3) .ova-ciclo__cima { fill: var(--ova-escalon-3, var(--c-acento)); }
+.ova-ciclo__peldano:nth-of-type(4) .ova-ciclo__cima { fill: var(--ova-escalon-4, var(--c-deep)); }
+.ova-ciclo__peldano:nth-of-type(4) .ova-ciclo__pila { fill: var(--ova-escalon-pila-4, var(--ova-escalon-pila, color-mix(in srgb, var(--c-acento) 10%, #fff))); }
+.ova-ciclo__peldano:nth-of-type(1) text { fill: var(--ova-escalon-tinta-1, var(--c-acento)); }
+.ova-ciclo__peldano:nth-of-type(2) text { fill: var(--ova-escalon-tinta-2, #fff); }
+.ova-ciclo__peldano:nth-of-type(3) text { fill: var(--ova-escalon-tinta-3, #fff); }
+.ova-ciclo__peldano:nth-of-type(4) text { fill: var(--ova-escalon-tinta-4, #fff); }
+.ova-ciclo__sol { stroke: var(--ova-escalon-4, var(--c-deep)); }
+.ova-ciclo__lema { fill: var(--text-head); }
+@media (max-width: 1000px) {
+  .ova-ciclo { grid-template-columns: 1fr; gap: 28px; }
+  .ova-ciclo__escalera { max-width: 340px; margin: 0 auto; }
+}
+@media (max-width: 640px) {
+  .ova-ciclo__pasos { grid-template-columns: 1fr; }
+}
+/* La escalera se arma al entrar en la pantalla, un peldaño tras otro. Solo una vez. */
+@keyframes ova-peldano { from { transform: translateY(18px); opacity: 0; } to { transform: none; opacity: 1; } }
+.ova-ciclo__escalera .ova-ciclo__peldano {
+  transform-box: fill-box;
+  animation: ova-peldano .6s cubic-bezier(.4,0,.2,1) both;
+}
+.ova-ciclo__escalera .ova-ciclo__peldano:nth-of-type(1) { animation-delay: .10s; }
+.ova-ciclo__escalera .ova-ciclo__peldano:nth-of-type(2) { animation-delay: .26s; }
+.ova-ciclo__escalera .ova-ciclo__peldano:nth-of-type(3) { animation-delay: .42s; }
+.ova-ciclo__escalera .ova-ciclo__peldano:nth-of-type(4) { animation-delay: .58s; }
+@media (prefers-reduced-motion: reduce) {
+  .ova-ciclo__escalera .ova-ciclo__peldano { animation: none !important; opacity: 1; transform: none; }
+}
+
+/* Proceso escalonado - en fila (.ova-escalones): la escalera se arma con los pasos. Cada paso es
+   una columna con su torre de peldaños (tantos como su número, --ova-n) y, debajo, su título y su
+   texto; el lema ocupa el hueco que dejan arriba los peldaños bajos. En celular, lista con el
+   peldaño como número. Bajo el rótulo va pegado a él, como los demás bloques. */
+.ova-escalones { position: relative; margin: 28px 0 0; }
+.ova-rotulo + .ova-escalones { margin-top: 12px; }
+.ova-escalones__lema { position: absolute; top: 0; left: 0; max-width: 46%; margin: 0; display: grid; gap: 2px; }
+.ova-screen .ova-escalones__lema strong { font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--text-head); }
+.ova-escalones__lema span { font-weight: 300; color: var(--text-mut); }
+.ova-escalones__fila { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 14px; }
+.ova-escalones__paso {
+  --ova-cima: var(--ova-escalon-1, color-mix(in srgb, var(--c-acento) 25%, #fff)); --ova-tinta: var(--ova-escalon-tinta-1, var(--c-acento));
+  --ova-pila: var(--ova-escalon-pila, color-mix(in srgb, var(--c-acento) 10%, #fff)); margin: 0;
+}
+.ova-escalones__paso:nth-child(2) { --ova-cima: var(--ova-escalon-2, var(--c-info)); --ova-tinta: var(--ova-escalon-tinta-2, #fff); }
+.ova-escalones__paso:nth-child(3) { --ova-cima: var(--ova-escalon-3, var(--c-acento)); --ova-tinta: var(--ova-escalon-tinta-3, #fff); }
+.ova-escalones__paso:nth-child(4) { --ova-cima: var(--ova-escalon-4, var(--c-deep)); --ova-tinta: var(--ova-escalon-tinta-4, #fff); --ova-pila: var(--ova-escalon-pila-4, var(--ova-escalon-pila, color-mix(in srgb, var(--c-acento) 10%, #fff))); }
+.ova-escalones__torre { height: 280px; display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; }
+.ova-escalones__cima {
+  display: grid; place-items: center; height: 56px; border-radius: 4px; background: var(--ova-cima); color: var(--ova-tinta);
+  font-family: var(--font-display); font-size: 1.3rem; font-weight: 800;
+}
+.ova-escalones__torre::after {
+  content: ''; height: calc((var(--ova-n) - 1) * 62px); margin-top: 6px;
+  background: repeating-linear-gradient(to bottom, var(--ova-pila) 0 56px, transparent 56px 62px);
+}
+.ova-escalones__paso:first-child .ova-escalones__torre::after { display: none; }
+.ova-escalones__sol { align-self: center; margin-bottom: 10px; font-size: 2.2rem; color: var(--ova-escalon-4, var(--c-deep)); }
+.ova-escalones__titulo { margin: 0; padding-top: 16px; border-top: 3px solid var(--ova-cima); font-size: 1.02rem; color: var(--text-head); }
+.ova-escalones__paso:first-child .ova-escalones__titulo { border-top-color: var(--ova-escalon-borde-1, var(--ova-cima)); }
+.ova-escalones__torre + .ova-escalones__titulo { margin-top: 14px; }
+.ova-escalones__texto { margin: 6px 0 0; font-size: .94rem; line-height: 1.55; color: var(--text-mut); }
+@keyframes ova-escalon { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
+.ova-escalones__torre > *, .ova-escalones__torre::after { animation: ova-escalon .6s cubic-bezier(.4,0,.2,1) both; animation-delay: calc(var(--ova-n) * .14s); }
+@media (prefers-reduced-motion: reduce) { .ova-escalones__torre > *, .ova-escalones__torre::after { animation: none; } }
+@media (max-width: 720px) {
+  .ova-escalones__lema { position: static; max-width: none; margin-bottom: 20px; }
+  .ova-escalones__fila { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .ova-escalones__paso { display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: 16px; }
+  .ova-escalones__torre { height: auto; grid-row: span 2; justify-content: flex-start; }
+  .ova-escalones__torre::after, .ova-escalones__sol { display: none; }
+  .ova-escalones__torre + .ova-escalones__titulo { margin-top: 0; }
+  .ova-escalones__titulo { padding-top: 4px; border-top: 0; }
+}
+
+/* Fuente o crédito bajo un componente (.ova-fuente), en gris y más chica. */
+.ova-fuente { margin-top: 12px !important; font-size: .86rem; color: var(--text-mut); }
+
+/* =========================================================
+   ACTIVIDADES (KIT-001 T12) · pregunta, verdadero o falso, relacionar,
+   ordenar, clasificar, lista de verificación y para reflexionar. Son las
+   piezas de actividad del motor, sin variante (choques.md §2): el motor
+   las estila y les da su comportamiento, y la piel las viste. El catálogo
+   solo suma el contexto opcional de la pregunta.
+   ========================================================= */
+.ova-quiz__contexto { margin: 0 0 18px; }   /* sin tope: la columna de lectura (2026-10-26) */
+
+/* =========================================================
+   Botón de ventana modal (KIT-006): el botón de contorno al inicio del texto y su
+   ventana. Con «Imagen sugerida», la imagen va arriba del texto, a todo el ancho, y la
+   ventana se abre a 900 px; sin ella, la ventana del motor (560 px).
+   ========================================================= */
+.ova-ventana { margin: 8px 0 40px; }
+.ova-ventana__boton { text-align: left; }
+.ova-ventana__figura { margin: 0 0 20px; border-radius: var(--r-md); overflow: hidden; }
+.ova-ventana__figura img { display: block; width: 100%; height: auto; }
+.ova-modal__dialog:has(.ova-ventana__figura) { max-width: min(900px, 94vw); }
+.ova-ventana .ova-modal__body > :last-child { margin-bottom: 0; }

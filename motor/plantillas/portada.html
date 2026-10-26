@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es" data-version="hibrida">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{{TITULO}} · {{CURSO_NOMBRE}}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+{{FUENTES}}
+<script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+<link rel="stylesheet" href="assets/css/presets/theme-{{PRESET}}.css" />
+<link rel="stylesheet" href="assets/css/core.css" />{{CATALOGO_CSS}}{{SKIN_CSS}}
+</head>
+<body class="ova-body">
+
+<button class="ova-burger" data-ova-burger><iconify-icon icon="mdi:menu"></iconify-icon></button>
+
+<div class="ova-app">
+  <aside class="ova-sidebar" data-ova-sidebar data-current="{{ID}}"></aside>
+
+  <main class="ova-main">
+    <div class="ova-topbar">
+      <div class="ova-breadcrumb" data-ova-breadcrumb data-current="{{ID}}"></div>
+      <div class="ova-topbar__actions">
+        <div class="ova-version-switch" data-ova-version-switch></div>
+        <a href="{{PDF}}" class="ova-iconbtn" title="Descargar PDF del curso" data-ova-pdf-btn download><iconify-icon icon="mdi:download"></iconify-icon></a>
+        <a class="ova-iconbtn ova-iconbtn--accent" data-ova-next-iconbtn title="Siguiente"><iconify-icon icon="mdi:arrow-right"></iconify-icon></a>
+      </div>
+    </div>
+
+{{CONTENIDO}}
+
+  </main>
+</div>
+
+<script src="assets/js/course.js"></script>
+<script src="assets/js/core.js"></script>{{CATALOGO_JS}}{{EXTRAS}}
+</body>
+</html>
