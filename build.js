@@ -56,7 +56,9 @@ const cfg = require(path.join(FUENTE, 'ova.config.js'));
    - Algún ítem con `tipo`: solo 'tema' (1, 2…) y 'subtema' (1.1, 2.1…)
      llevan número; 'especial' y agrupadas van sin él.
    Un tema puede fijar su número con `numero` (una unidad que continúa la
-   numeración de la anterior: 3, 4…); los siguientes siguen correlativos. */
+   numeración de la anterior: 3, 4…); los siguientes siguen correlativos.
+   Y puede llevar `rotulo` («S1»): lo que muestran el chip del menú y el temario en
+   lugar del número. El número sigue contando (secciones, {{NUM}}). */
 const jerarquico = cfg.menu.some(m => m.tipo);
 
 /* Iconos de las secciones estructurales · los mismos en todos los cursos.
@@ -115,7 +117,7 @@ function generarTemario(menu) {
         bloques.push(actual);
       }
     } else if (m.tipo === 'tema') {                           // cada tema abre su bloque
-      actual = { titulo: `${m.num} · ${m.titulo}`, href: m.file, items: [] };
+      actual = { titulo: `${m.rotulo || m.num} · ${m.titulo}`, href: m.file, items: [] };
       // las secciones internas del tema se listan con su numeración,
       // enlazando a la página del tema (viven dentro de ella)
       (m.secciones || []).forEach(sec => actual.items.push({

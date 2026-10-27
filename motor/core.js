@@ -101,7 +101,7 @@
             }
             // Marca: número si es contenido temático, icono si es sección estructural
             const marca = m.num
-              ? `<span class="num">${m.num}</span>`
+              ? `<span class="num">${m.rotulo || m.num}</span>`
               : (m.icon ? `<span class="num num--icono"><iconify-icon icon="${m.icon}"></iconify-icon></span>` : `<span class="num num--vacio"></span>`);
             const nivel = m.tipo === 'subtema' || m.grupo ? 2 : 1;
             html += `

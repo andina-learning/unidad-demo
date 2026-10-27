@@ -851,6 +851,8 @@ body { font-family: var(--font-body); }
    tamaño y se coloca sobre el texto: sigue siendo la primera impresión. -- */
 @media (max-width: 900px) {
   .ua-portada { min-height: auto; padding: 40px 0 48px; }
+  /* Con la foto en franja arriba, la foto toca el borde: si no, queda una banda de greca encima */
+  .ua-portada:has(> .ua-portada__foto) { padding-top: 0; }
   .ua-portada__inner { grid-template-columns: 1fr; gap: 28px; }
   .ua-portada__figura {
     display: block !important;
