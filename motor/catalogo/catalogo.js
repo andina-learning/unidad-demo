@@ -136,12 +136,55 @@
    Envuelve cada línea del <code> en .ova-codigo__linea (el número lo pone
    catalogo.css). data-ova-resaltar="5,8" en la figura marca esas líneas. Si
    una etiqueta cruza de una línea a otra, el bloque se deja sin numerar.
+   La cabecera trae el botón «Copiar código»: copia el código sin los números y
+   dice «Copiado» con un visto durante 2 s. Si el portapapeles no responde (un
+   curso abierto como archivo), el botón no cambia y la pantalla sigue igual.
    ========================================================= */
 (function () {
   'use strict';
+  const COPIAR = 'Copiar código', COPIADO = 'Copiado';
+  function texto(code) {
+    const lineas = code.querySelectorAll('.ova-codigo__linea');
+    return lineas.length ? [...lineas].map(l => l.textContent).join('\n') : code.textContent.replace(/\n$/, '');
+  }
+  function copiar(t) {
+    const viejo = () => {
+      const area = document.createElement('textarea');
+      area.value = t; area.setAttribute('readonly', ''); area.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(area); area.select();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      area.remove();
+      return ok ? Promise.resolve() : Promise.reject(new Error('copy'));
+    };
+    return navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(t).catch(viejo) : viejo();
+  }
+  function boton(fig, code) {
+    const cab = fig.querySelector('figcaption');
+    if (!cab || cab.querySelector('.ova-codigo__copiar')) return;
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'ova-codigo__copiar'; b.setAttribute('aria-label', COPIAR);
+    b.innerHTML = '<iconify-icon icon="mdi:content-copy" aria-hidden="true"></iconify-icon><span class="ova-codigo__copiar-texto">' + COPIAR + '</span>';
+    const rotulo = b.querySelector('.ova-codigo__copiar-texto'), icono = b.querySelector('iconify-icon');
+    let reloj;
+    b.addEventListener('click', () => {
+      copiar(texto(code)).then(() => {
+        clearTimeout(reloj);
+        b.classList.add('is-copiado'); b.setAttribute('aria-label', COPIADO);
+        rotulo.textContent = COPIADO; icono.setAttribute('icon', 'mdi:check');
+        reloj = setTimeout(() => {
+          b.classList.remove('is-copiado'); b.setAttribute('aria-label', COPIAR);
+          rotulo.textContent = COPIAR; icono.setAttribute('icon', 'mdi:content-copy');
+        }, 2000);
+      }, () => {});
+    });
+    cab.appendChild(b);
+  }
   function armar(fig) {
     const code = fig.querySelector('pre > code');
-    if (!code || code.dataset.ovaLineas) return;
+    if (!code) return;
+    boton(fig, code);
+    if (code.dataset.ovaLineas) return;
     code.dataset.ovaLineas = '1';
     const lineas = code.innerHTML.replace(/\n$/, '').split('\n');
     const abre = l => (l.match(/<span\b/g) || []).length, cierra = l => (l.match(/<\/span>/g) || []).length;

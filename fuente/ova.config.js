@@ -35,6 +35,13 @@ module.exports = {
     portadaFullBleed: true,
   },
 
+  /* TEXTOS DE LA INTERFAZ · lo que el motor pinta fuera del contenido del curso. Andina pidió que el
+     menú lateral diga «Temas completados: 3 de 8» en vez de «Progreso 3/8» (revisión del mockup,
+     2026-10-28; KIT-009). `{n}` es la pantalla actual del menú y `{total}`, cuántas tiene. */
+  textos: {
+    progreso: { etiqueta: 'Temas completados:', cifra: '{n} de {total}' },
+  },
+
   /* MENÚ · la estructura RED (la misma de Scala Learning):
        - `tipo: 'especial'`  → secciones estructurales que tiene toda unidad
                                (inicio, contenido, introducción, conclusión,
@@ -57,7 +64,7 @@ module.exports = {
 
     /* Conclusión y Glosario: ocultos por defecto (decisión del 2026-10-10, la de la Unidad 3 de
        Scala). Sus pantallas siguen en contenido/; para mostrarlas, quita el // de su línea. */
-    { id: 'conclusion',   titulo: 'Conclusión',              tipo: 'especial', icon: 'mdi:flag-outline' },
+    { id: 'conclusion',   titulo: 'Síntesis de cierre',      tipo: 'especial', icon: 'mdi:flag-outline' },
     { id: 'evaluacion',   titulo: 'Evaluación de la unidad', tipo: 'especial', icon: 'mdi:clipboard-check-outline' },
     // { id: 'glosario',     titulo: 'Glosario',                tipo: 'especial', icon: 'mdi:book-open-variant-outline' },
     { id: 'referencias',  titulo: 'Referencias',             tipo: 'especial', icon: 'mdi:bookmark-outline' },

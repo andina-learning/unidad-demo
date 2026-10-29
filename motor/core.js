@@ -44,6 +44,7 @@
   const esSPA = () => !!document.querySelector('[data-ova-vista]');
   const hrefDe = (m) => esSPA() ? '#/' + m.id : m.file;
   let reaplicarColapso = null;
+  const cifraProgreso = (plantilla, n, total) => String(plantilla).replace(/\{n\}/g, n).replace(/\{total\}/g, total);
 
   /* ============================================
      RENDER · sidebar
@@ -56,6 +57,9 @@
     const total = C.menu.length;
     const completed = Math.max(0, idx);
     const progress = ((completed + 1) / total) * 100;
+    // Texto de progreso (KIT-009): la institución lo define en `textos.progreso` de la configuración;
+    // sin esa clave, «Progreso» y «N/total». La compacta y data-progress siempre van con «N/total».
+    const textoProgreso = Object.assign({ etiqueta: 'Progreso', cifra: '{n}/{total}' }, (C.textos || {}).progreso);
 
     el.innerHTML = `
       <div class="ova-sidebar__compacta" aria-hidden="true">
@@ -125,8 +129,8 @@
       </nav>
       <div class="ova-sidebar__progress" data-progress="${completed + 1}/${total}">
         <div class="label">
-          <span>Progreso</span>
-          <strong>${completed + 1}/${total}</strong>
+          <span>${textoProgreso.etiqueta}</span>
+          <strong>${cifraProgreso(textoProgreso.cifra, completed + 1, total)}</strong>
         </div>
         <div class="bar"><div class="bar-fill" style="width:${progress}%"></div></div>
       </div>

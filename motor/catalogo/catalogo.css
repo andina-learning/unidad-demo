@@ -678,6 +678,24 @@
   box-shadow: inset 3px 0 0 var(--ova-codigo-resalte, var(--c-info));
 }
 .ova-codigo__linea.is-resaltada::before { color: var(--c-acento); font-weight: 700; }
+/* «Copiar código» (catalogo.js) al final de la cabecera; «Copiado» con un visto durante 2 s. En celular,
+   solo el icono (el nombre queda en el aria-label). La piel lo viste con --ova-codigo-copiar-tinta,
+   -borde y -fondo. */
+.ova-codigo__copiar {
+  display: inline-flex; align-items: center; gap: 6px; margin-left: auto; padding: 5px 10px; min-height: 30px;
+  border: 1px solid var(--ova-codigo-copiar-borde, rgba(255, 255, 255, .35)); border-radius: var(--r-sm, 4px);
+  background: var(--ova-codigo-copiar-fondo, transparent); color: var(--ova-codigo-copiar-tinta, #fff);
+  font: inherit; font-family: var(--font-body); letter-spacing: .02em; text-transform: none; cursor: pointer;
+  transition: background-color .2s, border-color .2s;
+}
+.ova-codigo__copiar:hover { background: rgba(255, 255, 255, .1); }
+.ova-codigo__copiar:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.ova-codigo__copiar.is-copiado { border-color: currentColor; }
+.ova-codigo__copiar iconify-icon { font-size: 1rem; }
+@media (max-width: 720px) {
+  .ova-codigo__copiar { padding: 5px 7px; }
+  .ova-codigo__copiar-texto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
 
 /* =========================================================
    COMPONENTES INTERACTIVOS (KIT-001 T8) · acordeón con figura al lado,
