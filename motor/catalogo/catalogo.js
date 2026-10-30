@@ -585,3 +585,37 @@
   };
   document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', iniciar) : iniciar();
 })();
+
+/* =========================================================
+   COPIAR CÓDIGO ([data-ova-copiar])
+   En la ventana «Ver código» de la plantilla-base, copia el bloque de
+   código de su misma ventana y confirma en el botón por un momento.
+   ========================================================= */
+(() => {
+  'use strict';
+  const copiar = texto => (navigator.clipboard && window.isSecureContext
+    ? navigator.clipboard.writeText(texto)
+    : new Promise((ok, falla) => {
+      const area = Object.assign(document.createElement('textarea'), { value: texto });
+      area.setAttribute('readonly', '');
+      Object.assign(area.style, { position: 'fixed', opacity: '0' });
+      document.body.appendChild(area);
+      area.select();
+      const hecho = document.execCommand('copy');
+      area.remove();
+      hecho ? ok() : falla();
+    }));
+
+  document.addEventListener('click', e => {
+    const boton = e.target.closest('[data-ova-copiar]');
+    if (!boton) return;
+    const codigo = boton.closest('.ova-modal')?.querySelector('pre code');
+    if (!codigo) return;
+    const original = boton.innerHTML;
+    copiar(codigo.textContent).then(
+      () => { boton.innerHTML = '<iconify-icon icon="mdi:check"></iconify-icon> Copiado'; },
+      () => { boton.textContent = 'No se pudo copiar'; });
+    clearTimeout(boton._ovaCopiado);
+    boton._ovaCopiado = setTimeout(() => { boton.innerHTML = original; }, 1800);
+  });
+})();

@@ -65,7 +65,7 @@ module.exports = {
     /* Conclusión y Glosario: ocultos por defecto (decisión del 2026-10-10, la de la Unidad 3 de
        Scala). Sus pantallas siguen en contenido/; para mostrarlas, quita el // de su línea. */
     { id: 'conclusion',   titulo: 'Síntesis de cierre',      tipo: 'especial', icon: 'mdi:flag-outline' },
-    { id: 'evaluacion',   titulo: 'Evaluación de la unidad', tipo: 'especial', icon: 'mdi:clipboard-check-outline' },
+    { id: 'evaluacion',   titulo: 'Actividad formativa', tipo: 'especial', icon: 'mdi:clipboard-check-outline' },
     // { id: 'glosario',     titulo: 'Glosario',                tipo: 'especial', icon: 'mdi:book-open-variant-outline' },
     { id: 'referencias',  titulo: 'Referencias',             tipo: 'especial', icon: 'mdi:bookmark-outline' },
     { id: 'creditos',     titulo: 'Créditos',                tipo: 'especial', icon: 'mdi:account-group-outline' },

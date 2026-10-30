@@ -2,10 +2,10 @@
 
 /* =========================================================
    INTERFAZ DE LA PLANTILLA · el botón «Cómo va en el Word» y la hoja de
-   Word dentro de su ventana. La pone scripts/generar-plantilla.js; no es piel.
+   Word dentro de su ventana; el botón «Ver código» y su bloque de código. La pone scripts/generar-plantilla.js; no es piel.
    El rojo es el de los rótulos del Word, no un color de marca.
    ========================================================= */
-.ova-catalogo__acciones { display: flex; justify-content: flex-end; margin: 18px 0 0; }
+.ova-catalogo__acciones { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; margin: 18px 0 0; }
 .ova-catalogo__cab {
   display: flex; align-items: center; gap: 10px; margin: 0 0 10px;
   font-family: var(--font-display); font-weight: 700; font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: var(--text-mut);
@@ -19,6 +19,15 @@
 .ova-catalogo__word .ova-catalogo__gris { color: var(--text-mut); }
 .ova-catalogo__word .ova-catalogo__rojo { color: #D62828; font-weight: 700; }
 .ova-catalogo__word .ova-catalogo__celda { display: block; margin: 8px 0; padding: 8px 10px; border: 1px solid var(--border-c); border-radius: 3px; }
+/* La ventana «Ver código» (ver_codigo en la institución): el HTML de la pieza para el programador. */
+.ova-catalogo__ventana-codigo .ova-modal__dialog { max-width: 860px; }
+.ova-catalogo__codigo {
+  margin: 0; padding: 16px 18px; max-height: 60vh; overflow: auto; border-radius: var(--r-md);
+  background: #1E1E1E; color: #E6E6E6; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: .8rem; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; tab-size: 2;
+}
+.ova-catalogo__codigo code { font: inherit; color: inherit; background: none; padding: 0; }
+.ova-catalogo__ventana-codigo .ova-modal__foot [data-ova-copiar] { margin-right: auto; }
 
 /* =========================================================
    FIGURA PENDIENTE (.ova-pendiente) · el hueco de una figura que diseño
